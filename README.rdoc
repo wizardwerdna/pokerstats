@@ -1,6 +1,6 @@
 = pokerstats
 
-Description goes here.
+A library for extracting, computing and reporting statistics of poker hands parsed from hand history files.
 
 == Note on Patches/Pull Requests
  

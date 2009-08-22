@@ -11,6 +11,8 @@ begin
     gem.homepage = "http://github.com/wizardwerdna/pokerstats"
     gem.authors = ["Andrew C. Greenberg"]
     gem.add_development_dependency "rspec"
+    gem.add_development_dependency "wizardwerdna-pluggable"
+    gem.add_dependency "wizardwerdna-pluggable"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError
