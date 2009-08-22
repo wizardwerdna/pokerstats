@@ -1,0 +1,62 @@
+require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '/../../../lib/checker/hand_history')
+require File.expand_path(File.dirname(__FILE__) + '/../../../lib/checker/hand_statistics')
+require File.expand_path(File.dirname(__FILE__) + '/../../../lib/checker/pokerstars_file')
+require File.expand_path(File.dirname(__FILE__) + '/../../../lib/checker/pokerstars_hand_history_parser')
+
+include HandConstants
+
+# describe PokerstarsHandHistoryParser, "when parsing PokerstarsFile" do
+#   before :each do
+#     @psfile = PokerstarsFile.open(File.dirname(__FILE__) + '/file_many_hands.txt')
+#     @expanded_path = File.expand_path(File.dirname(__FILE__) + '/file_many_hands.txt')
+#   end
+# 
+#   it "should parse every line of every entry in the file" do
+#     @psfile.entries.each do |handrecord|
+#       lambda{handrecord.parse}.should_not raise_error
+#     end
+#   end
+# end
+# 
+describe PokerstarsHandHistoryParser, "when parsing all the PokerstarsFiles in Andy's directory" do
+  before :each do
+    @filenames = Dir["/Users/werdna/Library/Application Support/Pokerstars/HandHistory/**/*.txt"]
+  end
+
+  it "should parse every line of every entry in the file" do
+    times = 10
+    @filenames.each do |filename|
+      puts "====== #{filename} ====="
+      @psfile = PokerstarsFile.open(filename).entries.each do |handrecord|
+        printf(".")
+        lambda{handrecord.parse}.should_not raise_error
+      end
+      printf("\n")
+    end
+  end
+end
+
+# describe PokerstarsHandHistoryParser, "when parsing all the PokerstarsFiles in Judi's directory" do
+#   before :each do
+#     @filenames = Dir["/Users/werdna/juditest/*.txt"]
+#   end
+# 
+#   it "should parse every line of every entry in the file" do
+#     times = 10
+#     @filenames.each do |filename|
+#       puts "====== #{filename} ====="
+#       @psfile = PokerstarsFile.open(filename).entries.each do |handrecord|
+#         @stats = HandStatistics.new
+#         @parser = PokerstarsHandHistoryParser.new(@stats)
+#         # puts handrecord.lines.first
+#         printf(".")
+#         handrecord.lines.each do |line|
+#           lambda{@parser.parse(line)}.should_not raise_error
+#         end
+#         # @stats.debug_display
+#       end
+#       printf("\n")
+#     end
+#   end
+# end

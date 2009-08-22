@@ -30,7 +30,7 @@ module HandStatisticsAPI
     end
     result
   end
-  
+    
   private
   
   module ClassMethods
@@ -38,6 +38,15 @@ module HandStatisticsAPI
       [
         # [key,   sql_type,   function]
       ]
+    end
+  
+    def rails_migration_segment_for_player_data
+      prefix = "\n" + " " * 10
+      result = "#{prefix}# FROM #{self.to_s}"
+      report_specification.each do |each|
+        result += "#{prefix}t.#{each[1]}\t#{each[0].inspect}"
+      end
+      result += "\n"
     end
   end
   

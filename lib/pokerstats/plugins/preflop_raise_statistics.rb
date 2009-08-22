@@ -18,8 +18,8 @@ class PreflopRaiseStatistics < HandStatistics::Plugin
   def self.report_specification
     [
       # [key,                     sql_type,   function]
-      [:is_pfr_opportunity,       'INTEGER',  :pfr_opportunity?],
-      [:is_pfr_opportunity_taken, 'INTEGER',  :pfr_opportunity_taken?]
+      [:is_pfr_opportunity,       'integer',  :pfr_opportunity?],
+      [:is_pfr_opportunity_taken, 'integer',  :pfr_opportunity_taken?]
     ]
   end
     

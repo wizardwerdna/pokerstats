@@ -1,0 +1,564 @@
+PokerStars Game #21650146783:  Hold'em No Limit ($0.25/$0.50) - 2008/10/31 17:14:44 ET
+Table 'Charybdis IV' 9-max Seat #2 is the button
+Seat 1: Laxxer1919 ($31.65 in chips) 
+Seat 2: WowSick ($50 in chips) 
+Seat 3: perkys23 ($100.60 in chips) 
+Seat 4: JERONIMOX10 ($46.50 in chips) 
+Seat 5: lzlitnin ($53.10 in chips) 
+Seat 6: ruffraider1 ($18.65 in chips) 
+Seat 7: rokke75 ($35.40 in chips) 
+Seat 8: wizardwerdna ($50 in chips) 
+Seat 9: ATTACCA ($50 in chips) 
+perkys23: posts small blind $0.25
+JERONIMOX10: posts big blind $0.50
+wizardwerdna: posts big blind $0.50
+*** HOLE CARDS ***
+Dealt to wizardwerdna [Ks 9h]
+lzlitnin: folds 
+ruffraider1: folds 
+rokke75: calls $0.50
+wizardwerdna: checks 
+ATTACCA: folds 
+Laxxer1919: folds 
+WowSick: folds 
+perkys23: calls $0.25
+JERONIMOX10: checks 
+*** FLOP *** [Kd Td 4h]
+perkys23: checks 
+JERONIMOX10: checks 
+rokke75: checks 
+wizardwerdna: bets $1.50
+perkys23: folds 
+JERONIMOX10: folds 
+rokke75: folds 
+Uncalled bet ($1.50) returned to wizardwerdna
+wizardwerdna collected $1.90 from pot
+*** SUMMARY ***
+Total pot $2 | Rake $0.10 
+Board [Kd Td 4h]
+Seat 1: Laxxer1919 folded before Flop (didn't bet)
+Seat 2: WowSick (button) folded before Flop (didn't bet)
+Seat 3: perkys23 (small blind) folded on the Flop
+Seat 4: JERONIMOX10 (big blind) folded on the Flop
+Seat 5: lzlitnin folded before Flop (didn't bet)
+Seat 6: ruffraider1 folded before Flop (didn't bet)
+Seat 7: rokke75 folded on the Flop
+Seat 8: wizardwerdna collected ($1.90)
+Seat 9: ATTACCA folded before Flop (didn't bet)
+
+
+
+PokerStars Game #21650168228:  Hold'em No Limit ($0.25/$0.50) - 2008/10/31 17:15:35 ET
+Table 'Charybdis IV' 9-max Seat #3 is the button
+Seat 1: Laxxer1919 ($31.65 in chips) 
+Seat 2: WowSick ($50 in chips) 
+Seat 3: perkys23 ($100.10 in chips) 
+Seat 4: JERONIMOX10 ($46 in chips) 
+Seat 5: lzlitnin ($53.10 in chips) 
+Seat 6: ruffraider1 ($18.65 in chips) 
+Seat 7: rokke75 ($34.90 in chips) 
+Seat 8: wizardwerdna ($51.40 in chips) 
+Seat 9: ATTACCA ($50 in chips) 
+JERONIMOX10: posts small blind $0.25
+lzlitnin: posts big blind $0.50
+*** HOLE CARDS ***
+Dealt to wizardwerdna [9c Ah]
+ruffraider1: folds 
+rokke75: calls $0.50
+wizardwerdna: folds 
+ATTACCA: folds 
+Laxxer1919: raises $1 to $1.50
+WowSick: folds 
+perkys23: folds 
+JERONIMOX10: calls $1.25
+lzlitnin: folds 
+rokke75: calls $1
+*** FLOP *** [Qc 5s Qd]
+JERONIMOX10: checks 
+rokke75: checks 
+Laxxer1919: bets $3
+JERONIMOX10: folds 
+rokke75: folds 
+Uncalled bet ($3) returned to Laxxer1919
+Laxxer1919 collected $4.75 from pot
+*** SUMMARY ***
+Total pot $5 | Rake $0.25 
+Board [Qc 5s Qd]
+Seat 1: Laxxer1919 collected ($4.75)
+Seat 2: WowSick folded before Flop (didn't bet)
+Seat 3: perkys23 (button) folded before Flop (didn't bet)
+Seat 4: JERONIMOX10 (small blind) folded on the Flop
+Seat 5: lzlitnin (big blind) folded before Flop
+Seat 6: ruffraider1 folded before Flop (didn't bet)
+Seat 7: rokke75 folded on the Flop
+Seat 8: wizardwerdna folded before Flop (didn't bet)
+Seat 9: ATTACCA folded before Flop (didn't bet)
+
+
+
+PokerStars Game #21650192967:  Hold'em No Limit ($0.25/$0.50) - 2008/10/31 17:16:35 ET
+Table 'Charybdis IV' 9-max Seat #4 is the button
+Seat 1: Laxxer1919 ($34.90 in chips) 
+Seat 2: WowSick ($50 in chips) 
+Seat 3: perkys23 ($100.10 in chips) 
+Seat 4: JERONIMOX10 ($44.50 in chips) 
+Seat 5: lzlitnin ($52.60 in chips) 
+Seat 6: ruffraider1 ($18.65 in chips) 
+Seat 7: rokke75 ($33.40 in chips) 
+Seat 8: wizardwerdna ($51.40 in chips) 
+Seat 9: ATTACCA ($50 in chips) 
+lzlitnin: posts small blind $0.25
+ruffraider1: posts big blind $0.50
+*** HOLE CARDS ***
+Dealt to wizardwerdna [Js 9s]
+rokke75: calls $0.50
+wizardwerdna: calls $0.50
+ATTACCA: folds 
+Laxxer1919: folds 
+WowSick: folds 
+perkys23: folds 
+JERONIMOX10: calls $0.50
+lzlitnin: calls $0.25
+ruffraider1: checks 
+*** FLOP *** [Kc 6s Qc]
+lzlitnin: checks 
+ruffraider1: checks 
+rokke75: checks 
+wizardwerdna: checks 
+JERONIMOX10: checks 
+*** TURN *** [Kc 6s Qc] [Qh]
+lzlitnin: checks 
+ruffraider1: bets $1
+rokke75: folds 
+wizardwerdna: folds 
+JERONIMOX10: folds 
+lzlitnin: folds 
+Uncalled bet ($1) returned to ruffraider1
+ruffraider1 collected $2.40 from pot
+*** SUMMARY ***
+Total pot $2.50 | Rake $0.10 
+Board [Kc 6s Qc Qh]
+Seat 1: Laxxer1919 folded before Flop (didn't bet)
+Seat 2: WowSick folded before Flop (didn't bet)
+Seat 3: perkys23 folded before Flop (didn't bet)
+Seat 4: JERONIMOX10 (button) folded on the Turn
+Seat 5: lzlitnin (small blind) folded on the Turn
+Seat 6: ruffraider1 (big blind) collected ($2.40)
+Seat 7: rokke75 folded on the Turn
+Seat 8: wizardwerdna folded on the Turn
+Seat 9: ATTACCA folded before Flop (didn't bet)
+
+
+
+PokerStars Game #21650216534:  Hold'em No Limit ($0.25/$0.50) - 2008/10/31 17:17:32 ET
+Table 'Charybdis IV' 9-max Seat #5 is the button
+Seat 1: Laxxer1919 ($34.90 in chips) 
+Seat 2: WowSick ($50 in chips) 
+Seat 3: perkys23 ($100.10 in chips) 
+Seat 4: JERONIMOX10 ($44 in chips) 
+Seat 5: lzlitnin ($52.10 in chips) 
+Seat 6: ruffraider1 ($20.55 in chips) 
+Seat 7: rokke75 ($32.90 in chips) 
+Seat 8: wizardwerdna ($50.90 in chips) 
+Seat 9: ATTACCA ($50 in chips) 
+ruffraider1: posts small blind $0.25
+rokke75: posts big blind $0.50
+*** HOLE CARDS ***
+Dealt to wizardwerdna [4d Ks]
+wizardwerdna: folds 
+ATTACCA: raises $1.50 to $2
+Laxxer1919: folds 
+WowSick: folds 
+perkys23: folds 
+JERONIMOX10: folds 
+lzlitnin: folds 
+ruffraider1: folds 
+rokke75: folds 
+Uncalled bet ($1.50) returned to ATTACCA
+ATTACCA collected $1.25 from pot
+ATTACCA: doesn't show hand 
+*** SUMMARY ***
+Total pot $1.25 | Rake $0 
+Seat 1: Laxxer1919 folded before Flop (didn't bet)
+Seat 2: WowSick folded before Flop (didn't bet)
+Seat 3: perkys23 folded before Flop (didn't bet)
+Seat 4: JERONIMOX10 folded before Flop (didn't bet)
+Seat 5: lzlitnin (button) folded before Flop (didn't bet)
+Seat 6: ruffraider1 (small blind) folded before Flop
+Seat 7: rokke75 (big blind) folded before Flop
+Seat 8: wizardwerdna folded before Flop (didn't bet)
+Seat 9: ATTACCA collected ($1.25)
+
+
+
+PokerStars Game #21650226963:  Hold'em No Limit ($0.25/$0.50) - 2008/10/31 17:17:57 ET
+Table 'Charybdis IV' 9-max Seat #6 is the button
+Seat 1: Laxxer1919 ($34.90 in chips) 
+Seat 2: WowSick ($50 in chips) 
+Seat 3: perkys23 ($100.10 in chips) 
+Seat 4: JERONIMOX10 ($44 in chips) 
+Seat 5: lzlitnin ($52.10 in chips) 
+Seat 6: ruffraider1 ($20.30 in chips) 
+Seat 7: rokke75 ($32.40 in chips) 
+Seat 8: wizardwerdna ($50.90 in chips) 
+Seat 9: ATTACCA ($50.75 in chips) 
+rokke75: posts small blind $0.25
+wizardwerdna: posts big blind $0.50
+*** HOLE CARDS ***
+Dealt to wizardwerdna [7d Jd]
+ATTACCA: folds 
+Laxxer1919: folds 
+WowSick has timed out
+WowSick: folds 
+WowSick is sitting out
+perkys23: calls $0.50
+JERONIMOX10: folds 
+lzlitnin: folds 
+ruffraider1: folds 
+rokke75: raises $0.50 to $1
+wizardwerdna: calls $0.50
+perkys23: calls $0.50
+*** FLOP *** [Td 3h 7c]
+rokke75: bets $1
+wizardwerdna: raises $2 to $3
+perkys23: folds 
+rokke75: calls $2
+*** TURN *** [Td 3h 7c] [6c]
+rokke75: checks 
+wizardwerdna: checks 
+*** RIVER *** [Td 3h 7c 6c] [7s]
+rokke75: bets $4.50
+wizardwerdna: raises $12 to $16.50
+rokke75: folds 
+Uncalled bet ($12) returned to wizardwerdna
+wizardwerdna collected $17.15 from pot
+*** SUMMARY ***
+Total pot $18 | Rake $0.85 
+Board [Td 3h 7c 6c 7s]
+Seat 1: Laxxer1919 folded before Flop (didn't bet)
+Seat 2: WowSick folded before Flop (didn't bet)
+Seat 3: perkys23 folded on the Flop
+Seat 4: JERONIMOX10 folded before Flop (didn't bet)
+Seat 5: lzlitnin folded before Flop (didn't bet)
+Seat 6: ruffraider1 (button) folded before Flop (didn't bet)
+Seat 7: rokke75 (small blind) folded on the River
+Seat 8: wizardwerdna (big blind) collected ($17.15)
+Seat 9: ATTACCA folded before Flop (didn't bet)
+
+
+
+PokerStars Game #21650281040:  Hold'em No Limit ($0.25/$0.50) - 2008/10/31 17:20:07 ET
+Table 'Charybdis IV' 9-max Seat #7 is the button
+Seat 1: Laxxer1919 ($34.90 in chips) 
+Seat 3: perkys23 ($99.10 in chips) 
+Seat 4: JERONIMOX10 ($44 in chips) 
+Seat 5: lzlitnin ($52.10 in chips) 
+Seat 6: ruffraider1 ($20.30 in chips) 
+Seat 7: rokke75 ($23.90 in chips) 
+Seat 8: wizardwerdna ($59.55 in chips) 
+Seat 9: ATTACCA ($50.75 in chips) 
+wizardwerdna: posts small blind $0.25
+ATTACCA: posts big blind $0.50
+*** HOLE CARDS ***
+Dealt to wizardwerdna [3s 8c]
+Laxxer1919: folds 
+perkys23: folds 
+JERONIMOX10: folds 
+lzlitnin: calls $0.50
+ruffraider1: calls $0.50
+rokke75: raises $1 to $1.50
+wizardwerdna: folds 
+ATTACCA: folds 
+lzlitnin: calls $1
+ruffraider1: calls $1
+*** FLOP *** [9s Jh Qh]
+lzlitnin: bets $3
+ruffraider1: folds 
+rokke75: calls $3
+*** TURN *** [9s Jh Qh] [Tc]
+lzlitnin: checks 
+rokke75: bets $2
+lzlitnin: calls $2
+*** RIVER *** [9s Jh Qh Tc] [Jd]
+lzlitnin: checks 
+rokke75: bets $5
+lzlitnin: folds 
+Uncalled bet ($5) returned to rokke75
+rokke75 collected $14.55 from pot
+*** SUMMARY ***
+Total pot $15.25 | Rake $0.70 
+Board [9s Jh Qh Tc Jd]
+Seat 1: Laxxer1919 folded before Flop (didn't bet)
+Seat 3: perkys23 folded before Flop (didn't bet)
+Seat 4: JERONIMOX10 folded before Flop (didn't bet)
+Seat 5: lzlitnin folded on the River
+Seat 6: ruffraider1 folded on the Flop
+Seat 7: rokke75 (button) collected ($14.55)
+Seat 8: wizardwerdna (small blind) folded before Flop
+Seat 9: ATTACCA (big blind) folded before Flop
+
+
+
+PokerStars Game #21650317512:  Hold'em No Limit ($0.25/$0.50) - 2008/10/31 17:21:34 ET
+Table 'Charybdis IV' 9-max Seat #8 is the button
+Seat 1: Laxxer1919 ($34.90 in chips) 
+Seat 3: perkys23 ($99.10 in chips) 
+Seat 4: JERONIMOX10 ($44 in chips) 
+Seat 5: lzlitnin ($45.60 in chips) 
+Seat 6: ruffraider1 ($18.80 in chips) 
+Seat 7: rokke75 ($31.95 in chips) 
+Seat 8: wizardwerdna ($59.30 in chips) 
+Seat 9: ATTACCA ($50.25 in chips) 
+ATTACCA: posts small blind $0.25
+Laxxer1919: posts big blind $0.50
+*** HOLE CARDS ***
+Dealt to wizardwerdna [9h 6s]
+perkys23: calls $0.50
+JERONIMOX10: folds 
+lzlitnin: folds 
+ruffraider1: calls $0.50
+rokke75 has timed out
+rokke75: folds 
+rokke75 is sitting out
+rokke75 has returned
+wizardwerdna: folds 
+ATTACCA: folds 
+Laxxer1919: checks 
+*** FLOP *** [Ac 2h Qd]
+Laxxer1919: checks 
+perkys23: checks 
+ruffraider1: checks 
+*** TURN *** [Ac 2h Qd] [6h]
+Laxxer1919: checks 
+perkys23: checks 
+ruffraider1: checks 
+*** RIVER *** [Ac 2h Qd 6h] [7c]
+Laxxer1919: bets $1
+perkys23: folds 
+ruffraider1: folds 
+Uncalled bet ($1) returned to Laxxer1919
+Laxxer1919 collected $1.70 from pot
+*** SUMMARY ***
+Total pot $1.75 | Rake $0.05 
+Board [Ac 2h Qd 6h 7c]
+Seat 1: Laxxer1919 (big blind) collected ($1.70)
+Seat 3: perkys23 folded on the River
+Seat 4: JERONIMOX10 folded before Flop (didn't bet)
+Seat 5: lzlitnin folded before Flop (didn't bet)
+Seat 6: ruffraider1 folded on the River
+Seat 7: rokke75 folded before Flop (didn't bet)
+Seat 8: wizardwerdna (button) folded before Flop (didn't bet)
+Seat 9: ATTACCA (small blind) folded before Flop
+
+
+
+PokerStars Game #21650343556:  Hold'em No Limit ($0.25/$0.50) - 2008/10/31 17:22:37 ET
+Table 'Charybdis IV' 9-max Seat #9 is the button
+Seat 1: Laxxer1919 ($36.10 in chips) 
+Seat 3: perkys23 ($98.60 in chips) 
+Seat 4: JERONIMOX10 ($44 in chips) 
+Seat 5: lzlitnin ($45.60 in chips) 
+Seat 6: ruffraider1 ($18.30 in chips) 
+Seat 7: rokke75 ($31.95 in chips) 
+Seat 8: wizardwerdna ($59.30 in chips) 
+Seat 9: ATTACCA ($50 in chips) 
+Laxxer1919: posts small blind $0.25
+perkys23: posts big blind $0.50
+*** HOLE CARDS ***
+Dealt to wizardwerdna [Ac Js]
+JERONIMOX10: folds 
+lzlitnin: folds 
+ruffraider1: folds 
+lzlitnin leaves the table
+rokke75: folds 
+Mokuscuna joins the table at seat #5 
+wizardwerdna: raises $1.50 to $2
+ATTACCA: folds 
+Laxxer1919: folds 
+perkys23: calls $1.50
+*** FLOP *** [2c 3s 6h]
+perkys23: checks 
+wizardwerdna: bets $3
+perkys23: folds 
+Uncalled bet ($3) returned to wizardwerdna
+wizardwerdna collected $4.05 from pot
+*** SUMMARY ***
+Total pot $4.25 | Rake $0.20 
+Board [2c 3s 6h]
+Seat 1: Laxxer1919 (small blind) folded before Flop
+Seat 3: perkys23 (big blind) folded on the Flop
+Seat 4: JERONIMOX10 folded before Flop (didn't bet)
+Seat 5: lzlitnin folded before Flop (didn't bet)
+Seat 6: ruffraider1 folded before Flop (didn't bet)
+Seat 7: rokke75 folded before Flop (didn't bet)
+Seat 8: wizardwerdna collected ($4.05)
+Seat 9: ATTACCA (button) folded before Flop (didn't bet)
+
+
+
+PokerStars Game #21650364080:  Hold'em No Limit ($0.25/$0.50) - 2008/10/31 17:23:27 ET
+Table 'Charybdis IV' 9-max Seat #1 is the button
+Seat 1: Laxxer1919 ($35.85 in chips) 
+Seat 3: perkys23 ($96.60 in chips) 
+Seat 4: JERONIMOX10 ($44 in chips) 
+Seat 6: ruffraider1 ($18.30 in chips) 
+Seat 7: rokke75 ($31.95 in chips) 
+Seat 8: wizardwerdna ($61.35 in chips) 
+Seat 9: ATTACCA ($50 in chips) 
+perkys23: posts small blind $0.25
+JERONIMOX10: posts big blind $0.50
+Mokuscuna: sits out 
+*** HOLE CARDS ***
+Dealt to wizardwerdna [2s 3d]
+ruffraider1: folds 
+ruffraider1 leaves the table
+rokke75: raises $0.50 to $1
+wizardwerdna: folds 
+ATTACCA: folds 
+Laxxer1919: folds 
+perkys23: calls $0.75
+JERONIMOX10: folds 
+*** FLOP *** [Jc Ad 6d]
+jam1741 joins the table at seat #6 
+perkys23: checks 
+rokke75: bets $1.50
+perkys23: folds 
+Uncalled bet ($1.50) returned to rokke75
+rokke75 collected $2.40 from pot
+*** SUMMARY ***
+Total pot $2.50 | Rake $0.10 
+Board [Jc Ad 6d]
+Seat 1: Laxxer1919 (button) folded before Flop (didn't bet)
+Seat 3: perkys23 (small blind) folded on the Flop
+Seat 4: JERONIMOX10 (big blind) folded before Flop
+Seat 6: ruffraider1 folded before Flop (didn't bet)
+Seat 7: rokke75 collected ($2.40)
+Seat 8: wizardwerdna folded before Flop (didn't bet)
+Seat 9: ATTACCA folded before Flop (didn't bet)
+
+
+
+PokerStars Game #21650377200:  Hold'em No Limit ($0.25/$0.50) - 2008/10/31 17:23:59 ET
+Table 'Charybdis IV' 9-max Seat #3 is the button
+Seat 1: Laxxer1919 ($35.85 in chips) 
+Seat 3: perkys23 ($95.60 in chips) 
+Seat 4: JERONIMOX10 ($43.50 in chips) 
+Seat 5: Mokuscuna ($50 in chips) 
+Seat 7: rokke75 ($33.35 in chips) 
+Seat 8: wizardwerdna ($61.35 in chips) 
+Seat 9: ATTACCA ($50 in chips) 
+JERONIMOX10: posts small blind $0.25
+Mokuscuna: posts big blind $0.50
+jam1741: sits out 
+*** HOLE CARDS ***
+Dealt to wizardwerdna [9c Tc]
+rokke75: folds 
+wizardwerdna: raises $0.50 to $1
+ATTACCA: folds 
+Laxxer1919: folds 
+perkys23: folds 
+JERONIMOX10: folds 
+Mokuscuna: folds 
+Uncalled bet ($0.50) returned to wizardwerdna
+wizardwerdna collected $1.25 from pot
+*** SUMMARY ***
+Total pot $1.25 | Rake $0 
+Seat 1: Laxxer1919 folded before Flop (didn't bet)
+Seat 3: perkys23 (button) folded before Flop (didn't bet)
+Seat 4: JERONIMOX10 (small blind) folded before Flop
+Seat 5: Mokuscuna (big blind) folded before Flop
+Seat 7: rokke75 folded before Flop (didn't bet)
+Seat 8: wizardwerdna collected ($1.25)
+Seat 9: ATTACCA folded before Flop (didn't bet)
+
+
+
+PokerStars Game #21650387347:  Hold'em No Limit ($0.25/$0.50) - 2008/10/31 17:24:23 ET
+Table 'Charybdis IV' 9-max Seat #4 is the button
+Seat 1: Laxxer1919 ($35.85 in chips) 
+Seat 3: perkys23 ($95.60 in chips) 
+Seat 4: JERONIMOX10 ($43.25 in chips) 
+Seat 5: Mokuscuna ($50 in chips) 
+Seat 6: jam1741 ($30 in chips) 
+Seat 7: rokke75 ($33.35 in chips) 
+Seat 8: wizardwerdna ($62.10 in chips) 
+Seat 9: ATTACCA ($50 in chips) 
+Mokuscuna: posts small blind $0.25
+jam1741: posts big blind $0.50
+*** HOLE CARDS ***
+Dealt to wizardwerdna [Qd 6h]
+rokke75: folds 
+wizardwerdna: folds 
+ATTACCA: raises $1.50 to $2
+Laxxer1919: folds 
+perkys23: folds 
+JERONIMOX10: folds 
+Mokuscuna: folds 
+jam1741: folds 
+Uncalled bet ($1.50) returned to ATTACCA
+ATTACCA collected $1.25 from pot
+ATTACCA: doesn't show hand 
+*** SUMMARY ***
+Total pot $1.25 | Rake $0 
+Seat 1: Laxxer1919 folded before Flop (didn't bet)
+Seat 3: perkys23 folded before Flop (didn't bet)
+Seat 4: JERONIMOX10 (button) folded before Flop (didn't bet)
+Seat 5: Mokuscuna (small blind) folded before Flop
+Seat 6: jam1741 (big blind) folded before Flop
+Seat 7: rokke75 folded before Flop (didn't bet)
+Seat 8: wizardwerdna folded before Flop (didn't bet)
+Seat 9: ATTACCA collected ($1.25)
+
+
+
+PokerStars Game #21650401569:  Hold'em No Limit ($0.25/$0.50) - 2008/10/31 17:24:58 ET
+Table 'Charybdis IV' 9-max Seat #5 is the button
+Seat 1: Laxxer1919 ($35.85 in chips) 
+Seat 3: perkys23 ($95.60 in chips) 
+Seat 4: JERONIMOX10 ($43.25 in chips) 
+Seat 5: Mokuscuna ($50 in chips) 
+Seat 6: jam1741 ($29.50 in chips) 
+Seat 7: rokke75 ($33.35 in chips) 
+Seat 8: wizardwerdna ($62.10 in chips) 
+Seat 9: ATTACCA ($50.75 in chips) 
+jam1741: posts small blind $0.25
+rokke75: posts big blind $0.50
+*** HOLE CARDS ***
+Dealt to wizardwerdna [2s Th]
+wizardwerdna: folds 
+ATTACCA: folds 
+Laxxer1919: folds 
+perkys23: calls $0.50
+JERONIMOX10: folds 
+Mokuscuna: raises $2 to $2.50
+jam1741: folds 
+rokke75: folds 
+perkys23: calls $2
+*** FLOP *** [5c 2d Jh]
+perkys23: checks 
+Mokuscuna: checks 
+*** TURN *** [5c 2d Jh] [4c]
+perkys23: bets $2.50
+WowSick has returned
+Mokuscuna: calls $2.50
+*** RIVER *** [5c 2d Jh 4c] [5h]
+perkys23: checks 
+Mokuscuna: checks 
+*** SHOW DOWN ***
+perkys23: shows [Qc Js] (two pair, Jacks and Fives)
+Mokuscuna: mucks hand 
+perkys23 collected $10.25 from pot
+*** SUMMARY ***
+Total pot $10.75 | Rake $0.50 
+Board [5c 2d Jh 4c 5h]
+Seat 1: Laxxer1919 folded before Flop (didn't bet)
+Seat 3: perkys23 showed [Qc Js] and won ($10.25) with two pair, Jacks and Fives
+Seat 4: JERONIMOX10 folded before Flop (didn't bet)
+Seat 5: Mokuscuna (button) mucked [Ac Qs]
+Seat 6: jam1741 (small blind) folded before Flop
+Seat 7: rokke75 (big blind) folded before Flop
+Seat 8: wizardwerdna folded before Flop (didn't bet)
+Seat 9: ATTACCA folded before Flop (didn't bet)
+
+
+

@@ -1,0 +1,183 @@
+#!/usr/bin/ruby
+require "getoptlong"
+# ENV['RAILS_ENV'] = ENV['RAILS_ENV'] || 'development'  
+# require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
+require File.expand_path(File.dirname(__FILE__) + "/pokerstats/pokerstars_file")
+require File.expand_path(File.dirname(__FILE__) + '/pokerstats/player_statistics')
+
+def search_poker_edge(playername, players_shown = {})
+  return if players_shown[playername]
+  escaped_playername = URI.escape(playername).gsub(/["'\[\]]/,'\\\\\&').gsub(/[\[\]]/,'\\\\\\\\\&')
+  result = `curl -s http://www.poker-edge.com/whoami.php?site=Stars\\&name=#{escaped_playername}`
+  if result =~ /(Pre-Flop Tend.*\n)/
+    verbose = $1.gsub(/<\/?[^>]*>/, "")
+    if verbose =~ /Pre-Flop Tendency: ([^-]*) -/
+      preflop = $1
+    else
+      preflop = "N/A"
+    end
+  else
+    preflop = "N/A (data error)"
+  end
+  if result =~ /(Player Type.*\n)/
+    verbose = $1.gsub(/<\/?[^>]*>/, "")
+    if verbose =~ /[Yy]ou are a ([^(]* \(.*\))/
+      player_type = $1
+    else
+      player_type = ""
+    end
+  else
+    player_type = ""
+  end
+  players_shown[playername] = preflop
+  players_shown[playername] += " " + player_type unless player_type.empty?
+end
+
+def display_ratio numerator, denominator
+  if numerator.nil? or denominator.nil?
+    return "***"
+  elsif denominator < 9
+    return "#{numerator}/#{denominator}"
+  else
+    return "#{(100.0 * numerator / denominator).to_i}%"
+  end
+end
+
+def dopsfile(file, players_shown)
+  return if File.directory?(file)
+  players = {}
+  last = nil
+  statistics = PlayerStatistics.new
+  PokerstarsFile.open(file).each do |handrecord|
+    begin
+      handrecord.parse
+      statistics.record(handrecord)
+      last = handrecord
+    rescue Exception => e
+      puts e.message
+    end
+  end
+  return if last.nil?
+  players = last.stats.players
+  puts
+  puts "=" * file.size
+  puts file
+  puts "=" * file.size
+  STDOUT.sync = true
+  printf("Searching Poker-Edge: ")
+  players.each {|each| printf("%s ", each); search_poker_edge(each, players_shown)}
+  printf("\n")
+  STDOUT.sync = false
+  puts "=" * file.size
+  reports = statistics.reports
+  printf "%-20s %3s %4s %4s %5s %5s %5s %5s %s\n", "Screen Name", "Num", "VP$%", "PFR%", "Pre/Pos", "BAtt%", "BDef%", "CBet%", "Poker-Edge Description"
+  printf "%-20s %-39s %s\n", "-"*20, "-"*39, "-"*47
+  players.each do |each|
+    report = reports[each]
+    # puts report.to_yaml
+    t_hands = report[:t_hands]
+    vpi_p = display_ratio report[:t_vpip], report[:t_hands]
+    pfr_p = display_ratio report[:t_pfr_opportunity_taken], report[:t_pfr_opportunity]
+    prefa = report[:t_preflop_passive]. zero? ? 0.0 : 1.0 * report[:t_preflop_aggressive] / report[:t_preflop_passive]
+    posfa = report[:t_postflop_passive]. zero? ? 0.0 : 1.0 * report[:t_postflop_aggressive] / report[:t_postflop_passive]
+    batt_p = display_ratio report[:t_blind_attack_opportunity_taken], report[:t_blind_attack_opportunity]
+    bdef_p = display_ratio report[:t_blind_defense_opportunity_taken], report[:t_blind_defense_opportunity]
+    cbet_p = display_ratio report[:t_cbet_opportunity_taken], report[:t_cbet_opportunity]
+    description = players_shown[each][/\(.*\)/]
+    description ||= ""
+    description.gsub!("Passive", "P")
+    description.gsub!("Aggressive", "A")
+    description.gsub!("Tight", "T")
+    description.gsub!("Loose", "L")
+    players_shown[each].gsub!(/\(.*\)/, description)
+    printf "%-20s %3d %4s %4s %2.1f/%2.1f %5s %5s %5s %s\n", each, t_hands, vpi_p, pfr_p, prefa, posfa, batt_p, bdef_p, cbet_p, players_shown[each]
+  end
+  puts "=" * file.size
+  GC.start  
+#   puts last.reports.keys.inspect
+#   puts
+#   # puts
+#   # puts "=" * 90
+#   # puts last.path
+#   # players.each {|each| display(each, players_shown)}
+#   # puts
+#   # puts "=" * 90
+#   # puts "PLAYERS NOW AT THIS TABLE"
+#   # puts "=" * 90
+#   # printf "%-20s %3s %4s %4s %5s %s\n", "Screen Name", "Num", "VP$%", "PFR%", "Pre/Pos", "Poker-Edge Description"
+#   # printf "%-20s %-14s %s\n", "-"*20, "-"*21, "-"*47
+#   # players.each do |each|
+#   #   description = players_shown[each][/\(.*\)/]
+#   #   description ||= ""
+#   #   description.gsub!("Passive", "P")
+#   #   description.gsub!("Aggressive", "A")
+#   #   description.gsub!("Tight", "T")
+#   #   description.gsub!("Loose", "L")
+#   #   players_shown[each].gsub!(/\(.*\)/, description)
+#   #   printf "%-20s %3d %3d%% %3d%% %2.1f/%2.1f %s\n", each, 
+#   #     hands[each], (100.0 * vpip[each])/hands[each], (100.0 * pfr[each])/hands[each],
+#   #     preflop_passive[each].zero? ? 0.0 : (1.0 * preflop_aggressive[each]) / preflop_passive[each],
+#   #     postflop_passive[each].zero? ? 0.0 : (1.0 * postflop_aggressive[each]) / postflop_passive[each],
+#   #     players_shown[each]
+#   # end
+#   # puts "=" * 90
+#   # puts "information on #{hands.size} players collected"
+#   # hands = vpip = pfr = sawflop = preflop_aggressive = preflop_passive = nil
+
+#   # puts
+end
+
+def newpsfiles(user, time)
+  Dir["/Users/#{user}/Library/Application Support/PokerStars/HandHistory/**/*"].select{|each| File.mtime(each) > time}
+end
+
+def getpsdata(user, time, players_shown)
+  puts "Loading PokerStars HandHistories that have changed since #{time}"
+  while (files = newpsfiles(user, time)).empty?
+    sleep 1
+  end
+  puts files.inspect
+  files.each {|each| dopsfile(each, players_shown)}
+end
+
+def display_recent_pokerstars_results user
+  players_shown = {}
+  getpsdata(user, Time.now - 3000, players_shown)
+  loop {getpsdata(user, Time.now, players_shown)}
+end
+
+def display_poker_edge_results
+  players_shown = {}
+  $*.each do |playername|
+    puts "Poker Edge Search for #{playername}"
+    search_poker_edge(playername, players_shown)
+    puts "="*80
+    printf "%-20s %s\n", playername, players_shown[playername]
+    puts "="*80
+  end
+end
+
+
+opts = GetoptLong.new(
+  [ "--help",     "-h",   GetoptLong::NO_ARGUMENT],
+  [ "--version",  "-v",   GetoptLong::NO_ARGUMENT],
+  [ "--user",     "-u",   GetoptLong::OPTIONAL_ARGUMENT]
+)
+
+user = `whoami`.chop
+opts.each do |opt, arg|
+  case opt
+  when "--help", "--usage"
+    print "#{$0} playername {--user username} {--player playername} {--help } {--version}\n"
+  when "--version"
+    print "Judi's Awesome Poker Program -- for Absolute Poker, version 0.6\n"
+  when "--user"
+    user = arg unless arg.empty?
+  end
+end
+
+if $*.empty?
+  display_recent_pokerstars_results user
+else
+  display_poker_edge_results
+end

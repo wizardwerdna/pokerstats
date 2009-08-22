@@ -27,10 +27,10 @@ class BlindAttackStatistics < HandStatistics::Plugin
   def self.report_specification
     [
       # [key,                               sql_type,   function]
-      [:is_blind_attack_opportunity,        'INTEGER',  :blind_attack_opportunity?],
-      [:is_blind_attack_opportunity_taken,  'INTEGER',  :blind_attack_opportunity_taken?],
-      [:is_blind_defense_opportunity,       'INTEGER',  :blind_defense_opportunity?],
-      [:is_blind_defense_opportunity_taken, 'INTEGER',  :blind_defense_opportunity_taken?]
+      [:is_blind_attack_opportunity,        'integer',  :blind_attack_opportunity?],
+      [:is_blind_attack_opportunity_taken,  'integer',  :blind_attack_opportunity_taken?],
+      [:is_blind_defense_opportunity,       'integer',  :blind_defense_opportunity?],
+      [:is_blind_defense_opportunity_taken, 'integer',  :blind_defense_opportunity_taken?]
     ]
   end
   

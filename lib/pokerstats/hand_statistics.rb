@@ -191,6 +191,25 @@ class HandStatistics
     @hand_information
   end
   
+  def self.rails_migration_for_player_data
+    prefix = <<-PREFIX
+    class AddHandStatisticsForPlayer < ActiveRecord::Migration
+      def self.up
+        create_table :player_hand_statistics do |t|
+          t.integer :hand_id
+    PREFIX
+    middle = plugin_factory.inject(""){|string, each| string + each.rails_migration_segment_for_player_data}
+    suffix = <<-SUFFIX
+        end
+      end
+      def self.down
+       drop_table :player_hand_statistics
+      end
+    end
+    SUFFIX
+    return prefix + middle + suffix
+  end
+  
   private
   def method_missing symbol, *args
     plugins.send symbol, *args
@@ -200,3 +219,5 @@ end
 # Load Plugins and Delegate non-api public methods to plugins
 Dir[File.dirname(__FILE__) + "/plugins/*_statistics.rb"].each {|filename| require File.expand_path(filename)}
 HandStatistics.delegate_plugin_public_methods_except HandStatisticsAPI.public_methods
+
+puts HandStatistics.rails_migration_for_player_data

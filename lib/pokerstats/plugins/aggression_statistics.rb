@@ -1,5 +1,15 @@
 class AggressionStatistics < HandStatistics::Plugin
-  
+
+  def self.report_specification
+    [
+      # [key,                               sql_type,   function]
+      [:preflop_passive,      'integer',  :preflop_passive],
+      [:postflop_passive,     'integer',  :postflop_passive],
+      [:preflop_aggressive,   'integer',  :preflop_aggressive],
+      [:postflop_aggressive,  'integer',  :postflop_aggressive]
+    ]
+  end
+
   def initialize handstatistics
     super handstatistics
     @preflop_passive = {}
@@ -23,30 +33,6 @@ class AggressionStatistics < HandStatistics::Plugin
   def postflop_aggressive(screen_name)
     @postflop_aggressive[screen_name]
   end
-  
-  def self.report_specification
-    [
-      # [key,                               sql_type,   function]
-      [:preflop_passive,      'INTEGER',  :preflop_passive],
-      [:postflop_passive,     'INTEGER',  :postflop_passive],
-      [:preflop_aggressive,   'INTEGER',  :preflop_aggressive],
-      [:postflop_aggressive,  'INTEGER',  :postflop_aggressive]
-    ]
-  end
-  
-  # def report screen_name
-  #   {
-  #     :preflop_passive => preflop_passive(screen_name),
-  #     :postflop_passive => postflop_passive(screen_name),
-  #     :preflop_aggressive => preflop_aggressive(screen_name),
-  #     :postflop_aggressive => postflop_aggressive(screen_name)
-  #   }
-  # end
-  # 
-  # def migration_segment
-  #   return <<-FOO
-  #   FOO
-  # end
 
   def register_player screen_name, street
     @preflop_passive[screen_name] = 0

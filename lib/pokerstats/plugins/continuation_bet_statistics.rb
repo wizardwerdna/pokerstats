@@ -21,8 +21,8 @@ class ContinuationBetStatistics < HandStatistics::Plugin
   def self.report_specification
     [
       # [key,                     sql_type,   function]
-      [:is_cbet_opportunity,       'INTEGER',  :cbet_opportunity?],
-      [:is_cbet_opportunity_taken, 'INTEGER',  :cbet_opportunity_taken?]
+      [:is_cbet_opportunity,       'integer',  :cbet_opportunity?],
+      [:is_cbet_opportunity_taken, 'integer',  :cbet_opportunity_taken?]
     ]
   end
   
