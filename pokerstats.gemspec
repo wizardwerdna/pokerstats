@@ -5,13 +5,15 @@
 
 Gem::Specification.new do |s|
   s.name = %q{pokerstats}
-  s.version = "0.4.0"
+  s.version = "0.5.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Andrew C. Greenberg"]
   s.date = %q{2009-08-21}
+  s.default_executable = %q{checkps}
   s.description = %q{a library for extracting, computing and reporting statistics of poker hands parsed from hand history files}
   s.email = %q{wizardwerdna@gmail.com}
+  s.executables = ["checkps"]
   s.extra_rdoc_files = [
     "LICENSE",
      "README.rdoc"
@@ -23,7 +25,7 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
-     "lib/checkps",
+     "bin/checkps",
      "lib/pokerstats.rb",
      "lib/pokerstats/.gitignore",
      "lib/pokerstats/hand_constants.rb",
