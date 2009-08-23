@@ -1,10 +1,12 @@
 #!/usr/bin/ruby
 require "getoptlong"
+require "rubygems"
+require "activesupport"
+require "open-uri"
 # ENV['RAILS_ENV'] = ENV['RAILS_ENV'] || 'development'  
 # require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 # require File.expand_path(File.dirname(__FILE__) + "/pokerstats/pokerstars_file")
 # require File.expand_path(File.dirname(__FILE__) + '/pokerstats/player_statistics')
-require 'rubygems'
 require 'pokerstats/pokerstars_file'
 require 'pokerstats/player_statistics'
 
