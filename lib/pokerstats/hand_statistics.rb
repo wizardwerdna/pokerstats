@@ -5,6 +5,7 @@ require File.expand_path(File.dirname(__FILE__) + '/hand_statistics_api')
 
 class HandStatistics
   include Pluggable
+  include HandConstants
   plugin_include_module HandStatisticsAPI
   def initialize
     install_plugins self
@@ -195,29 +196,54 @@ class HandStatistics
     prefix = <<-PREFIX
     class AddHandStatisticsForPlayer < ActiveRecord::Migration
       def self.up
-        create_table :player_hand_statistics do |t|
-          t.integer :hand_id
+        create_table :hand_statistics_for_player do |t|
+          t.integer :hand_statistics_id
     PREFIX
     middle = plugin_factory.inject(""){|string, each| string + each.rails_migration_segment_for_player_data}
     suffix = <<-SUFFIX
         end
       end
       def self.down
-       drop_table :player_hand_statistics
+       drop_table :hand_statistics_for_player
       end
     end
     SUFFIX
     return prefix + middle + suffix
   end
   
+  def self.rails_migration_segment_for_hand_data key, sql_type
+    "\t\tt.#{sql_type}\t#{key.inspect}\n"
+  end
+  
+  def self.rails_migration_for_hand_data
+    prefix = <<-PREFIX
+    class AddHandStatistics < ActiveRecord::Migration
+      def self.up
+        create_table :hand_statistics do |t|
+    PREFIX
+    middle = HAND_REPORT_SPECIFICATION.inject(""){|string, each| string + rails_migration_segment_for_hand_data(*each)}
+    suffix = <<-SUFFIX
+        end
+      end
+      def self.down
+       drop_table :hand_statistics
+      end
+    end
+    SUFFIX
+    return prefix + middle + suffix
+  end
+  
+  def self.rails_migration_data
+    rails_migration_for_hand_data + "\n\n" +
+    rails_migration_for_player_data
+  end
   private
   def method_missing symbol, *args
     plugins.send symbol, *args
   end
 end
-
 # Load Plugins and Delegate non-api public methods to plugins
 Dir[File.dirname(__FILE__) + "/plugins/*_statistics.rb"].each {|filename| require File.expand_path(filename)}
 HandStatistics.delegate_plugin_public_methods_except HandStatisticsAPI.public_methods
 
-puts HandStatistics.rails_migration_for_player_data
+# puts HandStatistics.rails_migration_data
