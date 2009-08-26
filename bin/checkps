@@ -178,7 +178,7 @@ opts.each do |opt, arg|
   when "--help", "--usage"
     print "#{$0} playername {--user username} {--player playername} {--help } {--version}\n"
   when "--version"
-    print "Pokerstars version #{File.read(version_file).chop}\n"
+    print "Pokerstars version  #{File.read(version_file).chop}\n"
   when "--user"
     user = arg unless arg.empty?
   end
