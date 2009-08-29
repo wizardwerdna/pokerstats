@@ -242,6 +242,26 @@ class HandStatistics
     return prefix + middle + suffix
   end
   
+  def self.hand_statistics_migration_data
+    HAND_REPORT_SPECIFICATION.inject do |string, each|
+      string + "t.#{each[1]}\t#{each[0].inspect}\n"
+    end
+  end
+  
+  def self.player_statistics_migration_data
+    plugin_factory.inject(""){|string, each_plugin|
+      string + "#\t#{each_plugin.inspect}\n"
+      each_plugin.report_specification do |each_datum|
+        string + "t.#{each_datum[0]}\t#{each[1].inspect}\n"
+    end
+  end
+  
+  def self.player_statistics_migration_data
+    HAND_REPORT_SPECIFICATION.inject do |string, each|
+      string + "t.#{each[1]}\t#{each[0].inspect}\n"
+    end
+  end
+  
   def self.rails_generator_command_line_for_hand_data
     HAND_REPORT_SPECIFICATION.inject("") do |string, each|
       string + "#{each[0]}:#{each[1]} "
