@@ -1,9 +1,7 @@
-class PokerstatsGenerator < Rails::Generator::Base
+class PokerstatsGenerator < Rails::Generator::Base  
   def manifest
     record do |m|
-      m.directory "db/migration"
-      m.template "hand_statistics.rhtml",   "db/migration/create_hand_statistics.migration"
-      m.template "player_statistics.rhtml",   "db/migration/create_player_statistics.migration"
+      m.migration_template "create_pokerstats.rhtml",   "db/migrate", :migration_file_name => "create_pokerstats"
     end
   end
 end

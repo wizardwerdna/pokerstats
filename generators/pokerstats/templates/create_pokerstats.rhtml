@@ -1,0 +1,23 @@
+<% 
+require 'rubygems'
+require 'pokerstats/hand_statistics'
+%>
+
+class CreatePokerstats < ActiveRecord::Migration
+  def self.up
+	  create_table :hand_statistics do |t|
+		<%= HandStatistics.hand_statistics_migration_data -%>
+	    t.timestamps
+	  end
+	  create_table :player_statistics do |t|
+		t.integer :hand_statistics_id
+		<%= HandStatistics.hand_statistics_migration_data -%>		
+	    t.timestamps
+	  end
+  end
+
+  def self.down
+    drop_table :player_statistics
+	drop_table :hand_statistics
+  end
+end
