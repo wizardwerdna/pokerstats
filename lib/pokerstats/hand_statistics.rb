@@ -243,7 +243,7 @@ class HandStatistics
   end
   
   def self.hand_statistics_migration_data
-    HAND_REPORT_SPECIFICATION.inject("" ) do |string, each|
+    HAND_REPORT_SPECIFICATION.inject("") do |string, each|
       string + "t.#{each[1]}\t#{each[0].inspect}\n"
     end
   end
@@ -282,5 +282,5 @@ end
 Dir[File.dirname(__FILE__) + "/plugins/*_statistics.rb"].each {|filename| require File.expand_path(filename)}
 HandStatistics.delegate_plugin_public_methods_except HandStatisticsAPI.public_methods
 
-# puts HandStatistics.rails_migration_data
-puts HandStatistics.hand_statistics_migration_data
+# # puts HandStatistics.rails_migration_data
+# puts HandStatistics.hand_statistics_migration_data
