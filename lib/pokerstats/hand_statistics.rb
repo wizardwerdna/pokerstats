@@ -249,10 +249,11 @@ class HandStatistics
   end
   
   def self.player_statistics_migration_data
-    plugin_factory.inject(""){|string, each_plugin|
+    plugin_factory.inject("") do |string, each_plugin|
       string + "#\t#{each_plugin.inspect}\n"
       each_plugin.report_specification do |each_datum|
         string + "t.#{each_datum[0]}\t#{each[1].inspect}\n"
+      end
     end
   end
   
