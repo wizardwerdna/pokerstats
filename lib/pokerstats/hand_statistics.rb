@@ -257,7 +257,7 @@ class HandStatistics
   end
   
   def self.player_statistics_migration_data
-    HAND_REPORT_SPECIFICATION.inject do |string, each|
+    HAND_REPORT_SPECIFICATION.inject("") do |string, each|
       string + "t.#{each[1]}\t#{each[0].inspect}\n"
     end
   end
