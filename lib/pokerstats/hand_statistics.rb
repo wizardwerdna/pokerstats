@@ -195,53 +195,6 @@ class HandStatistics
     @hand_information
   end
   
-  def self.rails_generator_command_line_for_player_data
-    plugin_factory.inject("hand_statistics_id:integer ") do |string, each|
-      string + each.rails_generator_command_line_for_player_data + " "
-    end
-  end
-  
-  def self.rails_migration_for_player_data
-    prefix = <<-PREFIX
-    class AddHandStatisticsForPlayer < ActiveRecord::Migration
-      def self.ups
-        create_table :hand_statistics_for_player do |t|
-          t.integer :hand_statistics_id
-    PREFIX
-    middle = plugin_factory.inject(""){|string, each| string + each.rails_migration_segment_for_player_data}
-    suffix = <<-SUFFIX
-        end
-      end
-      def self.down
-       drop_table :hand_statistics_for_player
-      end
-    end
-    SUFFIX
-    return prefix + middle + suffix
-  end
-  
-  def self.rails_migration_segment_for_hand_data key, sql_type
-    "\t\tt.#{sql_type}\t#{key.inspect}\n"
-  end
-  
-  def self.rails_migration_for_hand_data
-    prefix = <<-PREFIX
-    class AddHandStatistics < ActiveRecord::Migration
-      def self.up
-        create_table :hand_statistics do |t|
-    PREFIX
-    middle = HAND_REPORT_SPECIFICATION.inject(""){|string, each| string + rails_migration_segment_for_hand_data(*each)}
-    suffix = <<-SUFFIX
-        end
-      end
-      def self.down
-       drop_table :hand_statistics
-      end
-    end
-    SUFFIX
-    return prefix + middle + suffix
-  end
-  
   def self.hand_statistics_migration_data
     HAND_REPORT_SPECIFICATION.inject("") do |string, each|
       string + "t.#{each[1]}\t#{each[0].inspect}\n"
@@ -249,29 +202,13 @@ class HandStatistics
   end
   
   def self.player_statistics_migration_data
-    plugin_factory.inject("") do |string, each_plugin|
-      string + "#\t#{each_plugin.inspect}\n"
-      each_plugin.report_specification do |each_datum|
-        string + "t.#{each_datum[0]}\t#{each_datum[1].inspect}\n"
+    plugin_factory.inject("") do |str, each_plugin|
+      tstr = "# from #{each_plugin.inspect}\n"
+      each_plugin.report_specification.each do |each_datum|
+        tstr += "t.#{each_datum[1]}\t#{each_datum[0].inspect}\n"
       end
+      str = str + tstr
     end
-  end
-  
-  def self.player_statistics_migration_data
-    HAND_REPORT_SPECIFICATION.inject("") do |string, each|
-      string + "t.#{each[1]}\t#{each[0].inspect}\n"
-    end
-  end
-  
-  def self.rails_generator_command_line_for_hand_data
-    HAND_REPORT_SPECIFICATION.inject("") do |string, each|
-      string + "#{each[0]}:#{each[1]} "
-    end
-  end
-  
-  def self.rails_migration_data
-    rails_migration_for_hand_data + "\n\n" +
-    rails_migration_for_player_data
   end
   private
   def method_missing symbol, *args
@@ -283,4 +220,4 @@ Dir[File.dirname(__FILE__) + "/plugins/*_statistics.rb"].each {|filename| requir
 HandStatistics.delegate_plugin_public_methods_except HandStatisticsAPI.public_methods
 
 # # puts HandStatistics.rails_migration_data
-# puts HandStatistics.hand_statistics_migration_data
+puts HandStatistics.player_statistics_migration_data

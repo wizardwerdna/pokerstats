@@ -11,7 +11,7 @@ class CreatePokerstats < ActiveRecord::Migration
 	  end
 	  create_table :player_statistics do |t|
 		t.integer :hand_statistics_id
-		<%= HandStatistics.hand_statistics_migration_data -%>		
+		<%= HandStatistics.player_statistics_migration_data -%>		
 	    t.timestamps
 	  end
   end
