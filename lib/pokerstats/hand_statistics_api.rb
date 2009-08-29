@@ -48,8 +48,14 @@ module HandStatisticsAPI
       end
       result += "\n"
     end
+    
+    def rails_generator_command_line_for_player_data
+      report_specification.inject("") do |string, each|
+        string + "#{each[0]}:#{each[1]} " 
+      end
+    end
   end
-  
+    
   def self.included(klass)
     klass.extend ClassMethods
   end

@@ -195,10 +195,16 @@ class HandStatistics
     @hand_information
   end
   
+  def self.rails_generator_command_line_for_player_data
+    plugin_factory.inject("hand_statistics_id:integer ") do |string, each|
+      string + each.rails_generator_command_line_for_player_data + " "
+    end
+  end
+  
   def self.rails_migration_for_player_data
     prefix = <<-PREFIX
     class AddHandStatisticsForPlayer < ActiveRecord::Migration
-      def self.up
+      def self.ups
         create_table :hand_statistics_for_player do |t|
           t.integer :hand_statistics_id
     PREFIX
@@ -234,6 +240,12 @@ class HandStatistics
     end
     SUFFIX
     return prefix + middle + suffix
+  end
+  
+  def self.rails_generator_command_line_for_hand_data
+    HAND_REPORT_SPECIFICATION.inject("") do |string, each|
+      string + "#{each[0]}:#{each[1]} "
+    end
   end
   
   def self.rails_migration_data
