@@ -220,4 +220,4 @@ Dir[File.dirname(__FILE__) + "/plugins/*_statistics.rb"].each {|filename| requir
 HandStatistics.delegate_plugin_public_methods_except HandStatisticsAPI.public_methods
 
 # # puts HandStatistics.rails_migration_data
-puts HandStatistics.player_statistics_migration_data
+# puts HandStatistics.player_statistics_migration_data
