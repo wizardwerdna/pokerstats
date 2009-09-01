@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{pokerstats}
-  s.version = "1.0.15"
+  s.version = "1.0.16"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Andrew C. Greenberg"]
@@ -53,7 +53,8 @@ Gem::Specification.new do |s|
      "spec/player_statistics_spec.rb",
      "spec/pokerstars_file_spec.rb",
      "spec/pokerstars_hand_history_parser.rb",
-     "spec/spec_helper.rb"
+     "spec/spec_helper.rb",
+     "spec/zpokerstars_hand_history_parser_integration.rb.txt"
   ]
   s.homepage = %q{http://github.com/wizardwerdna/pokerstats}
   s.rdoc_options = ["--charset=UTF-8"]
