@@ -7,6 +7,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../lib/pokerstats/hand_histo
 require File.expand_path(File.dirname(__FILE__) + '/../lib/pokerstats/hand_statistics')
 require File.expand_path(File.dirname(__FILE__) + '/../lib/pokerstats/pokerstars_file')
 require File.expand_path(File.dirname(__FILE__) + '/../lib/pokerstats/pokerstars_hand_history_parser')
+include Pokerstats
 
 include HandConstants
 
@@ -27,7 +28,6 @@ describe PokerstarsHandHistoryParser, "when parsing structural matter" do
       :street => :prelude
     )
     @parser.parse("PokerStars Game #21650436825: Tournament #117620218, $10+$1 Hold'em No Limit - Level I (10/20) - 2008/10/31 17:25:42 ET")
-    puts 'foo'
     puts @stats.report_hand_information
   end
   

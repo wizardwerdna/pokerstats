@@ -2,6 +2,8 @@ require 'rubygems'
 require 'activesupport'
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/../lib/pokerstats/hand_statistics')
+
+include Pokerstats
 require File.expand_path(File.dirname(__FILE__) + '/hand_statistics_spec_helper')
 
 describe HandStatistics, "when created" do

@@ -5,10 +5,10 @@ require "activesupport"
 require "open-uri"
 # ENV['RAILS_ENV'] = ENV['RAILS_ENV'] || 'development'  
 # require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
-# require File.expand_path(File.dirname(__FILE__) + "/pokerstats/pokerstars_file")
-# require File.expand_path(File.dirname(__FILE__) + '/pokerstats/player_statistics')
-require 'pokerstats/pokerstars_file'
-require 'pokerstats/player_statistics'
+require File.expand_path(File.dirname(__FILE__) + "/../lib/pokerstats/pokerstars_file")
+require File.expand_path(File.dirname(__FILE__) + '/../lib/pokerstats/player_statistics')
+# require 'pokerstats/pokerstars_file'
+# require 'pokerstats/player_statistics'
 
 def search_poker_edge(playername, players_shown = {})
   return if players_shown[playername]
@@ -52,8 +52,8 @@ def dopsfile(file, players_shown)
   return if File.directory?(file)
   players = {}
   last = nil
-  statistics = PlayerStatistics.new
-  PokerstarsFile.open(file).each do |handrecord|
+  statistics = Pokerstats::PlayerStatistics.new
+  Pokerstats::PokerstarsFile.open(file).each do |handrecord|
     begin
       handrecord.parse
       statistics.record(handrecord)
@@ -161,7 +161,6 @@ def display_poker_edge_results
     puts "="*80
   end
 end
-
 
 opts = GetoptLong.new(
   [ "--help",     "-h",   GetoptLong::NO_ARGUMENT],

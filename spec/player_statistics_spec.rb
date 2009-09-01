@@ -3,6 +3,7 @@ require 'activesupport'
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/../lib/pokerstats/hand_statistics')
 require File.expand_path(File.dirname(__FILE__) + '/../lib/pokerstats/player_statistics')
+include Pokerstats
 
 TEST = [
   {"andy" => {
