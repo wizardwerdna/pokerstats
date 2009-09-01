@@ -6,6 +6,23 @@ require File.expand_path(File.dirname(__FILE__) + '/../lib/pokerstats/hand_stati
 include Pokerstats
 require File.expand_path(File.dirname(__FILE__) + '/hand_statistics_spec_helper')
 
+
+Spec::Matchers.define :have_all_and_only_keys do |keylist|
+  match do |hash|
+    hashkeys = hash.keys
+    hashkeys.size == keylist.size && hash.keys.all?{|each_key| keylist.include? each_key}
+  end
+  failure_message_for_should do |hash|
+    "missing keys: #{(keylist - hash.keys).inspect}, extra keys: #{(hash.keys - keylist).inspect}"
+  end
+  failure_message_for_should_not do |hash|
+    "the keys (#{hash.keys.inspect}) are all the same"
+  end
+  description do
+    "have all and only the specified keys"
+  end
+end
+
 describe HandStatistics, "when created" do
   before(:each) do
     @stats = HandStatistics.new
@@ -14,29 +31,31 @@ describe HandStatistics, "when created" do
     @stats.should have(0).players
   end
   
-  it "should properly update hand record information" do
+  it "should properly chain updates of hand record information" do
     sample_hand.each{|key, value| @stats.update_hand(key => value)}
     @stats.hand_record.should == sample_hand
   end
   
-  it "should properly chain hand record information updates" do
-    sample_hand.each{|key, value| @stats.update_hand(key => value)}
-    @stats.update_hand(:test => :foo)
-    @stats.hand_record.should.should == sample_hand.update(:test => :foo)
+  it "should not complain when asked to generate hand record with all HAND_INFORMATION_KEYS filled out" do
+    @stats.update_hand(sample_hand)
+    lambda{@stats.hand_record}.should_not raise_error(/#{HAND_RECORD_INCOMPLETE_MESSAGE}/)
   end
     
-  it "should not complain when asked to generate hand record with all HAND_INFORMATION_KEYS filled out" do
-    lambda{@stats.update_hand(sample_hand).hand_record}.should_not raise_error(/#{HAND_RECORD_INCOMPLETE_MESSAGE}/)
-  end
-  
   it "should complain when asked to generate hand record if no information is given" do
     lambda{@stats.hand_record}.should raise_error(/#{HAND_RECORD_INCOMPLETE_MESSAGE}/)
   end
   
   HandStatistics::HAND_INFORMATION_KEYS.each do |thing|
     it "should complain when asked to generate hand record without a #{thing.to_s}" do
-      lambda{@stats.update_hand(sample_hand.except(thing)).hand_record}.should raise_error(/#{HAND_RECORD_INCOMPLETE_MESSAGE}/)
+      @stats.update_hand(sample_hand.except(thing))
+      lambda{@stats.hand_record}.should raise_error(/#{HAND_RECORD_INCOMPLETE_MESSAGE}/)
     end
+  end  
+  
+  it "should not produce hand records having extra keys" do
+    @stats.update_hand(sample_hand)
+    @stats.update_hand(:street => :river)
+    @stats.hand_record.should have_all_and_only_keys HAND_INFORMATION_KEYS
   end  
 end
 

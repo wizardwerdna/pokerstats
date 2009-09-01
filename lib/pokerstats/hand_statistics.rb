@@ -26,7 +26,9 @@ module Pokerstats
   
     def hand_record
       raise "#{HAND_RECORD_INCOMPLETE_MESSAGE}: #{(HAND_INFORMATION_KEYS - @hand_information.keys).inspect}" unless (HAND_INFORMATION_KEYS - @hand_information.keys).empty?
-      @hand_information
+      HAND_INFORMATION_KEYS.inject({}) do |hash, key| 
+        hash.merge!(key => @hand_information[key])
+      end
     end
 
     def update_hand update
