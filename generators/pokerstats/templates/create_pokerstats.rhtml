@@ -6,13 +6,13 @@ require 'pokerstats/hand_statistics'
 class CreatePokerstats < ActiveRecord::Migration
   def self.up
 	  create_table :hand_statistics do |t|
-		<%= HandStatistics.hand_statistics_migration_data -%>
+		<%= Pokerstats::HandStatistics.hand_statistics_migration_data -%>
 	    t.timestamps
 	  end
 	  create_table :player_statistics do |t|
 		t.integer :hand_statistic_id
 		t.integer :player_id
-		<%= HandStatistics.player_statistics_migration_data -%>		
+		<%= Pokerstats::HandStatistics.player_statistics_migration_data -%>		
 	    t.timestamps
 	  end
 	  create_table :player
