@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{pokerstats}
-  s.version = "1.0.16"
+  s.version = "1.0.17"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Andrew C. Greenberg"]
-  s.date = %q{2009-09-01}
+  s.date = %q{2009-09-02}
   s.default_executable = %q{checkps}
   s.description = %q{a library for extracting, computing and reporting statistics of poker hands parsed from hand history files}
   s.email = %q{wizardwerdna@gmail.com}
