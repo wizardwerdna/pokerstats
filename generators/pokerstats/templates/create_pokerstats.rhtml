@@ -15,7 +15,7 @@ class CreatePokerstats < ActiveRecord::Migration
 		<%= Pokerstats::HandStatistics.player_statistics_migration_data -%>		
 	    t.timestamps
 	  end
-	  create_table :player
+	  create_table :player do |t|
 	    t.string :name
 	  end
   end
