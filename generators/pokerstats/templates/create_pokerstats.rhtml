@@ -10,13 +10,18 @@ class CreatePokerstats < ActiveRecord::Migration
 	    t.timestamps
 	  end
 	  create_table :player_statistics do |t|
-		t.integer :hand_statistics_id
+		t.integer :hand_statistic_id
+		t.integer :player_id
 		<%= HandStatistics.player_statistics_migration_data -%>		
 	    t.timestamps
+	  end
+	  create_table :player
+	    t.string :name
 	  end
   end
 
   def self.down
+	drop_table :player
     drop_table :player_statistics
 	drop_table :hand_statistics
   end
