@@ -31,6 +31,10 @@ describe PokerstarsHandHistoryParser, "when parsing structural matter" do
     puts @stats.report_hand_information
   end
   
+  it "should recognize a tournament header" do
+    PokerstarsHandHistoryParser.should have_valid_header("PokerStars Game #21650436825: Tournament #117620218, $10+$1 Hold'em No Limit - Level I (10/20) - 2008/10/31 17:25:42 ET\nsnuggles\n")
+  end
+  
   it "should parse a cash game header" do
     @stats.should_receive(:update_hand).with(
       :name => 'PS21650146783',
@@ -42,6 +46,14 @@ describe PokerstarsHandHistoryParser, "when parsing structural matter" do
       :street => :prelude
     )
     @parser.parse("PokerStars Game #21650146783:  Hold'em No Limit ($0.25/$0.50) - 2008/10/31 17:14:44 ET")
+  end
+  
+  it "should recognize a cash game header" do
+    PokerstarsHandHistoryParser.should have_valid_header("PokerStars Game #21650146783:  Hold'em No Limit ($0.25/$0.50) - 2008/10/31 17:14:44 ET\nsnuggles\n")
+  end
+  
+  it "should not recognize an invalid header" do
+    PokerstarsHandHistoryParser.should_not have_valid_header("I will love you to the end of the earth\nNow and Forever\nEver Always,\nYour Andrew")
   end
   
   it "should parse a hole card header" do

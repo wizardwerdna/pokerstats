@@ -12,7 +12,7 @@ module Pokerstats
     
     def self.has_valid_header?(lines)
       lines.lstrip!
-      case lines[/^[^\n\r]*/].is_valid_header
+      case lines[/^[^\n\r]*/]
         when /PokerStars Game #([0-9]+): Tournament #([0-9]+), (\$[0-9+$]+) ([^\-]*) - Level ([IVXL]+) \((#{CASH})\/(#{CASH})\) - (.*)$/
           true
         when /PokerStars Game #([0-9]+): +([^(]*) \((#{CASH})\/(#{CASH})\) - (.*)$/
