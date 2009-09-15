@@ -9,6 +9,20 @@ module Pokerstats
       parser = self.new(stats)
       lines.each {|line| parser.parse(line)}
     end
+    
+    def self.has_valid_header?(lines)
+      lines.lstrip!
+      case lines[/^[^\n\r]*/].is_valid_header
+        when /PokerStars Game #([0-9]+): Tournament #([0-9]+), (\$[0-9+$]+) ([^\-]*) - Level ([IVXL]+) \((#{CASH})\/(#{CASH})\) - (.*)$/
+          true
+        when /PokerStars Game #([0-9]+): +([^(]*) \((#{CASH})\/(#{CASH})\) - (.*)$/
+          true
+        when /PokerStars Game #([0-9]+): +([^(]*) \((#{CASH})\/(#{CASH}) USD\) - (.*)$/
+          true
+        else
+          false
+      end
+    end
   
     def initialize stats=nil
       @stats = stats || HandStatistics.new
@@ -48,6 +62,8 @@ module Pokerstats
           @stats.update_hand :name => "PS#{$1}", :description=> "#{$2} (#{$3}/#{$4})", :tournament=> nil, :sb=> cash_to_d($3), :bb=> cash_to_d($4), :played_at=> Time.parse($5), :street => :prelude
         when /PokerStars Game #([0-9]+): +([^(]*) \((#{CASH})\/(#{CASH}) USD\) - (.*)$/
           @stats.update_hand :name => "PS#{$1}", :description=> "#{$2} (#{$3}/#{$4})", :tournament=> nil, :sb=> cash_to_d($3), :bb=> cash_to_d($4), :played_at=> Time.parse($5), :street => :prelude
+        when /PokerStars Game #([0-9]+):/
+          raise "invalid hand record: #{line}"
         when /\*\*\* HOLE CARDS \*\*\*/
           @stats.register_button(@stats.button)
           @stats.update_hand :street => :preflop
@@ -61,8 +77,6 @@ module Pokerstats
           @stats.update_hand :street => :showdown
         when /\*\*\* SUMMARY \*\*\*/
           @stats.update_hand :street => :summary
-        when /PokerStars Game #([0-9]+):/
-          raise "invalid hand record: #{line}"
         when /Dealt to ([^)]+) \[([^\]]+)\]/
           @stats.register_action($1, 'dealt', :result => :cards, :data => $2)
         when /(.*): shows \[(.*)\]/
