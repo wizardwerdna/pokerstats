@@ -23,6 +23,20 @@ module Pokerstats
           false
       end
     end
+    
+    def self.game(line)
+      line.lstrip!
+      case line[/^[^\n\r]*/]
+      when /PokerStars Game #([0-9]+): Tournament #([0-9]+), (\$[0-9+$]+) ([^\-]*) - Level ([IVXL]+) \((#{CASH})\/(#{CASH})\) - (.*)$/
+        "PS#{$1}"
+      when /PokerStars Game #([0-9]+): +([^(]*) \((#{CASH})\/(#{CASH})\) - (.*)$/
+        "PS#{$1}"
+      when /PokerStars Game #([0-9]+): +([^(]*) \((#{CASH})\/(#{CASH}) USD\) - (.*)$/
+        "PS#{$1}"
+      else
+        nil
+      end
+    end
   
     def initialize stats=nil
       @stats = stats || HandStatistics.new

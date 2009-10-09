@@ -11,6 +11,20 @@ include Pokerstats
 
 include HandConstants
 
+describe PokerstarsHandHistoryParser, "recognizes valid hand history" do
+  it "should recognize a valid tournament hand history" do
+    first_line = "PokerStars Game #21650436825: Tournament #117620218, $10+$1 Hold'em No Limit - Level I (10/20) - 2008/10/31 17:25:42 ET"
+    PokerstarsHandHistoryParser.game(first_line).should == "PS21650436825"
+  end
+  it "should recognize a valid cash game hand history" do
+    first_line = "PokerStars Game #21650146783:  Hold'em No Limit ($0.25/$0.50) - 2008/10/31 17:14:44 ET"
+    PokerstarsHandHistoryParser.game(first_line).should == "PS21650146783"
+  end
+  it "should reject an invalid hand history" do
+    PokerstarsHandHistoryParser.game("an invalid hand history")
+  end
+end
+
 describe PokerstarsHandHistoryParser, "when parsing structural matter" do
   before :each do
     @stats = HandStatistics.new
