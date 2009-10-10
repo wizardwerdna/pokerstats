@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{pokerstats}
-  s.version = "2.0.1"
+  s.version = "2.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Andrew C. Greenberg"]
-  s.date = %q{2009-10-09}
+  s.date = %q{2009-10-10}
   s.default_executable = %q{checkps}
   s.description = %q{a library for extracting, computing and reporting statistics of poker hands parsed from hand history files}
   s.email = %q{wizardwerdna@gmail.com}
@@ -44,7 +44,6 @@ Gem::Specification.new do |s|
      "lib/pokerstats/poker-edge.rb",
      "lib/pokerstats/pokerstars_file.rb",
      "lib/pokerstats/pokerstars_hand_history_parser.rb",
-     "pokerstats.gemspec",
      "spec/file_empty.txt",
      "spec/file_many_hands.txt",
      "spec/file_one_hand.txt",
@@ -76,16 +75,16 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<rspec>, [">= 0"])
-      s.add_development_dependency(%q<wizardwerdna-pluggable>, [">= 0"])
-      s.add_runtime_dependency(%q<wizardwerdna-pluggable>, [">= 0"])
+      s.add_development_dependency(%q<pluggable>, [">= 0"])
+      s.add_runtime_dependency(%q<pluggable>, [">= 0"])
     else
       s.add_dependency(%q<rspec>, [">= 0"])
-      s.add_dependency(%q<wizardwerdna-pluggable>, [">= 0"])
-      s.add_dependency(%q<wizardwerdna-pluggable>, [">= 0"])
+      s.add_dependency(%q<pluggable>, [">= 0"])
+      s.add_dependency(%q<pluggable>, [">= 0"])
     end
   else
     s.add_dependency(%q<rspec>, [">= 0"])
-    s.add_dependency(%q<wizardwerdna-pluggable>, [">= 0"])
-    s.add_dependency(%q<wizardwerdna-pluggable>, [">= 0"])
+    s.add_dependency(%q<pluggable>, [">= 0"])
+    s.add_dependency(%q<pluggable>, [">= 0"])
   end
 end
