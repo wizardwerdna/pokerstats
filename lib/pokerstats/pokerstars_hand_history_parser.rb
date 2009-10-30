@@ -11,22 +11,12 @@ module Pokerstats
     end
     
     def self.has_valid_header?(lines)
-      lines.lstrip!
-      case lines[/^[^\n\r]*/]
-        when /PokerStars Game #([0-9]+): Tournament #([0-9]+), (\$[0-9+$]+) ([^\-]*) - Level ([IVXL]+) \((#{CASH})\/(#{CASH})\) - (.*)$/
-          true
-        when /PokerStars Game #([0-9]+): +([^(]*) \((#{CASH})\/(#{CASH})\) - (.*)$/
-          true
-        when /PokerStars Game #([0-9]+): +([^(]*) \((#{CASH})\/(#{CASH}) USD\) - (.*)$/
-          true
-        else
-          false
-      end
+      !game(lines).nil?
     end
     
-    def self.game(line)
-      line.lstrip!
-      case line[/^[^\n\r]*/]
+    def self.game(lines)
+      lines.lstrip!
+      case lines.lines.first.chomp
       when /PokerStars Game #([0-9]+): Tournament #([0-9]+), (\$[0-9+$]+) ([^\-]*) - Level ([IVXL]+) \((#{CASH})\/(#{CASH})\) - (.*)$/
         "PS#{$1}"
       when /PokerStars Game #([0-9]+): +([^(]*) \((#{CASH})\/(#{CASH})\) - (.*)$/

@@ -12,6 +12,10 @@ module Pokerstats
       @parser_class = parser_class
       @stats = HandStatistics.new
     end
+    
+    def game
+      @parser_class.game lines.first
+    end
   
     def parsed?
       @parsed

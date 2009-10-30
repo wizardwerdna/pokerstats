@@ -53,14 +53,15 @@ def dopsfile(file, players_shown)
   players = {}
   last = nil
   statistics = Pokerstats::PlayerStatistics.new
-  Pokerstats::PokerstarsFile.open(file).each do |handrecord|
+  Pokerstats::PokerstarsFile.open(file) do |pokerstarsfile|
+    pokerstarsfile.each do |handrecord|
     begin
       handrecord.parse
       statistics.record(handrecord)
       last = handrecord
     rescue Exception => e
       puts e.message
-    end
+    end end
   end
   return if last.nil?
   players = last.stats.players
