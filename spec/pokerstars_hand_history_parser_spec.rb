@@ -8,7 +8,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../lib/pokerstats/hand_stati
 require File.expand_path(File.dirname(__FILE__) + '/../lib/pokerstats/pokerstars_file')
 require File.expand_path(File.dirname(__FILE__) + '/../lib/pokerstats/pokerstars_hand_history_parser')
 include Pokerstats
-
 include HandConstants
 
 describe PokerstarsHandHistoryParser, "recognizes valid hand history" do
@@ -21,7 +20,7 @@ describe PokerstarsHandHistoryParser, "recognizes valid hand history" do
     PokerstarsHandHistoryParser.game(first_line).should == "PS21650146783"
   end
   it "should reject an invalid hand history" do
-    PokerstarsHandHistoryParser.game("an invalid hand history")
+    PokerstarsHandHistoryParser.game("an invalid hand history").should raise_error
   end
 end
 
