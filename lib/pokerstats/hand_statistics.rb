@@ -25,7 +25,7 @@ module Pokerstats
     ##
   
     def hand_record
-      raise "#{HAND_RECORD_INCOMPLETE_MESSAGE}: #{(HAND_INFORMATION_KEYS - @hand_information.keys).inspect}" unless (HAND_INFORMATION_KEYS - @hand_information.keys).empty?
+      raise Pokerstats::HandHistoryParseError, "#{HAND_RECORD_INCOMPLETE_MESSAGE}: #{(HAND_INFORMATION_KEYS - @hand_information.keys).inspect}" unless (HAND_INFORMATION_KEYS - @hand_information.keys).empty?
       HAND_INFORMATION_KEYS.inject({}) do |hash, key| 
         hash.merge!(key => @hand_information[key])
       end
@@ -46,9 +46,9 @@ module Pokerstats
     end
 
     def player_records
-      raise PLAYER_RECORDS_NO_PLAYER_REGISTERED if players.empty?
-      raise PLAYER_RECORDS_NO_BUTTON_REGISTERED if button.nil?
-      raise PLAYER_RECORDS_OUT_OF_BALANCE if out_of_balance
+      raise Pokerstats::HandHistoryParseError, PLAYER_RECORDS_NO_PLAYER_REGISTERED if players.empty?
+      raise Pokerstats::HandHistoryParseError, PLAYER_RECORDS_NO_BUTTON_REGISTERED if button.nil?
+      raise Pokerstats::HandHistoryParseError, PLAYER_RECORDS_OUT_OF_BALANCE if out_of_balance
       self.player_records_without_validation
     end
 
@@ -62,7 +62,7 @@ module Pokerstats
   
     def register_player player
       screen_name = player[:screen_name]
-      raise "#{PLAYER_RECORDS_DUPLICATE_PLAYER_NAME}: #{screen_name.inspect}" if players.member?(screen_name)
+      raise Pokerstats::HandHistoryParseError, "#{PLAYER_RECORDS_DUPLICATE_PLAYER_NAME}: #{screen_name.inspect}" if players.member?(screen_name)
       @cached_player_position = nil
       @player_hashes << player
       plugins.each{|each| each.register_player(screen_name, @street_state)}  #why the second parameter?
@@ -169,7 +169,7 @@ module Pokerstats
     end
   
     def register_action(screen_name, description, options={})
-      raise "#{PLAYER_RECORDS_UNREGISTERED_PLAYER}: #{screen_name.inspect}" unless players.member?(screen_name)
+      raise Pokerstats::HandHistoryParseError, "#{PLAYER_RECORDS_UNREGISTERED_PLAYER}: #{screen_name.inspect}" unless players.member?(screen_name)
       plugins.each do |each|
         each.apply_action(
           {:screen_name => screen_name, :description => description, :aggression => aggression(description)}.update(options), 

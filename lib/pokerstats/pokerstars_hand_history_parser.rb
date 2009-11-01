@@ -62,11 +62,11 @@ module Pokerstats
     def parse(line)
       case line
       when /PokerStars Game #([0-9]+): Tournament #([0-9]+), (\$[0-9+$]+) ([^\-]*) - Level ([IVXL]+) \((#{CASH})\/(#{CASH})\) - (.*)$/
-        @stats.update_hand :name => "PS#{$1}", :description=> "#{$2}, #{$3} #{$4}", :tournament=> $2, :sb=> $6.to_d, :bb=> $7.to_d, :played_at=> Time.parse($8), :street => :prelude
+        @stats.update_hand :name => "PS#{$1}", :description=> "#{$2}, #{$3} #{$4}", :tournament=> $2, :sb=> $6.to_d, :bb=> $7.to_d, :played_at=> Time.parse($8), :street => :prelude, :board => ""
       when /PokerStars Game #([0-9]+): +([^(]*) \((#{CASH})\/(#{CASH})\) - (.*)$/
-        @stats.update_hand :name => "PS#{$1}", :description=> "#{$2} (#{$3}/#{$4})", :tournament=> nil, :sb=> cash_to_d($3), :bb=> cash_to_d($4), :played_at=> Time.parse($5), :street => :prelude
+        @stats.update_hand :name => "PS#{$1}", :description=> "#{$2} (#{$3}/#{$4})", :tournament=> nil, :sb=> cash_to_d($3), :bb=> cash_to_d($4), :played_at=> Time.parse($5), :street => :prelude, :board => ""
       when /PokerStars Game #([0-9]+): +([^(]*) \((#{CASH})\/(#{CASH}) USD\) - (.*)$/
-        @stats.update_hand :name => "PS#{$1}", :description=> "#{$2} (#{$3}/#{$4})", :tournament=> nil, :sb=> cash_to_d($3), :bb=> cash_to_d($4), :played_at=> Time.parse($5), :street => :prelude
+        @stats.update_hand :name => "PS#{$1}", :description=> "#{$2} (#{$3}/#{$4})", :tournament=> nil, :sb=> cash_to_d($3), :bb=> cash_to_d($4), :played_at=> Time.parse($5), :street => :prelude, :board => ""
       when /PokerStars Game #([0-9]+):/
         raise HandHistoryParseError, "invalid hand record: #{line}"
       when /\*\*\* HOLE CARDS \*\*\*/

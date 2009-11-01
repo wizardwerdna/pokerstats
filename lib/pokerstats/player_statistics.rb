@@ -34,10 +34,10 @@ module Pokerstats
         @aggregate_statistics[each_player] ||= {}
       
         @aggregate_statistics[each_player][:t_hands] ||= 0
-         @aggregate_statistics[each_player][:t_hands] += 1
-         @aggregate_statistics[each_player][:t_vpip] ||= 0
-         @aggregate_statistics[each_player][:t_vpip] += 1 unless reports[each_player][:paid].zero?
-         aggregate_numeric_statistic each_player, reports, :t_posted, :posted
+        @aggregate_statistics[each_player][:t_hands] += 1
+        @aggregate_statistics[each_player][:t_vpip] ||= 0
+        @aggregate_statistics[each_player][:t_vpip] += 1 unless reports[each_player][:paid].zero?
+        aggregate_numeric_statistic each_player, reports, :t_posted, :posted
         aggregate_numeric_statistic each_player, reports, :t_paid, :paid
         aggregate_numeric_statistic each_player, reports, :t_won, :won
         aggregate_numeric_statistic each_player, reports, :t_preflop_passive, :preflop_passive

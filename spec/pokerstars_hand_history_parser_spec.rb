@@ -38,10 +38,10 @@ describe PokerstarsHandHistoryParser, "when parsing structural matter" do
       :bb => "20".to_d,
       :played_at => Time.parse("2008/10/31 17:25:42 ET"),
       :tournament => "117620218",
-      :street => :prelude
+      :street => :prelude,
+      :board => "" # due to pokerstars hand history bug (does not have Board record unless flop is seen)
     )
     @parser.parse("PokerStars Game #21650436825: Tournament #117620218, $10+$1 Hold'em No Limit - Level I (10/20) - 2008/10/31 17:25:42 ET")
-    puts @stats.report_hand_information
   end
   
   it "should recognize a tournament header" do
@@ -56,7 +56,8 @@ describe PokerstarsHandHistoryParser, "when parsing structural matter" do
       :bb => "0.50".to_d,
       :played_at => Time.parse("2008/10/31 17:14:44 ET"),
       :tournament => nil,
-      :street => :prelude
+      :street => :prelude,
+      :board => "" # due to pokerstars hand history bug
     )
     @parser.parse("PokerStars Game #21650146783:  Hold'em No Limit ($0.25/$0.50) - 2008/10/31 17:14:44 ET")
   end
