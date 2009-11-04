@@ -66,7 +66,7 @@ module Pokerstats
       when /PokerStars Game #([0-9]+): +([^(]*) \((#{CASH})\/(#{CASH})\) - (.*)$/
         @stats.update_hand :name => "PS#{$1}", :description=> "#{$2} (#{$3}/#{$4})", :tournament=> nil, :sb=> cash_to_d($3), :bb=> cash_to_d($4), :played_at=> Time.parse($5), :street => :prelude, :board => ""
       when /PokerStars Game #([0-9]+): +([^(]*) \((#{CASH})\/(#{CASH}) USD\) - (.*)$/
-ak        @stats.update_hand :name => "PS#{$1}", :description=> "#{$2} (#{$3}/#{$4})", :tournament=> nil, :sb=> cash_to_d($3), :bb=> cash_to_d($4), :played_at=> Time.parse($5), :street => :prelude, :board => ""
+        @stats.update_hand :name => "PS#{$1}", :description=> "#{$2} (#{$3}/#{$4})", :tournament=> nil, :sb=> cash_to_d($3), :bb=> cash_to_d($4), :played_at=> Time.parse($5), :street => :prelude, :board => ""
       when /PokerStars Game #([0-9]+):/
         raise HandHistoryParseError, "invalid hand record: #{line}"
       when /\*\*\* HOLE CARDS \*\*\*/
