@@ -18,7 +18,7 @@ module Pokerstats
     
     def self.game(lines)
       lines.lstrip!
-      case lines.[/[^[\n]+/].chomp
+      case lines[/[^\n]+/].chomp
       when /PokerStars Game #([0-9]+): Tournament #([0-9]+), (\$[0-9+$]+) ([^\-]*) - Level ([IVXL]+) \((#{CASH})\/(#{CASH})\) - (.*)$/
         "PS#{$1}"
       when /PokerStars Game #([0-9]+): +([^(]*) \((#{CASH})\/(#{CASH})\) - (.*)$/
