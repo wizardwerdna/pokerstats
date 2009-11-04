@@ -4,6 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + "/pokerstars_hand_history_pars
 module Pokerstats
   class HandHistory
     attr_accessor :lines, :source, :position, :stats
+    
     def initialize lines, source, position, parser_class = PokerstarsHandHistoryParser
       @lines = lines
       @source = source
