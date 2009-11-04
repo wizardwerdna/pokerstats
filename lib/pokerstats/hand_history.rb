@@ -15,7 +15,7 @@ module Pokerstats
     end
     
     def game
-      @parser_class.game [/[^\n]+/]
+      @parser_class.game lines.first
     end
   
     def parsed?
