@@ -44,6 +44,7 @@ Gem::Specification.new do |s|
      "lib/pokerstats/poker-edge.rb",
      "lib/pokerstats/pokerstars_file.rb",
      "lib/pokerstats/pokerstars_hand_history_parser.rb",
+     "lib/pokerstats/stat_aggregator.rb",
      "pokerstats.gemspec",
      "spec/file_empty.txt",
      "spec/file_many_hands.txt",
@@ -54,6 +55,7 @@ Gem::Specification.new do |s|
      "spec/pokerstars_file_spec.rb",
      "spec/pokerstars_hand_history_parser_spec.rb",
      "spec/spec_helper.rb",
+     "spec/stat_aggregator_spec.rb",
      "spec/zpokerstars_hand_history_parser_integration.rb.txt"
   ]
   s.homepage = %q{http://github.com/wizardwerdna/pokerstats}
