@@ -49,7 +49,7 @@ describe PokerstarsFile, "when opened on a single-hand file" do
   it "should have an entry, answering to entries, having the correct lines" do
     @entry = @psfile.entries.first
     @entry.should have(ONE_HAND_ENTRY_NUMBER_OF_LINES).lines
-    @entry.lines.first.should == ONE_HAND_ENTRY_FIRST_LINE
+    @entry.[/[^[\n]+/].should == ONE_HAND_ENTRY_FIRST_LINE
     @entry.lines.last.should == ONE_HAND_ENTRY_LAST_LINE
   end
 
@@ -127,7 +127,7 @@ describe PokerstarsFile, "when opened on a multi-hand file" do
     @psfile.entries #run through the file to see if it resets properly
     @entry = @psfile.first(TABLE_OF_STARTING_INDICES.first)
     @entry.should have(FIRST_ENTRY_NUMBER_OF_LINES).lines
-    @entry.lines.first.should == FIRST_ENTRY_FIRST_LINE
+    @entry.[/[^[\n]+/].should == FIRST_ENTRY_FIRST_LINE
     @entry.lines.last.should == FIRST_ENTRY_LAST_LINE
     @psfile.should be_closed
   end
@@ -135,21 +135,21 @@ describe PokerstarsFile, "when opened on a multi-hand file" do
   it "should have a first entry having the correct lines, addresable through #entries" do
     @entries = @psfile.entries.first
     @entries.should have(FIRST_ENTRY_NUMBER_OF_LINES).lines
-    @entries.lines.first.should == FIRST_ENTRY_FIRST_LINE
+    @entries.[/[^[\n]+/].should == FIRST_ENTRY_FIRST_LINE
     @entries.lines.last.should == FIRST_ENTRY_LAST_LINE
   end
   
   it "should have a last entry having the correct lines, addressable through #first" do
     @entry = @psfile.first(TABLE_OF_STARTING_INDICES.last)
     @entry.should have(LAST_ENTRY_NUMBER_OF_LINES).lines
-    @entry.lines.first.should == LAST_ENTRY_FIRST_LINE
+    @entry.[/[^[\n]+/].should == LAST_ENTRY_FIRST_LINE
     @entry.lines.last.should == LAST_ENTRY_LAST_LINE
   end
 
   it "should have a last entry having the correct lines, addressable through #entries" do
     @entries = @psfile.entries.last
     @entries.should have(LAST_ENTRY_NUMBER_OF_LINES).lines
-    @entries.lines.first.should == LAST_ENTRY_FIRST_LINE
+    @entries.[/[^[\n]+/].should == LAST_ENTRY_FIRST_LINE
     @entries.lines.last.should == LAST_ENTRY_LAST_LINE
   end
   

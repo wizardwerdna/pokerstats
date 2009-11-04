@@ -54,7 +54,7 @@ end
 #       @psfile = PokerstarsFile.open(filename).entries.each do |handrecord|
 #         @stats = HandStatistics.new
 #         @parser = PokerstarsHandHistoryParser.new(@stats)
-#         # puts handrecord.lines.first
+#         # puts handrecord.[/[^[\n]+/]
 #         printf(".")
 #         handrecord.lines.each do |line|
 #           lambda{@parser.parse(line)}.should_not raise_error
