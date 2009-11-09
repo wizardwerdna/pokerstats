@@ -40,18 +40,8 @@ module Pokerstats
       ]
     end
   
-    # def report(screen_name)
-    #   {
-    #     :posted => posted(screen_name),
-    #     :paid => paid(screen_name),
-    #     :won => won(screen_name),
-    #     :cards => cards(screen_name)
-    #   }
-    # end
-  
     def stats(player=nil)
       return @stats unless player
-      # @stats.inject({}){|last, pair| last.merge(pair[0] => pair[1][player])}
     end
   
     def register_player(screen_name, street)

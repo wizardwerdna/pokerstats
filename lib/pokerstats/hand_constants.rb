@@ -10,7 +10,7 @@ module Pokerstats
       [:bb, 'decimal'], 
       [:board, 'string'], 
       [:total_pot, 'decimal'], 
-      [:rake, 'decimal'], 
+      [:rake, 'decimal'],
       [:played_at, 'datetime'], 
       [:tournament, 'string']
     ]
@@ -23,5 +23,7 @@ module Pokerstats
     PLAYER_RECORDS_OUT_OF_BALANCE = "hand record is out of balance"                
 
     MAX_SEATS = 12
+
+    CARDS = "AKQJT98765432"
   end
 end
