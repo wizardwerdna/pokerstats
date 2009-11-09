@@ -2,10 +2,10 @@ require 'rubygems'
 require 'activesupport'
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/../lib/pokerstats/hand_statistics')
-
+require File.expand_path(File.dirname(__FILE__) + '/../lib/pokerstats/hand_classification')
+require File.expand_path(File.dirname(__FILE__) + '/../lib/pokerstats/pokerstars_hand_history_parser')
 include Pokerstats
 require File.expand_path(File.dirname(__FILE__) + '/hand_statistics_spec_helper')
-
 
 Spec::Matchers.define :have_all_and_only_keys do |keylist|
   match do |hash|
@@ -27,6 +27,7 @@ describe HandStatistics, "when created" do
   before(:each) do
     @stats = HandStatistics.new
   end
+  
   it "should return an empty player list" do
     @stats.should have(0).players
   end
@@ -239,27 +240,43 @@ describe HandStatistics, "when registering standard actions" do
   end
   
   it "should post correctly" do
-    lambda{
-      register_post(sample_player, "5".to_d)
-    }.should change{@stats.posted(sample_player[:screen_name])}.by("5".to_d)
+    post_action = lambda{register_post(sample_player, "5".to_d)}
+    post_action.should change{@stats.posted(sample_player[:screen_name])}.by("5".to_d)
+    post_action.should change{@stats.profit(sample_player[:screen_name])}.by("5".to_d * -1)
+    post_action.should change{@stats.posted_in_bb(sample_player[:screen_name])}.by("2.5".to_d)
+    post_action.should change{@stats.profit_in_bb(sample_player[:screen_name])}.by("2.5".to_d * -1)
+    post_action.should_not change{@stats.paid(sample_player[:screen_name])}
+    post_action.should_not change{@stats.won(sample_player[:screen_name])}
   end
   
   it "should ante correctly" do
-    lambda{
-      register_ante(sample_player, "5".to_d)
-    }.should change{@stats.posted(sample_player[:screen_name])}.by("5".to_d)
+    ante_action = lambda{register_ante(sample_player, "5".to_d)}
+    ante_action.should change{@stats.posted(sample_player[:screen_name])}.by("5".to_d)
+    ante_action.should change{@stats.profit(sample_player[:screen_name])}.by("5".to_d * -1)
+    ante_action.should change{@stats.posted_in_bb(sample_player[:screen_name])}.by("2.5".to_d)
+    ante_action.should change{@stats.profit_in_bb(sample_player[:screen_name])}.by("2.5".to_d * -1)
+    ante_action.should_not change{@stats.paid(sample_player[:screen_name])}
+    ante_action.should_not change{@stats.won(sample_player[:screen_name])}
   end
   
   it "should pay correctly" do
-    lambda{
-      register_bet(sample_player, "5".to_d)
-    }.should change{@stats.paid(sample_player[:screen_name])}.by("5".to_d)
+    pay_action = lambda{register_bet(sample_player, "5".to_d)}
+    pay_action.should change{@stats.paid(sample_player[:screen_name])}.by("5".to_d)
+    pay_action.should change{@stats.profit(sample_player[:screen_name])}.by("5".to_d * -1)
+    pay_action.should change{@stats.paid_in_bb(sample_player[:screen_name])}.by("2.5".to_d)
+    pay_action.should change{@stats.profit_in_bb(sample_player[:screen_name])}.by("2.5".to_d * -1)
+    pay_action.should_not change{@stats.posted(sample_player[:screen_name])}
+    pay_action.should_not change{@stats.won(sample_player[:screen_name])}
   end
   
   it "should win correctly" do
-    lambda{
-      register_win(sample_player, "5".to_d)
-    }.should change{@stats.won(sample_player[:screen_name])}.by("5".to_d)
+    win_action = lambda{register_win(sample_player, "5".to_d)}
+    win_action.should change{@stats.won(sample_player[:screen_name])}.by("5".to_d)
+    win_action.should change{@stats.profit(sample_player[:screen_name])}.by("5".to_d)
+    win_action.should change{@stats.won_in_bb(sample_player[:screen_name])}.by("2.5".to_d)
+    win_action.should change{@stats.profit_in_bb(sample_player[:screen_name])}.by("2.5".to_d)
+    win_action.should_not change{@stats.paid(sample_player[:screen_name])}
+    win_action.should_not change{@stats.posted(sample_player[:screen_name])}
   end
   
   it "should check correctly" do
@@ -277,6 +294,8 @@ describe HandStatistics, "when registering standard actions" do
   it "should show cards correctly" do
     register_cards(sample_player, "AH KH")
     @stats.cards(sample_player[:screen_name]).should == "AH KH"
+    puts "<<#{@stats.card_category_index(sample_player[:screen_name])}>>"
+    @stats.card_category_index(sample_player[:screen_name]).should == Pokerstats::class_index_from_hand_string("AH KH")
   end
 end
 
@@ -813,15 +832,10 @@ describe HandStatistics, "when reporting statistics" do
   end
   
   it "should report cash statistics for each player" do
-    @cash_plugin.should_receive(:posted).exactly(@stats.players.size)
-    @cash_plugin.should_receive(:paid).exactly(@stats.players.size)
-    @cash_plugin.should_receive(:won).exactly(@stats.players.size)
-    @cash_plugin.should_receive(:cards).exactly(@stats.players.size)
+    report_items = [:cards, :card_category_index, :posted, :paid, :won, :profit, :posted_in_bb, :paid_in_bb, :won_in_bb, :profit_in_bb]
+    report_items.each{|report_item|  @cash_plugin.should_receive(report_item).exactly(@stats.players.size)}
     @reports = @stats.reports
-    @stats.players.each{|each| @reports[each].should include(:posted)}
-    @stats.players.each{|each| @reports[each].should include(:paid)}
-    @stats.players.each{|each| @reports[each].should include(:won)}
-    @stats.players.each{|each| @reports[each].should include(:cards)}
+    report_items.each{|report_item|@stats.players.each{|each| @reports[each].should include(report_item)}}
   end
   
   it "should report aggression statistics for each player" do

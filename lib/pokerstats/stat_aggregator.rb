@@ -15,7 +15,7 @@ module Pokerstats
     
     def apply hash
       @specification.each do |key, value|
-        puts "applying specification #{key.inspect} with value specification #{value.inspect}"
+        # puts "applying specification #{key.inspect} with value specification #{value.inspect}"
         # determine datum value from specification
         datum = case value
         when Symbol
@@ -26,7 +26,7 @@ module Pokerstats
           raise RuntimeError, "there is no valid specification for datum #{key.inspect}"
         end
         
-        puts "... resulting in datum #{datum.inspect}"
+        # puts "... resulting in datum #{datum.inspect}"
         # apply datum value to aggregated data
         unless datum.nil?
           @data[key].items+=1

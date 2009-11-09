@@ -89,9 +89,9 @@ describe Pokerstats::StatAggregator do
       ALL_DATA_ITEMS.each{|item| @stat_aggregator.apply item}
     end
     it "generates data with the correct applied values with a numeric and a boolean true result" do
-      puts ALL_DATA_ITEMS.to_yaml
-      puts EXPECTED_AGGREGATION_REPORT.to_yaml
-      puts @stat_aggregator.data.to_yaml
+      # puts ALL_DATA_ITEMS.to_yaml
+      # puts EXPECTED_AGGREGATION_REPORT.to_yaml
+      # puts @stat_aggregator.data.to_yaml
       @stat_aggregator.data.should == EXPECTED_AGGREGATION_REPORT
     end
   end

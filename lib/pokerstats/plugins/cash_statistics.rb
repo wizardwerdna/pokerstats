@@ -9,7 +9,12 @@ module Pokerstats
       @cards = {}
       @stats = {:posted => @posted, :paid => @paid, :won => @won, :cards => @cards}
     end
-  
+
+    def profit(player)
+        return nil unless won(player) && posted(player) && paid(player)
+        won(player) - posted(player) - paid(player)
+    end
+    
     def posted(player)
       @posted[player]
     end
@@ -25,18 +30,50 @@ module Pokerstats
     def won(player)
       @won[player]
     end
+    
+    def divided_by_bb(value)
+        bb = @hand_statistics.report_hand_information[:bb]
+        return nil if bb.nil? || bb.zero?
+        value / bb
+    end
+  
+    def profit_in_bb(player)
+        divided_by_bb(profit(player))
+    end
+    
+    def posted_in_bb(player)
+        divided_by_bb(posted(player))
+    end
+    
+    def paid_in_bb(player)
+        divided_by_bb(paid(player))
+    end
+    
+    def won_in_bb(player)
+        divided_by_bb(won(player))
+    end
   
     def cards(player)
       @cards[player]
+    end
+    
+    def card_category_index(player)
+      Pokerstats::class_index_from_hand_string(cards(player))
     end
   
     def self.report_specification
       [
         # [key,   sql_type,   function]
-        [:posted, 'decimal',  :posted],
-        [:paid,   'decimal',  :paid],
-        [:won,    'decimal',  :won],
-        [:cards,  'string',   :cards]
+        [:posted,               'decimal',  :posted],
+        [:paid,                 'decimal',  :paid],
+        [:won,                  'decimal',  :won],
+        [:profit,               'decimal',  :profit],
+        [:posted_in_bb,         'string',   :posted_in_bb],
+        [:paid_in_bb,           'string',   :paid_in_bb],
+        [:won_in_bb,            'string',   :won_in_bb],
+        [:profit_in_bb,         'string',   :profit_in_bb],
+        [:cards,                'string',   :cards],
+        [:card_category_index,  'integer',  :card_category_index]
       ]
     end
   
