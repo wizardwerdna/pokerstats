@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{pokerstats}
-  s.version = "2.0.12"
+  s.version = "2.0.13"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Andrew C. Greenberg"]
-  s.date = %q{2009-11-04}
+  s.date = %q{2009-11-09}
   s.default_executable = %q{checkps}
   s.description = %q{a library for extracting, computing and reporting statistics of poker hands parsed from hand history files}
   s.email = %q{wizardwerdna@gmail.com}
@@ -31,6 +31,7 @@ Gem::Specification.new do |s|
      "generators/pokerstats/templates/create_pokerstats.rhtml",
      "lib/pokerstats.rb",
      "lib/pokerstats/.gitignore",
+     "lib/pokerstats/hand_classification.rb",
      "lib/pokerstats/hand_constants.rb",
      "lib/pokerstats/hand_history.rb",
      "lib/pokerstats/hand_statistics.rb",
@@ -49,6 +50,7 @@ Gem::Specification.new do |s|
      "spec/file_empty.txt",
      "spec/file_many_hands.txt",
      "spec/file_one_hand.txt",
+     "spec/hand_classification_spec.rb",
      "spec/hand_statistics_spec.rb",
      "spec/hand_statistics_spec_helper.rb",
      "spec/player_statistics_spec.rb",
@@ -64,7 +66,8 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{poker hand history statistics library}
   s.test_files = [
-    "spec/hand_statistics_spec.rb",
+    "spec/hand_classification_spec.rb",
+     "spec/hand_statistics_spec.rb",
      "spec/hand_statistics_spec_helper.rb",
      "spec/player_statistics_spec.rb",
      "spec/pokerstars_file_spec.rb",
