@@ -294,7 +294,6 @@ describe HandStatistics, "when registering standard actions" do
   it "should show cards correctly" do
     register_cards(sample_player, "AH KH")
     @stats.cards(sample_player[:screen_name]).should == "AH KH"
-    puts "<<#{@stats.card_category_index(sample_player[:screen_name])}>>"
     @stats.card_category_index(sample_player[:screen_name]).should == Pokerstats::class_index_from_hand_string("AH KH")
   end
 end

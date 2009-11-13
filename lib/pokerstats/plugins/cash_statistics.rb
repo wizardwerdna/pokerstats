@@ -68,10 +68,10 @@ module Pokerstats
         [:paid,                 'decimal',  :paid],
         [:won,                  'decimal',  :won],
         [:profit,               'decimal',  :profit],
-        [:posted_in_bb,         'string',   :posted_in_bb],
-        [:paid_in_bb,           'string',   :paid_in_bb],
-        [:won_in_bb,            'string',   :won_in_bb],
-        [:profit_in_bb,         'string',   :profit_in_bb],
+        [:posted_in_bb,         'decimal',  :posted_in_bb],
+        [:paid_in_bb,           'decimal',  :paid_in_bb],
+        [:won_in_bb,            'decimal',  :won_in_bb],
+        [:profit_in_bb,         'decimal',  :profit_in_bb],
         [:cards,                'string',   :cards],
         [:card_category_index,  'integer',  :card_category_index]
       ]

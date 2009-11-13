@@ -1,6 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + "/hand_constants")
-module Pokerstats
-  
+module Pokerstats  
   def class_index_from_hand_string(hand_string)
       return class_index_from_hand_string!(hand_string)
   rescue ArgumentError
@@ -8,10 +7,16 @@ module Pokerstats
   end
   
   def class_index_from_hand_string!(hand_string)
-    class_index_from_class_string(class_string_from_hand_string(hand_string))
+    class_index_from_class_string!(class_string_from_hand_string!(hand_string))
   end
   
   def class_string_from_hand_string(hand_string)
+      class_string_from_hand_string!(hand_string)
+  rescue
+      nil
+  end
+  
+  def class_string_from_hand_string!(hand_string)
     raise ArgumentError, "hand_string '#{hand_string}' must be a String" unless hand_string.kind_of?(String)
     hand_string = hand_string.gsub(/ /,'')
     hand_string = hand_string.upcase
@@ -37,6 +42,12 @@ module Pokerstats
   end
   
   def class_index_from_class_string(class_string)
+      class_index_from_class_string!(class_string)
+  rescue
+      nil
+  end
+  
+  def class_index_from_class_string!(class_string)
     raise ArgumentError, "class_string #{class_string.inspect} must be a String" unless class_string.kind_of?(String)
     class_string.upcase!
     first = Pokerstats::HandConstants::CARDS.index(class_string[0..0])
@@ -52,8 +63,15 @@ module Pokerstats
     end
   end
   
-  def class_string_from_class_index(classIndex)
-    row, col = row_from_class_index(classIndex), col_from_class_index(classIndex)
+  def class_string_from_class_index(class_index)
+      class_string_from_class_index!(class_index)
+  rescue ArgumentError
+      nil
+  end
+  
+  def class_string_from_class_index!(class_index)
+    raise ArgumentError, "class_index must be an integer" unless class_index.kind_of? Integer
+    row, col = row_from_class_index(class_index), col_from_class_index(class_index)
     case row <=> col
     when 1
       Pokerstats::HandConstants::CARDS[col..col] + Pokerstats::HandConstants::CARDS[row..row] + "o"
