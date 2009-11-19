@@ -12,11 +12,12 @@ module Pokerstats
     plugin_include_module HandStatisticsAPI
     def initialize
       install_plugins self
-      @hand_information = {}
+      @hand_information = {:number_players => 0, :ante => "0.0".to_d}
       @player_hashes = []
       @button_player_index = nil
       @cached_player_position = nil
       @street_state = nil
+      @last_street_state = nil
       street_transition(:prelude)
     end
 
@@ -29,6 +30,10 @@ module Pokerstats
       HAND_INFORMATION_KEYS.inject({}) do |hash, key| 
         hash.merge!(key => @hand_information[key])
       end
+    end
+    
+    def hand_information(field)
+        @hand_information[field]
     end
 
     def update_hand update
@@ -65,7 +70,8 @@ module Pokerstats
       raise Pokerstats::HandHistoryParseError, "#{PLAYER_RECORDS_DUPLICATE_PLAYER_NAME}: #{screen_name.inspect}" if players.member?(screen_name)
       @cached_player_position = nil
       @player_hashes << player
-      plugins.each{|each| each.register_player(screen_name, @street_state)}  #why the second parameter?
+      @hand_information[:number_players]+=1
+      plugins.each{|each| each.register_player(screen_name, @street_state, player)}  #why the second parameter?
       street_transition_for_player(@street_state, screen_name)
     end
   
@@ -76,8 +82,13 @@ module Pokerstats
     def street
       @street_state
     end
+    
+    def last_street
+        @last_street_state
+    end
   
     def street_transition street
+      @last_street_state = @street_state
       @street_state = street
       plugins.each{|each| each.street_transition(street)}
       players.each {|player| street_transition_for_player(street, player)}
@@ -116,6 +127,17 @@ module Pokerstats
     def position screen_name
       (@cached_player_position && @cached_player_position[screen_name]) || calculate_player_position(screen_name)
     end
+    
+    # player screen_name_first goes before player screen_name_second
+    def betting_order?(screen_name_first, screen_name_second)
+        if button?(screen_name_first)
+            false
+        elsif button?(screen_name_second)
+            true
+        else
+            position(screen_name_first) < position(screen_name_second)
+        end
+    end
   
     def button?(screen_name)
       position(screen_name) && position(screen_name).zero?
@@ -146,8 +168,7 @@ module Pokerstats
     def attacker?(screen_name)
       (number_players > 2) && (button?(screen_name) || cutoff?(screen_name))
     end
-  
-  
+
     ##
     # Action Information
     ##
