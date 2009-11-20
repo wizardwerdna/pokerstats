@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{pokerstats}
-  s.version = "2.0.13"
+  s.version = "2.0.15"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Andrew C. Greenberg"]
-  s.date = %q{2009-11-09}
+  s.date = %q{2009-11-20}
   s.default_executable = %q{checkps}
   s.description = %q{a library for extracting, computing and reporting statistics of poker hands parsed from hand history files}
   s.email = %q{wizardwerdna@gmail.com}
@@ -42,6 +42,8 @@ Gem::Specification.new do |s|
      "lib/pokerstats/plugins/cash_statistics.rb",
      "lib/pokerstats/plugins/continuation_bet_statistics.rb",
      "lib/pokerstats/plugins/preflop_raise_statistics.rb",
+     "lib/pokerstats/plugins/street_bet_statistics.rb",
+     "lib/pokerstats/plugins/street_statistics.rb",
      "lib/pokerstats/poker-edge.rb",
      "lib/pokerstats/pokerstars_file.rb",
      "lib/pokerstats/pokerstars_hand_history_parser.rb",
@@ -57,8 +59,7 @@ Gem::Specification.new do |s|
      "spec/pokerstars_file_spec.rb",
      "spec/pokerstars_hand_history_parser_spec.rb",
      "spec/spec_helper.rb",
-     "spec/stat_aggregator_spec.rb",
-     "spec/zpokerstars_hand_history_parser_integration.rb.txt"
+     "spec/stat_aggregator_spec.rb"
   ]
   s.homepage = %q{http://github.com/wizardwerdna/pokerstats}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -67,13 +68,15 @@ Gem::Specification.new do |s|
   s.summary = %q{poker hand history statistics library}
   s.test_files = [
     "spec/hand_classification_spec.rb",
+     "spec/hand_history_spec.rb",
      "spec/hand_statistics_spec.rb",
      "spec/hand_statistics_spec_helper.rb",
      "spec/player_statistics_spec.rb",
      "spec/pokerstars_file_spec.rb",
      "spec/pokerstars_hand_history_parser_spec.rb",
      "spec/spec_helper.rb",
-     "spec/stat_aggregator_spec.rb"
+     "spec/stat_aggregator_spec.rb",
+     "spec/zpokerstars_hand_history_parser_integration.rb"
   ]
 
   if s.respond_to? :specification_version then
@@ -83,17 +86,15 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_development_dependency(%q<pluggable>, [">= 0"])
-      s.add_development_dependency(%q<tzinfo>, [">= 0"])
       s.add_runtime_dependency(%q<pluggable>, [">= 0"])
-      s.add_runtime_dependency(%q<tzinfo>, [">= 0"])
     else
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<pluggable>, [">= 0"])
-      s.add_dependency(%q<tzinfo>, [">= 0"])
+      s.add_dependency(%q<pluggable>, [">= 0"])
     end
   else
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<pluggable>, [">= 0"])
-    s.add_dependency(%q<tzinfo>, [">= 0"])
+    s.add_dependency(%q<pluggable>, [">= 0"])
   end
 end

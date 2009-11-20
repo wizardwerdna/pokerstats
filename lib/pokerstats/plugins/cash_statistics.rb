@@ -1,3 +1,4 @@
+require File.expand_path(File.dirname(__FILE__) + "/../hand_classification")
 module Pokerstats
   class CashStatistics < HandStatistics::Plugin
     def initialize handstatistics
@@ -107,7 +108,7 @@ module Pokerstats
     end
     
     def card_category_index(player)
-      Pokerstats::class_index_from_hand_string(cards(player))
+      Pokerstats::HandClass.class_index_from_hand_string(cards(player))
     end
   
     def self.report_specification

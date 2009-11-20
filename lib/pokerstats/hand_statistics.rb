@@ -241,6 +241,6 @@ module Pokerstats
   Dir[File.dirname(__FILE__) + "/plugins/*_statistics.rb"].each {|filename| require File.expand_path(filename)}
   HandStatistics.delegate_plugin_public_methods_except HandStatisticsAPI.public_methods
 end
-# Load Plugins and Delegate non-api public methods to plugins
+# Load Plugins and Delegate non-api public methods to plugins# 
 # puts Pokerstats::HandStatistics.hand_statistics_migration_data
 # puts Pokerstats::HandStatistics.player_statistics_migration_data

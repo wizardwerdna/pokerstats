@@ -1531,7 +1531,6 @@ describe HandStatistics do
                 register_check @sb
                 register_check @bb
                 register_bet @button, 2
-                puts "last_aggr_player = #{@stats.last_aggr_player.inspect}"
                 ["sb", "bb", "button"].each do |player|
                     @stats.cbet_flop(player).should be_nil
                     @stats.call_cbet_flop(player).should be_nil

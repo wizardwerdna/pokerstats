@@ -1,22 +1,22 @@
 require File.expand_path(File.dirname(__FILE__) + "/hand_constants")
 module Pokerstats  
-  def class_index_from_hand_string(hand_string)
+    def class_index_from_hand_string(hand_string)
       return class_index_from_hand_string!(hand_string)
-  rescue ArgumentError
+    rescue ArgumentError
       nil
-  end
-  
-  def class_index_from_hand_string!(hand_string)
+    end
+
+    def class_index_from_hand_string!(hand_string)
     class_index_from_class_string!(class_string_from_hand_string!(hand_string))
-  end
-  
-  def class_string_from_hand_string(hand_string)
+    end
+
+    def class_string_from_hand_string(hand_string)
       class_string_from_hand_string!(hand_string)
-  rescue
+    rescue
       nil
-  end
-  
-  def class_string_from_hand_string!(hand_string)
+    end
+
+    def class_string_from_hand_string!(hand_string)
     raise ArgumentError, "hand_string '#{hand_string}' must be a String" unless hand_string.kind_of?(String)
     hand_string = hand_string.gsub(/ /,'')
     hand_string = hand_string.upcase
@@ -39,15 +39,15 @@ module Pokerstats
       end
       result
     end
-  end
-  
-  def class_index_from_class_string(class_string)
+    end
+
+    def class_index_from_class_string(class_string)
       class_index_from_class_string!(class_string)
-  rescue
+    rescue
       nil
-  end
-  
-  def class_index_from_class_string!(class_string)
+    end
+
+    def class_index_from_class_string!(class_string)
     raise ArgumentError, "class_string #{class_string.inspect} must be a String" unless class_string.kind_of?(String)
     class_string.upcase!
     first = Pokerstats::HandConstants::CARDS.index(class_string[0..0])
@@ -61,16 +61,16 @@ module Pokerstats
       13*second+first      
     else raise ArgumentError, "class_string is malformed"
     end
-  end
-  
-  def class_string_from_class_index(class_index)
+    end
+
+    def class_string_from_class_index(class_index)
       class_string_from_class_index!(class_index)
-  rescue ArgumentError
+    rescue ArgumentError
       nil
-  end
-  
-  def class_string_from_class_index!(class_index)
-    raise ArgumentError, "class_index must be an integer" unless class_index.kind_of? Integer
+    end
+
+    def class_string_from_class_index!(class_index)
+    raise ArgumentError, "class_index (#{class_index.inspect}) must be an integer between 0 and 168" unless class_index.kind_of? Integer and class_index.between?(0,168)
     row, col = row_from_class_index(class_index), col_from_class_index(class_index)
     case row <=> col
     when 1
@@ -80,17 +80,21 @@ module Pokerstats
     when -1
       Pokerstats::HandConstants::CARDS[row..row] + Pokerstats::HandConstants::CARDS[col..col] + "s"
     end
-  end
-  
-  def row_from_class_index(classIndex)
+    end
+
+    def row_from_class_index(classIndex)
     classIndex / 13
-  end
-  
-  def col_from_class_index(classIndex)
+    end
+
+    def col_from_class_index(classIndex)
     classIndex % 13
-  end
-  
-  def class_index_from_row_and_col(row, col)
-    row*13 + col
-  end
+    end
+
+    def class_index_from_row_and_col(row, col)
+        row*13 + col
+    end
+
+    class HandClass
+        extend Pokerstats
+    end
 end
