@@ -60,6 +60,9 @@ module Pokerstats
                 [:cbet_flop,	        'boolean',	:cbet_flop],
                 [:cbet_turn,	        'boolean',	:cbet_turn],
                 [:cbet_river,	        'boolean',	:cbet_river],
+                [:call_cbet_flop,	    'boolean',	:call_cbet_flop],
+                [:call_cbet_turn,	    'boolean',	:call_cbet_turn],
+                [:call_cbet_river,	    'boolean',	:call_cbet_river],
                 [:fold_to_cbet_flop,	'boolean',	:fold_to_cbet_flop],
                 [:fold_to_cbet_turn,	'boolean',	:fold_to_cbet_turn],
                 [:fold_to_cbet_river,	'boolean',	:fold_to_cbet_river],
@@ -67,6 +70,9 @@ module Pokerstats
                 [:dbet_flop,	        'boolean',	:dbet_flop],
                 [:dbet_turn,	        'boolean',	:dbet_turn],
                 [:dbet_river,	        'boolean',	:dbet_river],
+                [:call_dbet_flop,	    'boolean',	:call_dbet_flop],
+                [:call_dbet_turn,	    'boolean',	:call_dbet_turn],
+                [:call_dbet_river,	    'boolean',	:call_dbet_river],
                 [:fold_to_dbet_flop,	'boolean',	:fold_to_dbet_flop],
                 [:fold_to_dbet_turn,	'boolean',	:fold_to_dbet_turn],
                 [:fold_to_dbet_river,	'boolean',	:fold_to_dbet_river]
@@ -147,7 +153,6 @@ module Pokerstats
             end
             def fold_to_cbet_#{street}(player)
                 @first_aggr_player[:#{street}] && cbet_#{street}(@first_aggr_player[:#{street}]) && fold_to_#{street}_1bet(player)
-                # fold_to_#{street}_1bet(player) && @last_aggr_player[:#{last_street}] && cbet_#{street}(@last_aggr_player[:#{last_street}])
             end
             def call_cbet_#{street}(player)
                 @first_aggr_player[:#{street}] && cbet_#{street}(@first_aggr_player[:#{street}]) && call_#{street}_1bet(player)

@@ -121,12 +121,18 @@ module Pokerstats
         #         :played_at=> PokerstarsTimeStringConverter.new($8).as_utc_datetime,
         #         :street => :prelude, :board => "", :max_players => 0, :number_players => 0, :table_name => "",
         #         :game_type => "Hold'em", :limit_type => "No Limit", :stakes_type => cash_to_d($3)            
-        when /PokerStars Game #([0-9]+): Tournament #([0-9]+), (Freeroll|(#{CASH})\+(#{CASH}) *(USD)?) +Hold'em No Limit - Level ([IVXL]+) \((#{CASH})\/(#{CASH})\) - (.*)$/
-            @stats.update_hand :name => "PS#{$1}", :description=> "#{$2}, #{$3} Hold'em No Limit", :tournament=> $2, 
-                :sb=> $8.to_d, :bb=> $9.to_d, :ante => "0.0".to_d, 
-                :played_at=> PokerstarsTimeStringConverter.new($10).as_utc_datetime,
-                :street => :prelude, :board => "", :max_players => 0, :number_players => 0, :table_name => "",
-                :game_type => "Hold'em", :limit_type => "No Limit", :stakes_type => cash_to_d($4)            
+      when /PokerStars Game #([0-9]+): Tournament #([0-9]+), (Freeroll|(#{CASH})\+(#{CASH}) *(USD)?) +Hold'em No Limit -.*Level ([IVXL]+) \((#{CASH})\/(#{CASH})\) - (.*)$/
+        @stats.update_hand :name => "PS#{$1}", :description=> "#{$2}, #{$3} Hold'em No Limit", :tournament=> $2, 
+            :sb=> $8.to_d, :bb=> $9.to_d, :ante => "0.0".to_d, 
+            :played_at=> PokerstarsTimeStringConverter.new($10).as_utc_datetime,
+            :street => :prelude, :board => "", :max_players => 0, :number_players => 0, :table_name => "",
+            :game_type => "Hold'em", :limit_type => "No Limit", :stakes_type => cash_to_d($4)            
+      when /PokerStars Game #([0-9]+): Tournament #([0-9]+), (Freeroll|(#{CASH}).*(FPP)) *(USD)? +Hold'em No Limit -.*Level ([IVXL]+) \((#{CASH})\/(#{CASH})\) - (.*)$/
+        @stats.update_hand :name => "PS#{$1}", :description=> "#{$2}, #{$3} Hold'em No Limit", :tournament=> $2, 
+            :sb=> $8.to_d, :bb=> $9.to_d, :ante => "0.0".to_d, 
+            :played_at=> PokerstarsTimeStringConverter.new($10).as_utc_datetime,
+            :street => :prelude, :board => "", :max_players => 0, :number_players => 0, :table_name => "",
+            :game_type => "Hold'em", :limit_type => "No Limit", :stakes_type => "0".to_d
       when /PokerStars Game #([0-9]+): +([^(]*)Hold'em No Limit \((#{CASH})\/(#{CASH})\) - (.*)$/
         @stats.update_hand :name => "PS#{$1}", :description=> "#{$2}Hold'em No Limit (#{$3}/#{$4})", :tournament=> nil, 
             :sb=> cash_to_d($3), :bb=> cash_to_d($4), :ante => "0.0".to_d, 

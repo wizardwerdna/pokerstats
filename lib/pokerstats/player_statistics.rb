@@ -18,6 +18,17 @@ module Pokerstats
       @aggregate_statistics[each_player][aggregate_stat] ||= 0
       @aggregate_statistics[each_player][aggregate_stat] += 1 if reports[each_player][hand_stat]
     end
+    
+    def aggregate_three_part_statistic each_player, reports, aggregate_stat, hand_stat
+        # puts "a3ps(#{each_player},reports,#{aggregate_stat.inspect},#{hand_stat.inspect}) where reports[][]=#{reports[each_player][hand_stat].inspect}" if each_player == "wizardwerdna"
+        raise "diddledoo#{hand_stat}" unless reports[each_player].keys.include?(hand_stat)
+        t_stat_opportunity = ((aggregate_stat.to_s) + "_opportunity").to_sym
+        t_stat_opportunity_taken = ((aggregate_stat.to_s) + "_opportunity_taken").to_sym
+        @aggregate_statistics[each_player][t_stat_opportunity] ||=0
+        @aggregate_statistics[each_player][t_stat_opportunity_taken] ||=0
+        @aggregate_statistics[each_player][t_stat_opportunity] += 1 unless reports[each_player][hand_stat].nil?
+        @aggregate_statistics[each_player][t_stat_opportunity_taken] += 1 if reports[each_player][hand_stat]
+    end
   
     def aggregate_statistic each_player, reports, aggregate_stat, hand_stat
       @aggregate_statistics[each_player][aggregate_stat] ||= 0
@@ -30,7 +41,10 @@ module Pokerstats
   
     def record hand_statistics
       reports = hand_statistics.reports
+# puts reports.to_yaml
       reports.keys.each do |each_player|
+        raise "cbet_flop for #{each_player} inconsistent" if reports[:call_cbet_flop].nil? ^ reports[:fold_to_cbet_flop].nil?
+        raise "preflop_3bet for #{each_player} inconsistent" if reports[:call_preflop_3bet].nil? ^ reports[:fold_to_preflop_3bet].nil?
         @aggregate_statistics[each_player] ||= {}
       
         @aggregate_statistics[each_player][:t_hands] ||= 0
@@ -52,6 +66,14 @@ module Pokerstats
         aggregate_boolean_statistic each_player, reports, :t_pfr_opportunity_taken, :is_pfr_opportunity_taken
         aggregate_boolean_statistic each_player, reports, :t_cbet_opportunity, :is_cbet_opportunity
         aggregate_boolean_statistic each_player, reports, :t_cbet_opportunity_taken, :is_cbet_opportunity_taken
+        aggregate_three_part_statistic each_player, reports, :t_cbet_flop, :cbet_flop
+        aggregate_three_part_statistic each_player, reports, :t_fold_to_cbet_flop, :fold_to_cbet_flop
+        aggregate_three_part_statistic each_player, reports, :t_call_cbet_flop, :call_cbet_flop
+        aggregate_three_part_statistic each_player, reports, :t_preflop_3bet, :preflop_3bet
+        aggregate_three_part_statistic each_player, reports, :t_fold_to_preflop_3bet, :fold_to_preflop_3bet
+        aggregate_three_part_statistic each_player, reports, :t_call_preflop_3bet, :call_preflop_3bet
+        raise "messed up cbet_flop for #{each_player}" unless @aggregate_statistics[each_player][:t_call_cbet_flop_opportunity] == @aggregate_statistics[each_player][:t_fold_to_cbet_flop_opportunity]
+        raise "messed up preflop_3bet for #{each_player}" unless @aggregate_statistics[each_player][:t_call_preflop_3bet_opportunity] == @aggregate_statistics[each_player][:t_fold_to_preflop_3bet_opportunity]
       end
     end
   end

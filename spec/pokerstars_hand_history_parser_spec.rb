@@ -137,6 +137,27 @@ describe PokerstarsHandHistoryParser, "when parsing structural matter" do
     )
     @parser.parse("PokerStars Game #24703545200: Tournament #137653257, Freeroll  Hold'em No Limit - Level I (10/20) - 2009/02/07 19:24:12 ET")
   end
+ 
+  it "should recognize a freeroll tournament hand history" do
+    @stats.should_receive(:update_hand).with(
+        :name => "PS27572086902",
+        :description => "158153393, 5125FPP Hold'em No Limit",
+        :ante => "0.0".to_d,
+        :table_name => "",
+        :max_players => 0,
+        :number_players => 0,
+        :sb => "10".to_d,
+        :bb => "20".to_d,
+        :played_at => DateTime.parse("2009/04/27 22:19:46 EDT"),
+        :tournament => "158153393",
+        :street => :prelude,
+        :board => "",
+        :game_type => "Hold'em",
+        :stakes_type => "0".to_d,
+        :limit_type => "No Limit"
+    )  
+    @parser.parse("PokerStars Game #27572086902: Tournament #158153393, 5125FPP Hold'em No Limit - Level I (10/20) - 2009/04/27 22:19:46 ET")
+  end
   
   it "should recognize a tournament header" do
     PokerstarsHandHistoryParser.should have_valid_header("PokerStars Game #21650436825: Tournament #117620218, $10+$1 Hold'em No Limit - Level I (10/20) - 2008/10/31 17:25:42 ET\nsnuggles\n")
@@ -157,7 +178,7 @@ describe PokerstarsHandHistoryParser, "when parsing structural matter" do
       :street => :prelude,
       :board => "", # due to pokerstars hand history bug
       :game_type => "Hold'em",
-      :stakes_type => "0.50".to_d,
+      :stakes_type => "0.5".to_d,
       :limit_type => "No Limit"
     )
     @parser.parse("PokerStars Game #21650146783:  Hold'em No Limit ($0.25/$0.50) - 2008/10/31 17:14:44 ET")

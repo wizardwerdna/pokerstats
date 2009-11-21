@@ -127,6 +127,52 @@ Spec::Matchers.define :have_street_bet_statistics_specified_by do |street_hash, 
     end
 end
 
+Spec::Matchers.define :have_consistent_street_bet_statistics do
+    match do |hand_statistics|
+        @errors = []
+        for street in [:flop, :turn, :river]
+            for player in hand_statistics.players
+                fs = "fold_to_cbet_#{street}".to_sym
+                cs = "call_cbet_#{street}".to_sym
+                if hand_statistics.send(fs, player).nil? ^ hand_statistics.send(cs, player).nil?
+                    @errors << {:fold_symbol => fs, :call_symbol => cs, :player => player}
+                end
+                fs = "fold_to_dbet_#{street}".to_sym
+                cs = "call_dbet_#{street}".to_sym
+                if hand_statistics.send(fs, player).nil? ^ hand_statistics.send(cs, player).nil?
+                    @errors << {:fold_symbol => fs, :call_symbol => cs, :player => player}
+                end
+            end
+            for bet in 1..4
+                for player in hand_statistics.players
+                    fs = bet_statistics_proc_symbol(street, bet, "fold_to_")
+                    cs = bet_statistics_proc_symbol(street, bet, "call_")
+                    if hand_statistics.send(fs, player).nil? ^ hand_statistics.send(cs, player).nil?
+                        @errors << {:fold_symbol => fs, :call_symbol => cs, :player => player}
+                    end
+                end
+            end
+        end
+        @errors.empty?
+    end
+
+    failure_message_for_should do |hand_statistics|
+        @errors.collect do |each|
+            "inconsistent results: #{each[:fold_symbol]}(#{each[:player]}) = #{hand_statistics.send(each[:fold_symbol], each[:player]).inspect}," +
+            " but #{each[:call_symbol]}(#{each[:player]}) = #{hand_statistics.send(each[:call_symbol], each[:player]).inspect}"
+        end.join("; \n")
+    end
+
+    failure_message_for_should_not do |hand_statistics|
+        "the statistics were consistent"
+    end
+
+    description do
+        "have consistent call_* and fold_to_* statistics for each player"
+    end
+end
+
+
 Spec::Matchers.define :have_last_aggr do |street, screen_name|
     match do |hand_statistics|
         @errors = []
@@ -1257,6 +1303,7 @@ describe HandStatistics do
                 it {@stats.should have_street_bet_statistics_specified_by @bet_specification, ""}
                 it {@stats.should have_street_bet_statistics_specified_by @call_bet_specification, "call_"}
                 it {@stats.should have_street_bet_statistics_specified_by @fold_to_bet_specification, "fold_to_"}
+                it {@stats.should have_consistent_street_bet_statistics}
             end
             
             context "after 1 raise" do
@@ -1287,6 +1334,7 @@ describe HandStatistics do
                     it {@stats.should have_street_bet_statistics_specified_by @bet_specification, ""}
                     it {@stats.should have_street_bet_statistics_specified_by @call_bet_specification, "call_"}
                     it {@stats.should have_street_bet_statistics_specified_by @fold_to_bet_specification, "fold_to_"}
+                    it {@stats.should have_consistent_street_bet_statistics}
                 end
                 context "other streets" do
                     before(:each) do
@@ -1316,6 +1364,7 @@ describe HandStatistics do
                     it {@stats.should have_street_bet_statistics_specified_by @bet_specification, ""}
                     it {@stats.should have_street_bet_statistics_specified_by @call_bet_specification, "call_"}
                     it {@stats.should have_street_bet_statistics_specified_by @fold_to_bet_specification, "fold_to_"}
+                    it {@stats.should have_consistent_street_bet_statistics}
                 end
             end
             
@@ -1347,6 +1396,7 @@ describe HandStatistics do
                     it {@stats.should have_street_bet_statistics_specified_by @bet_specification, ""}
                     it {@stats.should have_street_bet_statistics_specified_by @call_bet_specification, "call_"}
                     it {@stats.should have_street_bet_statistics_specified_by @fold_to_bet_specification, "fold_to_"}
+                    it {@stats.should have_consistent_street_bet_statistics}
                 end
                 context "other streets" do
                     before(:each) do
@@ -1380,6 +1430,7 @@ describe HandStatistics do
                     it {@stats.should have_street_bet_statistics_specified_by @bet_specification, ""}
                     it {@stats.should have_street_bet_statistics_specified_by @call_bet_specification, "call_"}
                     it {@stats.should have_street_bet_statistics_specified_by @fold_to_bet_specification, "fold_to_"}
+                    it {@stats.should have_consistent_street_bet_statistics}
                 end
             end
             
@@ -1412,6 +1463,7 @@ describe HandStatistics do
                     it {@stats.should have_street_bet_statistics_specified_by @bet_specification, ""}
                     it {@stats.should have_street_bet_statistics_specified_by @call_bet_specification, "call_"}
                     it {@stats.should have_street_bet_statistics_specified_by @fold_to_bet_specification, "fold_to_"}
+                    it {@stats.should have_consistent_street_bet_statistics}
                 end
                 context "other streets" do
                     before(:each) do
@@ -1446,6 +1498,7 @@ describe HandStatistics do
                     it {@stats.should have_street_bet_statistics_specified_by @bet_specification, ""}
                     it {@stats.should have_street_bet_statistics_specified_by @call_bet_specification, "call_"}
                     it {@stats.should have_street_bet_statistics_specified_by @fold_to_bet_specification, "fold_to_"}
+                    it {@stats.should have_consistent_street_bet_statistics}
                 end
             end
             
@@ -1475,6 +1528,7 @@ describe HandStatistics do
                     it {@stats.should have_street_bet_statistics_specified_by @bet_specification, ""}
                     it {@stats.should have_street_bet_statistics_specified_by @call_bet_specification, "call_"}
                     it {@stats.should have_street_bet_statistics_specified_by @fold_to_bet_specification, "fold_to_"}
+                    it {@stats.should have_consistent_street_bet_statistics}
                 end
                 context "other streets" do
                     before(:each) do
@@ -1506,6 +1560,7 @@ describe HandStatistics do
                     it {@stats.should have_street_bet_statistics_specified_by @bet_specification, ""}
                     it {@stats.should have_street_bet_statistics_specified_by @call_bet_specification, "call_"}
                     it {@stats.should have_street_bet_statistics_specified_by @fold_to_bet_specification, "fold_to_"}
+                    it {@stats.should have_consistent_street_bet_statistics}
                 end
             end            
         end
@@ -1539,6 +1594,7 @@ describe HandStatistics do
                     @stats.call_dbet_flop(player).should be_nil
                     @stats.fold_to_dbet_flop(player).should be_nil
                 end
+                @stats.should have_consistent_street_bet_statistics
             end
 
             context "when button last bets each street and bets first in on the next" do
@@ -1575,6 +1631,7 @@ describe HandStatistics do
                             @stats.send("call_dbet_#{street}", "sb").should be_nil
                             @stats.send("fold_to_dbet_#{street}", "bb").should be_nil
                         end
+                        @stats.should have_consistent_street_bet_statistics
                     end
                 end
             end
@@ -1611,6 +1668,7 @@ describe HandStatistics do
                         @stats.send("fold_to_dbet_#{street}", "sb").should be_nil
                         @stats.send("fold_to_dbet_#{street}", "bb").should be_nil
                         @stats.send("fold_to_dbet_#{street}", "button").should be_false
+                        @stats.should have_consistent_street_bet_statistics
                     end
                 end
             end
@@ -1650,6 +1708,7 @@ describe HandStatistics do
                             @stats.send("call_dbet_#{street}", "sb").should be_nil
                             @stats.send("fold_to_dbet_#{street}", "bb").should be_nil
                         end
+                        @stats.should have_consistent_street_bet_statistics
                     end
                 end
             end
@@ -1679,6 +1738,7 @@ describe HandStatistics do
                     [:sb, :bb, :button].each do |player|
                         @stats.dbet_flop(player).should be_nil
                     end
+                    @stats.should have_consistent_street_bet_statistics
                 end
             end
             
@@ -1710,6 +1770,7 @@ describe HandStatistics do
                     [:sb, :bb, :button].each do |player|
                         @stats.dbet_turn(player).should be_nil
                     end
+                    @stats.should have_consistent_street_bet_statistics
                 end
             end
             
@@ -1741,6 +1802,7 @@ describe HandStatistics do
                     [:sb, :bb, :button].each do |player|
                         @stats.dbet_river(player).should be_nil
                     end
+                    @stats.should have_consistent_street_bet_statistics
                 end
             end
         end
@@ -1843,8 +1905,10 @@ describe HandStatistics do
             :fold_to_river_1bet, :fold_to_river_2bet, :fold_to_river_3bet, :fold_to_river_4bet,
             :last_aggr_preflop, :last_aggr_flop, :last_aggr_turn, :last_aggr_river,
             :cbet_flop, :cbet_turn, :cbet_river,
+            :call_cbet_flop, :call_cbet_turn, :call_cbet_river,
             :fold_to_cbet_flop, :fold_to_cbet_turn, :fold_to_cbet_river,
             :dbet_flop, :dbet_turn, :dbet_river,
+            :call_dbet_flop, :call_dbet_turn, :call_dbet_river,
             :fold_to_dbet_flop, :fold_to_dbet_turn, :fold_to_dbet_river
         ]
         report_items.each{|report_item| @street_bet_plugin.should_receive(report_item).exactly(@stats.players.size)}
