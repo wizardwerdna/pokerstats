@@ -21,7 +21,7 @@ module Pokerstats
     
     def aggregate_three_part_statistic each_player, reports, aggregate_stat, hand_stat
         # puts "a3ps(#{each_player},reports,#{aggregate_stat.inspect},#{hand_stat.inspect}) where reports[][]=#{reports[each_player][hand_stat].inspect}" if each_player == "wizardwerdna"
-        raise "diddledoo#{hand_stat}" unless reports[each_player].keys.include?(hand_stat)
+        raise "diddledoo#{hand_stat}" + reports[each_player].to_yaml unless reports[each_player].keys.include?(hand_stat)
         t_stat_opportunity = ((aggregate_stat.to_s) + "_opportunity").to_sym
         t_stat_opportunity_taken = ((aggregate_stat.to_s) + "_opportunity_taken").to_sym
         @aggregate_statistics[each_player][t_stat_opportunity] ||=0

@@ -29,7 +29,7 @@ module Pokerstats
         begin
           @parser.parse(each_line)
         rescue => e
-          raise "#{@source}:#{position}: #{e.message}"
+          raise HandHistoryParseError, "#{@source}:#{position}: #{e.message}"
         end
       end
       @stats.update_hand :session_filename => source, :starting_at => position
