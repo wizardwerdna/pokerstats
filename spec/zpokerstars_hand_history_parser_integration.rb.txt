@@ -24,27 +24,9 @@ include HandConstants
 #   end
 # end
 # 
-describe PokerstarsHandHistoryParser, "when parsing all the PokerstarsFiles in Andy's directory" do
-  before :each do
-    @filenames = Dir["/Users/werdna/Library/Application Support/Pokerstars/HandHistory/**/*.txt"]
-  end
-
-  it "should parse every line of every entry in the file" do
-    times = 10
-    @filenames.each do |filename|
-      puts "====== #{filename} ====="
-      @psfile = PokerstarsFile.open(filename).entries.each do |handrecord|
-        printf(".")
-        lambda{handrecord.parse}.should_not raise_error
-      end
-      printf("\n")
-    end
-  end
-end
-
-# describe PokerstarsHandHistoryParser, "when parsing all the PokerstarsFiles in Judi's directory" do
+# describe PokerstarsHandHistoryParser, "when parsing all the PokerstarsFiles in Andy's directory" do
 #   before :each do
-#     @filenames = Dir["/Users/werdna/juditest/*.txt"]
+#     @filenames = Dir["/Users/werdna/Library/Application Support/Pokerstars/HandHistory/**/*.txt"]
 #   end
 # 
 #   it "should parse every line of every entry in the file" do
@@ -52,16 +34,34 @@ end
 #     @filenames.each do |filename|
 #       puts "====== #{filename} ====="
 #       @psfile = PokerstarsFile.open(filename).entries.each do |handrecord|
-#         @stats = HandStatistics.new
-#         @parser = PokerstarsHandHistoryParser.new(@stats)
-#         # puts handrecord.[/[^\n]+/]
 #         printf(".")
-#         handrecord.lines.each do |line|
-#           lambda{@parser.parse(line)}.should_not raise_error
-#         end
-#         # @stats.debug_display
+#         lambda{handrecord.parse}.should_not raise_error
 #       end
 #       printf("\n")
 #     end
 #   end
 # end
+
+describe PokerstarsHandHistoryParser, "when parsing all the PokerstarsFiles in Judi's directory" do
+  before :each do
+    @filenames = Dir["/Users/werdna/juditest/*.txt"]
+  end
+
+  it "should parse every line of every entry in the file" do
+    times = 10
+    @filenames.each do |filename|
+      puts "====== #{filename} ====="
+      @psfile = PokerstarsFile.open(filename).entries.each do |handrecord|
+        @stats = HandStatistics.new
+        @parser = PokerstarsHandHistoryParser.new(@stats)
+        # puts handrecord.[/[^\n]+/]
+        printf(".")
+        handrecord.lines.each do |line|
+          lambda{@parser.parse(line)}.should_not raise_error
+        end
+        # @stats.debug_display
+      end
+      printf("\n")
+    end
+  end
+end

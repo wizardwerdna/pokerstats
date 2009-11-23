@@ -22,7 +22,9 @@ TEST = [
       :postflop_passive => 3, 
       :postflop_aggressive => 4, 
       :is_pfr_opportunity => true, 
-      :is_pfr_opportunity_taken => true
+      :is_pfr_opportunity_taken => true,
+      :flop_cbet => true,
+      :flop_2bet => true
     },
   "judi" => {
       :is_blind_attack_opportunity => true, 
@@ -40,7 +42,9 @@ TEST = [
       :postflop_passive => 30, 
       :postflop_aggressive => 40,
       :is_pfr_opportunity => true, 
-      :is_pfr_opportunity_taken => false
+      :is_pfr_opportunity_taken => false,
+      :flop_cbet => false,
+      :flop_2bet => false
     }
   },
   {"andy" => {
@@ -59,7 +63,9 @@ TEST = [
       :postflop_passive => 6, 
       :postflop_aggressive => 8,
       :is_pfr_opportunity => true, 
-      :is_pfr_opportunity_taken => true
+      :is_pfr_opportunity_taken => true,
+      :flop_cbet => false,
+      :flop_2bet => true
     },
   "judi" => {
       :is_blind_attack_opportunity => true, 
@@ -77,7 +83,9 @@ TEST = [
       :postflop_passive => 60, 
       :postflop_aggressive => 80,
       :is_pfr_opportunity => true, 
-      :is_pfr_opportunity_taken => false
+      :is_pfr_opportunity_taken => false,
+      :flop_cbet => nil,
+      :flop_2bet => false
     }
   },
   {"andy" => {
@@ -96,7 +104,9 @@ TEST = [
       :postflop_passive => 9, 
       :postflop_aggressive => 12,
       :is_pfr_opportunity => true, 
-      :is_pfr_opportunity_taken => true
+      :is_pfr_opportunity_taken => true,
+      :flop_cbet => nil,
+      :flop_2bet => true
     },    
   "judi" => {
       :is_blind_attack_opportunity => true, 
@@ -114,7 +124,9 @@ TEST = [
       :postflop_passive => 90, 
       :postflop_aggressive => 120,
       :is_pfr_opportunity => true, 
-      :is_pfr_opportunity_taken => false
+      :is_pfr_opportunity_taken => false,
+      :flop_cbet => nil,
+      :flop_2bet => false
     }
   }
 ]
@@ -137,7 +149,11 @@ PS_RESULT = {
     :t_postflop_passive => 18, 
     :t_postflop_aggressive => 24,
     :t_pfr_opportunity => 3, 
-    :t_pfr_opportunity_taken => 3
+    :t_pfr_opportunity_taken => 3,
+    :t_flop_2bet_opportunity => 3,
+    :t_flop_2bet_opportunity_taken => 3,
+    :t_flop_cbet_opportunity => 2,
+    :t_flop_cbet_opportunity_taken => 1
   },
   "judi" => {
     :t_hands => 3,
@@ -156,7 +172,11 @@ PS_RESULT = {
     :t_postflop_passive => 180, 
     :t_postflop_aggressive => 240,
     :t_pfr_opportunity => 3, 
-    :t_pfr_opportunity_taken => 0
+    :t_pfr_opportunity_taken => 0,
+    :t_flop_2bet_opportunity => 3,
+    :t_flop_2bet_opportunity_taken => 0,
+    :t_cbet_opportunity => 1,
+    :t_cbet_opportunity_taken => 0
   }
 }
 
@@ -226,5 +246,8 @@ describe PlayerStatistics, "when aggregating statistics" do
   end
   it 'should correctly aggregate preflop raise statistics' do
     should_correctly_aggregate @reports, [:t_pfr_opportunity, :t_pfr_opportunity_taken]
+  end
+  it 'should correctly aggregate ternary statistics' do
+    should_correctly_aggregate @reports, [:t_flop_2bet, :t_flop_cbet]
   end
 end

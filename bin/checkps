@@ -76,19 +76,27 @@ def dopsfile(file, players_shown)
   STDOUT.sync = false
   puts "=" * file.size
   reports = statistics.reports
-  printf "%-20s %3s %4s %4s %5s %5s %5s %5s %s\n", "Screen Name", "Num", "VP$%", "PFR%", "Pre/Pos", "BAtt%", "BDef%", "CBet%", "Poker-Edge Description"
-  printf "%-20s %-39s %s\n", "-"*20, "-"*39, "-"*47
+  printf "%-20s|%3s %4s %4s %5s %5s %5s|%5s %5s %5s|%5s %5s %5s | %s\n", "Screen Name", "Num", "VP$%", "PFR%", "Pre/Pos", "BAtt%", "BDef%", 
+    "CBet%", "Call", "Fold", "3Bet%", "Call", "Fold", "Poker-Edge Description"
+  puts "--------------------|---------------------------------|-----------------|------------------|--------------------------------------------"
   players.each do |each|
     report = reports[each]
     # puts report.to_yaml
     t_hands = report[:t_hands]
     vpi_p = display_ratio report[:t_vpip], report[:t_hands]
     pfr_p = display_ratio report[:t_pfr_opportunity_taken], report[:t_pfr_opportunity]
-    prefa = report[:t_preflop_passive]. zero? ? 0.0 : 1.0 * report[:t_preflop_aggressive] / report[:t_preflop_passive]
-    posfa = report[:t_postflop_passive]. zero? ? 0.0 : 1.0 * report[:t_postflop_aggressive] / report[:t_postflop_passive]
+    prefa = report[:t_preflop_passive].zero? ? 0.0 : [1.0 * report[:t_preflop_aggressive] / report[:t_preflop_passive],9.9].min
+    posfa = report[:t_postflop_passive].zero? ? 0.0 : [1.0 * report[:t_postflop_aggressive] / report[:t_postflop_passive],9.9].min
     batt_p = display_ratio report[:t_blind_attack_opportunity_taken], report[:t_blind_attack_opportunity]
     bdef_p = display_ratio report[:t_blind_defense_opportunity_taken], report[:t_blind_defense_opportunity]
-    cbet_p = display_ratio report[:t_cbet_opportunity_taken], report[:t_cbet_opportunity]
+    cbet_flop_p = display_ratio report[:t_cbet_flop_opportunity_taken], report[:t_cbet_flop_opportunity]
+    call_cbet_flop_p = display_ratio report[:t_call_cbet_flop_opportunity_taken], report[:t_call_cbet_flop_opportunity]
+    fold_to_cbet_flop_p = display_ratio report[:t_fold_to_cbet_flop_opportunity_taken], report[:t_fold_to_cbet_flop_opportunity]
+    preflop_3bet_p = display_ratio report[:t_preflop_3bet_opportunity_taken], report[:t_preflop_3bet_opportunity]
+    call_preflop_3bet_p = display_ratio report[:t_call_preflop_3bet_opportunity_taken], report[:t_call_preflop_3bet_opportunity]
+    fold_to_preflop_3bet_p = display_ratio report[:t_fold_to_preflop_3bet_opportunity_taken], report[:t_fold_to_preflop_3bet_opportunity]
+
+    
     description = players_shown[each][/\(.*\)/]
     description ||= ""
     description.gsub!("Passive", "P")
@@ -96,41 +104,15 @@ def dopsfile(file, players_shown)
     description.gsub!("Tight", "T")
     description.gsub!("Loose", "L")
     players_shown[each].gsub!(/\(.*\)/, description)
-    printf "%-20s %3d %4s %4s %2.1f/%2.1f %5s %5s %5s %s\n", each, t_hands, vpi_p, pfr_p, prefa, posfa, batt_p, bdef_p, cbet_p, players_shown[each]
+    printf "%-20s|%3d %4s %4s %2.1f/%2.1f %5s %5s|%5s %5s %5s|%5s %5s %5s | %s\n", 
+        each, t_hands, vpi_p, pfr_p, prefa, posfa, batt_p, bdef_p, 
+        cbet_flop_p, call_cbet_flop_p, fold_to_cbet_flop_p, 
+        preflop_3bet_p, call_preflop_3bet_p,fold_to_preflop_3bet_p,
+        players_shown[each]
+# puts report.to_yaml
   end
   puts "=" * file.size
   GC.start  
-#   puts last.reports.keys.inspect
-#   puts
-#   # puts
-#   # puts "=" * 90
-#   # puts last.path
-#   # players.each {|each| display(each, players_shown)}
-#   # puts
-#   # puts "=" * 90
-#   # puts "PLAYERS NOW AT THIS TABLE"
-#   # puts "=" * 90
-#   # printf "%-20s %3s %4s %4s %5s %s\n", "Screen Name", "Num", "VP$%", "PFR%", "Pre/Pos", "Poker-Edge Description"
-#   # printf "%-20s %-14s %s\n", "-"*20, "-"*21, "-"*47
-#   # players.each do |each|
-#   #   description = players_shown[each][/\(.*\)/]
-#   #   description ||= ""
-#   #   description.gsub!("Passive", "P")
-#   #   description.gsub!("Aggressive", "A")
-#   #   description.gsub!("Tight", "T")
-#   #   description.gsub!("Loose", "L")
-#   #   players_shown[each].gsub!(/\(.*\)/, description)
-#   #   printf "%-20s %3d %3d%% %3d%% %2.1f/%2.1f %s\n", each, 
-#   #     hands[each], (100.0 * vpip[each])/hands[each], (100.0 * pfr[each])/hands[each],
-#   #     preflop_passive[each].zero? ? 0.0 : (1.0 * preflop_aggressive[each]) / preflop_passive[each],
-#   #     postflop_passive[each].zero? ? 0.0 : (1.0 * postflop_aggressive[each]) / postflop_passive[each],
-#   #     players_shown[each]
-#   # end
-#   # puts "=" * 90
-#   # puts "information on #{hands.size} players collected"
-#   # hands = vpip = pfr = sawflop = preflop_aggressive = preflop_passive = nil
-
-#   # puts
 end
 
 def newpsfiles(user, time)

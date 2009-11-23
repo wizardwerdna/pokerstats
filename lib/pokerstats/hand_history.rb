@@ -15,6 +15,7 @@ module Pokerstats
     end
     
     def game
+      return nil if lines.empty?
       @parser_class.game lines.first
     end
   

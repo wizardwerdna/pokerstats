@@ -12,7 +12,7 @@ module Pokerstats
       automatic_report screen_name
     end
 
-    def register_player screen_name, street
+    def register_player screen_name, street, player_hash
     end
 
     def street_transition street

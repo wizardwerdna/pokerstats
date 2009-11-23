@@ -1,18 +1,24 @@
 module Pokerstats
   module HandConstants
     HAND_REPORT_SPECIFICATION = [
-      # [key,   sql_type,   function]
       [:session_filename, 'string'],
       [:starting_at, 'datetime'],
       [:name, 'string'], 
+      [:table_name, 'string'], 
       [:description, 'string'], 
+      [:ante, 'decimal'],
       [:sb, 'decimal'], 
       [:bb, 'decimal'], 
       [:board, 'string'], 
       [:total_pot, 'decimal'], 
       [:rake, 'decimal'],
       [:played_at, 'datetime'], 
-      [:tournament, 'string']
+      [:tournament, 'string'],
+      [:max_players, 'integer'],
+      [:number_players, 'integer'],
+      [:game_type, 'string'],
+      [:limit_type, 'string'],
+      [:stakes_type, 'decimal']
     ]
     HAND_INFORMATION_KEYS = HAND_REPORT_SPECIFICATION.map{|each| each.first}
     HAND_RECORD_INCOMPLETE_MESSAGE = "hand record is incomplete"

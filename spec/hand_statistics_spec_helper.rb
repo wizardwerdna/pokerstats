@@ -10,20 +10,28 @@ module HandStatisticsFactories
       :starting_at => Time.now,
       :name => "PS0001",
       :description => "This is a description",
+      :table_name => "foobie-doobie III",
+      :max_players => 6,
+      :number_players => 6,
       :sb => "1.00".to_d,
       :bb => "2.00".to_d,
+      :ante => "0.50".to_d,
       :board => "AS KS QS JS TS",
       :total_pot => "100.00".to_d,
       :rake => "4.00".to_d,
       :played_at => Time.now,
-      :tournament => "T123"
+      :tournament => "T123",
+      :game_type => "Hold'em",
+      :limit_type => "No Limit",
+      :stakes_type => "25".to_d 
     }
   end
   
   def sample_player
     @@sample_player_result ||= {
       :screen_name => 'sample_player_screen_name', 
-      :seat => 1
+      :seat => 1, 
+      :starting_stack => 10
     }
   end
   
@@ -84,6 +92,9 @@ module HandStatisticsFactories
   
   def register_cards(player, data, hash={})
     @stats.register_action player[:screen_name], 'shows', hash.merge(:result => :cards, :data => data)
-  end  
+  end
+  def register_muck(player, hash={})
+    @stats.register_action player[:screen_name], 'mucks', hash.merge(:result => :neutral)
+  end
 end
 include HandStatisticsFactories

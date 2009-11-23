@@ -35,7 +35,7 @@ module Pokerstats
       @postflop_aggressive[screen_name]
     end
 
-    def register_player screen_name, street
+    def register_player screen_name, street, player
       @preflop_passive[screen_name] = 0
       @preflop_aggressive[screen_name] = 0
       @postflop_passive[screen_name] = 0
