@@ -74,122 +74,234 @@ describe PokerstarsHandHistoryParser, "when parsing structural matter" do
     @stats = HandStatistics.new
     @parser = PokerstarsHandHistoryParser.new(@stats)
   end
+  
+  context "for tournaments" do
+      before(:each) do
+        @valid_tournament_headers = [
+            @old_style_tournament_header = "PokerStars Game #21650436825: Tournament #117620218, $10+$1 Hold'em No Limit - Level I (10/20) - 2008/10/31 17:25:42 ET",
+            @new_style_tournament_header = "PokerStars Game #33566683789: Tournament #199550385, $10+$1 USD Hold'em No Limit - Level XVIII (2000/4000) - 2009/10/02 22:00:29 ET",
+            @pot_limit_tournament_header = "PokerStars Game #33566683789: Tournament #199550385, $10+$1 USD Hold'em Pot Limit - Level XVIII (2000/4000) - 2009/10/02 22:00:29 ET",
+            @limit_tournament_header = "PokerStars Game #33566683789: Tournament #199550385, $10+$1 USD Hold'em Limit - Level XVIII (2000/4000) - 2009/10/02 22:00:29 ET",
+            @freeroll_tournament_header = "PokerStars Game #24703545200: Tournament #137653257, Freeroll  Hold'em No Limit - Level I (10/20) - 2009/02/07 19:24:12 ET",
+            @fpp_tournament_header = "PokerStars Game #27572086902: Tournament #158153393, 5125FPP Hold'em No Limit - Level I (10/20) - 2009/04/27 22:19:46 ET"
+        ]
+      end
    
-  it "should parse a tournament header" do
-    @stats.should_receive(:update_hand).with(
-      :name => "PS21650436825",
-      :description => "117620218, $10+$1 Hold'em No Limit",
-      :ante => "0.0".to_d,
-      :table_name => "",
-      :max_players => 0,
-      :number_players => 0,
-      :sb => "10".to_d,
-      :bb => "20".to_d,
-      :played_at => DateTime.parse("2008/10/31 17:25:42 EDT"),
-      :tournament => "117620218",
-      :street => :prelude,
-      :board => "",
-      :game_type => "Hold'em",
-      :stakes_type => "10".to_d,
-      :limit_type => "No Limit"
-    )
-    @parser.parse("PokerStars Game #21650436825: Tournament #117620218, $10+$1 Hold'em No Limit - Level I (10/20) - 2008/10/31 17:25:42 ET")
-  end
-    
-  it "should recognize a valid tournament hand history" do
-    @stats.should_receive(:update_hand).with(
-        :name => "PS33566683789",
-        :description => "199550385, $10+$1 USD Hold'em No Limit", 
-        :ante => "0.0".to_d,
-        :table_name => "",
-        :max_players => 0,
-        :number_players => 0,
-        :sb => "2000".to_d,
-        :bb => "4000".to_d,
-        :played_at => DateTime.parse("2009/10/03 02:00:29 UDT"),
-        :tournament => "199550385",
-        :street => :prelude,
-        :board => "",
-        :game_type => "Hold'em",
-        :stakes_type => "10".to_d,
-        :limit_type => "No Limit"
-    )
-    @parser.parse("PokerStars Game #33566683789: Tournament #199550385, $10+$1 USD Hold'em No Limit - Level XVIII (2000/4000) - 2009/10/02 22:00:29 ET")
-  end
+      it "should parse an old style tournament header" do
+        @stats.should_receive(:update_hand).with(
+          :name => "PS21650436825",
+          :description => "117620218, $10+$1 Hold'em No Limit",
+          :ante => "0.0".to_d,
+          :table_name => "",
+          :max_players => 0,
+          :number_players => 0,
+          :sb => "10".to_d,
+          :bb => "20".to_d,
+          :played_at => DateTime.parse("2008/10/31 17:25:42 EDT"),
+          :tournament => "117620218",
+          :street => :prelude,
+          :board => "",
+          :game_type => "Hold'em",
+          :stakes_type => "10".to_d,
+          :limit_type => "No Limit"
+        )
+        @parser.parse(@old_style_tournament_header)
+      end
   
-  it "should recognize a freeroll tournament hand history" do
-    @stats.should_receive(:update_hand).with(
-        :name => "PS24703545200",
-        :description => "137653257, Freeroll Hold'em No Limit",
-        :ante => "0.0".to_d,
-        :table_name => "",
-        :max_players => 0,
-        :number_players => 0,
-        :sb => "10".to_d,
-        :bb => "20".to_d,
-        :played_at => DateTime.parse("Sun, 08 Feb 2009 00:24:12 +0000"),
-        :tournament => "137653257",
-        :street => :prelude,
-        :board => "",
-        :game_type => "Hold'em",
-        :stakes_type => "0".to_d,
-        :limit_type => "No Limit"
-    )
-    @parser.parse("PokerStars Game #24703545200: Tournament #137653257, Freeroll  Hold'em No Limit - Level I (10/20) - 2009/02/07 19:24:12 ET")
-  end
+    it "should recognize a new style tournament hand history" do
+      @stats.should_receive(:update_hand).with(
+          :name => "PS33566683789",
+          :description => "199550385, $10+$1 USD Hold'em No Limit", 
+          :ante => "0.0".to_d,
+          :table_name => "",
+          :max_players => 0,
+          :number_players => 0,
+          :sb => "2000".to_d,
+          :bb => "4000".to_d,
+          :played_at => DateTime.parse("2009/10/03 02:00:29 UDT"),
+          :tournament => "199550385",
+          :street => :prelude,
+          :board => "",
+          :game_type => "Hold'em",
+          :stakes_type => "10".to_d,
+          :limit_type => "No Limit"
+      )
+      @parser.parse(@new_style_tournament_header)
+    end
+  
+    it "should recognize a limit tournament hand history" do
+      @stats.should_receive(:update_hand).with(
+          :name => "PS33566683789",
+          :description => "199550385, $10+$1 USD Hold'em Limit", 
+          :ante => "0.0".to_d,
+          :table_name => "",
+          :max_players => 0,
+          :number_players => 0,
+          :sb => "2000".to_d,
+          :bb => "4000".to_d,
+          :played_at => DateTime.parse("2009/10/03 02:00:29 UDT"),
+          :tournament => "199550385",
+          :street => :prelude,
+          :board => "",
+          :game_type => "Hold'em",
+          :stakes_type => "10".to_d,
+          :limit_type => "Limit"
+      )
+      @parser.parse(@limit_tournament_header)
+    end
+  
+    it "should recognize a pot limit tournament hand history" do
+      @stats.should_receive(:update_hand).with(
+          :name => "PS33566683789",
+          :description => "199550385, $10+$1 USD Hold'em Pot Limit", 
+          :ante => "0.0".to_d,
+          :table_name => "",
+          :max_players => 0,
+          :number_players => 0,
+          :sb => "2000".to_d,
+          :bb => "4000".to_d,
+          :played_at => DateTime.parse("2009/10/03 02:00:29 UDT"),
+          :tournament => "199550385",
+          :street => :prelude,
+          :board => "",
+          :game_type => "Hold'em",
+          :stakes_type => "10".to_d,
+          :limit_type => "Pot Limit"
+      )
+      @parser.parse(@pot_limit_tournament_header)
+    end
+  
+      it "should recognize a freeroll tournament hand history" do
+        @stats.should_receive(:update_hand).with(
+            :name => "PS24703545200",
+            :description => "137653257, Freeroll Hold'em No Limit",
+            :ante => "0.0".to_d,
+            :table_name => "",
+            :max_players => 0,
+            :number_players => 0,
+            :sb => "10".to_d,
+            :bb => "20".to_d,
+            :played_at => DateTime.parse("Sun, 08 Feb 2009 00:24:12 +0000"),
+            :tournament => "137653257",
+            :street => :prelude,
+            :board => "",
+            :game_type => "Hold'em",
+            :stakes_type => "0".to_d,
+            :limit_type => "No Limit"
+        )
+        @parser.parse(@freeroll_tournament_header)
+      end
  
-  it "should recognize a freeroll tournament hand history" do
-    @stats.should_receive(:update_hand).with(
-        :name => "PS27572086902",
-        :description => "158153393, 5125FPP Hold'em No Limit",
-        :ante => "0.0".to_d,
-        :table_name => "",
-        :max_players => 0,
-        :number_players => 0,
-        :sb => "10".to_d,
-        :bb => "20".to_d,
-        :played_at => DateTime.parse("2009/04/27 22:19:46 EDT"),
-        :tournament => "158153393",
-        :street => :prelude,
-        :board => "",
-        :game_type => "Hold'em",
-        :stakes_type => "0".to_d,
-        :limit_type => "No Limit"
-    )  
-    @parser.parse("PokerStars Game #27572086902: Tournament #158153393, 5125FPP Hold'em No Limit - Level I (10/20) - 2009/04/27 22:19:46 ET")
+      it "should recognize a tournament hand history paid for with FPP" do
+        @stats.should_receive(:update_hand).with(
+            :name => "PS27572086902",
+            :description => "158153393, 5125FPP Hold'em No Limit",
+            :ante => "0.0".to_d,
+            :table_name => "",
+            :max_players => 0,
+            :number_players => 0,
+            :sb => "10".to_d,
+            :bb => "20".to_d,
+            :played_at => DateTime.parse("2009/04/27 22:19:46 EDT"),
+            :tournament => "158153393",
+            :street => :prelude,
+            :board => "",
+            :game_type => "Hold'em",
+            :stakes_type => "0".to_d,
+            :limit_type => "No Limit"
+        )  
+        @parser.parse(@fpp_tournament_header)
+      end
+  
+      it "should recognize a tournament header" do
+        @valid_tournament_headers.each do |header|
+            PokerstarsHandHistoryParser.should have_valid_header(header)
+        end
+        PokerstarsHandHistoryParser.should have_valid_header("PokerStars Game #21650436825: Tournament #117620218, $10+$1 Hold'em No Limit - Level I (10/20) - 2008/10/31 17:25:42 ET\nsnuggles\n")
+      end
   end
   
-  it "should recognize a tournament header" do
-    PokerstarsHandHistoryParser.should have_valid_header("PokerStars Game #21650436825: Tournament #117620218, $10+$1 Hold'em No Limit - Level I (10/20) - 2008/10/31 17:25:42 ET\nsnuggles\n")
-  end
+  context "for cash games" do
+      before(:each) do
+        @valid_cash_game_headers = [
+            @no_limit_cash_game_header = "PokerStars Game #21650146783:  Hold'em No Limit ($0.25/$0.50) - 2008/10/31 17:14:44 ET",
+            @pot_limit_cash_game_header = "PokerStars Game #21650146783:  Hold'em Pot Limit ($0.25/$0.50) - 2008/10/31 17:14:44 ET",
+            @limit_cash_game_header = "PokerStars Game #21650146783:  Hold'em Limit ($0.25/$0.50) - 2008/10/31 17:14:44 ET"
+        ]
+      end
   
-  it "should parse a cash game header" do
-    @stats.should_receive(:update_hand).with(
-      :name => 'PS21650146783',
-      :description => "Hold'em No Limit ($0.25/$0.50)",
-      :ante => "0.00".to_d,
-      :table_name => "",
-      :max_players => 0,
-      :number_players => 0,
-      :sb => "0.25".to_d, 
-      :bb => "0.50".to_d,
-      :played_at => DateTime.parse("2008/10/31 17:14:44 EDT"),
-      :tournament => nil,
-      :street => :prelude,
-      :board => "", # due to pokerstars hand history bug
-      :game_type => "Hold'em",
-      :stakes_type => "0.5".to_d,
-      :limit_type => "No Limit"
-    )
-    @parser.parse("PokerStars Game #21650146783:  Hold'em No Limit ($0.25/$0.50) - 2008/10/31 17:14:44 ET")
-  end
+      it "should parse a cash game no limit header" do
+        @stats.should_receive(:update_hand).with(
+          :name => 'PS21650146783',
+          :description => "Hold'em No Limit ($0.25/$0.50)",
+          :ante => "0.00".to_d,
+          :table_name => "",
+          :max_players => 0,
+          :number_players => 0,
+          :sb => "0.25".to_d, 
+          :bb => "0.50".to_d,
+          :played_at => DateTime.parse("2008/10/31 17:14:44 EDT"),
+          :tournament => nil,
+          :street => :prelude,
+          :board => "", # due to pokerstars hand history bug
+          :game_type => "Hold'em",
+          :stakes_type => "0.5".to_d,
+          :limit_type => "No Limit"
+        )
+        @parser.parse(@no_limit_cash_game_header)
+      end
   
-  it "should recognize a cash game header" do
-    PokerstarsHandHistoryParser.should have_valid_header("PokerStars Game #21650146783:  Hold'em No Limit ($0.25/$0.50) - 2008/10/31 17:14:44 ET\nsnuggles\n")
-  end
+      it "should recognize cash game pot limit header" do
+          @stats.should_receive(:update_hand).with(
+            :name => 'PS21650146783',
+            :description => "Hold'em Pot Limit ($0.25/$0.50)",
+            :ante => "0.00".to_d,
+            :table_name => "",
+            :max_players => 0,
+            :number_players => 0,
+            :sb => "0.25".to_d, 
+            :bb => "0.50".to_d,
+            :played_at => DateTime.parse("2008/10/31 17:14:44 EDT"),
+            :tournament => nil,
+            :street => :prelude,
+            :board => "", # due to pokerstars hand history bug
+            :game_type => "Hold'em",
+            :stakes_type => "0.5".to_d,
+            :limit_type => "Pot Limit"
+          )
+          @parser.parse(@pot_limit_cash_game_header)
+      end
   
-  it "should not recognize an invalid header" do
-    PokerstarsHandHistoryParser.should_not have_valid_header("I will love you to the end of the earth\nNow and Forever\nEver Always,\nYour Andrew")
+      it "should recognize cash game limit header" do
+          @stats.should_receive(:update_hand).with(
+            :name => 'PS21650146783',
+            :description => "Hold'em Limit ($0.25/$0.50)",
+            :ante => "0.00".to_d,
+            :table_name => "",
+            :max_players => 0,
+            :number_players => 0,
+            :sb => "0.25".to_d, 
+            :bb => "0.50".to_d,
+            :played_at => DateTime.parse("2008/10/31 17:14:44 EDT"),
+            :tournament => nil,
+            :street => :prelude,
+            :board => "", # due to pokerstars hand history bug
+            :game_type => "Hold'em",
+            :stakes_type => "0.5".to_d,
+            :limit_type => "Limit"
+          )
+          @parser.parse(@limit_cash_game_header)
+      end
+  
+      it "should recognize all cash game headers" do
+          @valid_cash_game_headers.each do |header|
+              PokerstarsHandHistoryParser.should have_valid_header(header)
+          end
+      end
+  
+      it "should not recognize an invalid header" do
+        PokerstarsHandHistoryParser.should_not have_valid_header("I will love you to the end of the earth\nNow and Forever\nEver Always,\nYour Andrew")
+      end
   end
   
   it "should parse a hole card header" do
