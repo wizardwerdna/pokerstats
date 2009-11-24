@@ -71,7 +71,7 @@ def dopsfile(file, players_shown)
   puts "=" * file.size
   STDOUT.sync = true
   printf("Searching Poker-Edge: ")
-  players.each {|each| printf("%s ", each); search_poker_edge(each, players_shown)}
+  players.collect {|each| Thread.new{printf("%s ", each); search_poker_edge(each, players_shown) }}.collect{|each| printf("."); each.value}
   printf("\n")
   STDOUT.sync = false
   puts "=" * file.size
