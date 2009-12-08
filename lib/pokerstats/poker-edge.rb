@@ -47,11 +47,11 @@ module Pokerstats
     end
   
     def report format = "%20s -- %s -- %s\n"
-      open("foo.html", "w+") do |file|
-        file.write(response)
-      end
-      `open foo.html`
+      # open("foo.html", "w+") do |file|
+      #   file.write(response)
+      # end
+      # `open foo.html`
       printf(format, @screen_name, preflop_style, player_type)
     end
   end
-end
+end 

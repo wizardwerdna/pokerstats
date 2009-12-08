@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{pokerstats}
-  s.version = "2.0.18"
+  s.version = "2.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Andrew C. Greenberg"]
-  s.date = %q{2009-12-08}
+  s.date = %q{2009-11-24}
   s.default_executable = %q{checkps}
   s.description = %q{a library for extracting, computing and reporting statistics of poker hands parsed from hand history files}
   s.email = %q{wizardwerdna@gmail.com}
@@ -88,14 +88,17 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_development_dependency(%q<pluggable>, [">= 0"])
       s.add_runtime_dependency(%q<pluggable>, [">= 0"])
+      s.add_runtime_dependency(%q<tzinfo>, [">= 0"])
     else
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<pluggable>, [">= 0"])
       s.add_dependency(%q<pluggable>, [">= 0"])
+      s.add_dependency(%q<tzinfo>, [">= 0"])
     end
   else
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<pluggable>, [">= 0"])
     s.add_dependency(%q<pluggable>, [">= 0"])
+    s.add_dependency(%q<tzinfo>, [">= 0"])
   end
 end
