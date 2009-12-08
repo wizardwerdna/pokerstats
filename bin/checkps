@@ -81,7 +81,7 @@ def dopsfile(file, players_shown)
   puts "--------------------|---------------------------------|-----------------|------------------|--------------------------------------------"
   players.each do |each|
     report = reports[each]
-    # puts report.to_yaml
+    puts report.to_yaml
     t_hands = report[:t_hands]
     vpi_p = display_ratio report[:t_vpip], report[:t_hands]
     pfr_p = display_ratio report[:t_pfr_opportunity_taken], report[:t_pfr_opportunity]
@@ -89,12 +89,12 @@ def dopsfile(file, players_shown)
     posfa = report[:t_postflop_passive].zero? ? 0.0 : [1.0 * report[:t_postflop_aggressive] / report[:t_postflop_passive],9.9].min
     batt_p = display_ratio report[:t_blind_attack_opportunity_taken], report[:t_blind_attack_opportunity]
     bdef_p = display_ratio report[:t_blind_defense_opportunity_taken], report[:t_blind_defense_opportunity]
-    cbet_flop_p = display_ratio report[:t_cbet_flop_opportunity_taken], report[:t_cbet_flop_opportunity]
-    call_cbet_flop_p = display_ratio report[:t_call_cbet_flop_opportunity_taken], report[:t_call_cbet_flop_opportunity]
-    fold_to_cbet_flop_p = display_ratio report[:t_fold_to_cbet_flop_opportunity_taken], report[:t_fold_to_cbet_flop_opportunity]
-    preflop_3bet_p = display_ratio report[:t_preflop_3bet_opportunity_taken], report[:t_preflop_3bet_opportunity]
-    call_preflop_3bet_p = display_ratio report[:t_call_preflop_3bet_opportunity_taken], report[:t_call_preflop_3bet_opportunity]
-    fold_to_preflop_3bet_p = display_ratio report[:t_fold_to_preflop_3bet_opportunity_taken], report[:t_fold_to_preflop_3bet_opportunity]
+    cbet_flop_p = display_ratio report[:t_f_cbet], report[:t_f_cbet_o]
+    call_cbet_flop_p = display_ratio report[:t_c_f_cbet], report[:t_c_f_cbet_o]
+    fold_to_cbet_flop_p = display_ratio report[:t_f2_f_cbet], report[:t_f2_f_cbet_o]
+    preflop_3bet_p = display_ratio report[:t_p_3bet], report[:t_p_3bet_o]
+    call_preflop_3bet_p = display_ratio report[:t_c_p_3bet], report[:t_p_4bet_o]
+    fold_to_preflop_3bet_p = display_ratio report[:t_f2_p_3bet], report[:t_p_4bet_o]
 
     
     description = players_shown[each][/\(.*\)/]
