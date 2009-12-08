@@ -2,106 +2,131 @@ module Pokerstats
     class StreetBetStatistics < HandStatistics::Plugin
         def self.report_specification
             [
-                [:preflop_2bet,         "boolean",  :preflop_2bet],
-                [:preflop_3bet,         "boolean",  :preflop_3bet],
-                [:preflop_4bet,         "boolean",  :preflop_4bet],
-                [:flop_1bet,            "boolean",  :flop_1bet],
-                [:flop_2bet,            "boolean",  :flop_2bet],
-                [:flop_3bet,            "boolean",  :flop_3bet],
-                [:flop_4bet,            "boolean",  :flop_4bet],
-                [:turn_1bet,            "boolean",  :turn_1bet],
-                [:turn_2bet,            "boolean",  :turn_2bet],
-                [:turn_3bet,            "boolean",  :turn_3bet],
-                [:turn_4bet,            "boolean",  :turn_4bet],
-                [:river_1bet,           "boolean",  :river_1bet],
-                [:river_2bet,           "boolean",  :river_2bet],
-                [:river_3bet,           "boolean",  :river_3bet],
-                [:river_4bet,           "boolean",  :river_4bet],
+                [:p_2bet,	"boolean",	:p_2bet?],
+                [:p_2bet_o,	"boolean",	:p_2bet_o?],
+                [:p_3bet,	"boolean",	:p_3bet?],
+                [:p_3bet_o,	"boolean",	:p_3bet_o?],
+                [:p_4bet,	"boolean",	:p_4bet?],
+                [:p_4bet_o,	"boolean",	:p_4bet_o?],
+                [:p_5bet_o,	"boolean",	:p_5bet_o?],
+                [:f_1bet,	"boolean",	:f_1bet?],
+                [:f_1bet_o,	"boolean",	:f_1bet_o?],
+                [:f_2bet,	"boolean",	:f_2bet?],
+                [:f_2bet_o,	"boolean",	:f_2bet_o?],
+                [:f_3bet,	"boolean",	:f_3bet?],
+                [:f_3bet_o,	"boolean",	:f_3bet_o?],
+                [:f_4bet,	"boolean",	:f_4bet?],
+                [:f_4bet_o,	"boolean",	:f_4bet_o?],
+                [:f_5bet_o,	"boolean",	:f_5bet_o?],
+                [:t_1bet,	"boolean",	:t_1bet?],
+                [:t_1bet_o,	"boolean",	:t_1bet_o?],
+                [:t_2bet,	"boolean",	:t_2bet?],
+                [:t_2bet_o,	"boolean",	:t_2bet_o?],
+                [:t_3bet,	"boolean",	:t_3bet?],
+                [:t_3bet_o,	"boolean",	:t_3bet_o?],
+                [:t_4bet,	"boolean",	:t_4bet?],
+                [:t_4bet_o,	"boolean",	:t_4bet_o?],
+                [:t_5bet_o,	"boolean",	:t_5bet_o?],
+                [:r_1bet,	"boolean",	:r_1bet?],
+                [:r_1bet_o,	"boolean",	:r_1bet_o?],
+                [:r_2bet,	"boolean",	:r_2bet?],
+                [:r_2bet_o,	"boolean",	:r_2bet_o?],
+                [:r_3bet,	"boolean",	:r_3bet?],
+                [:r_3bet_o,	"boolean",	:r_3bet_o?],
+                [:r_4bet,	"boolean",	:r_4bet?],
+                [:r_4bet_o,	"boolean",	:r_4bet_o?],
+                [:r_5bet_o,	"boolean",	:r_5bet_o?],
 
-                [:fold_to_preflop_1bet, "boolean",  :fold_to_preflop_1bet],
-                [:fold_to_preflop_2bet, "boolean",  :fold_to_preflop_2bet],
-                [:fold_to_preflop_3bet, "boolean",  :fold_to_preflop_3bet],
-                [:fold_to_preflop_4bet, "boolean",  :fold_to_preflop_4bet],
-                [:fold_to_flop_1bet,    "boolean",  :fold_to_flop_1bet],
-                [:fold_to_flop_2bet,    "boolean",  :fold_to_flop_2bet],
-                [:fold_to_flop_3bet,    "boolean",  :fold_to_flop_3bet],
-                [:fold_to_flop_4bet,    "boolean",  :fold_to_flop_4bet],
-                [:fold_to_turn_1bet,    "boolean",  :fold_to_turn_1bet],
-                [:fold_to_turn_2bet,    "boolean",  :fold_to_turn_2bet],
-                [:fold_to_turn_3bet,    "boolean",  :fold_to_turn_3bet],
-                [:fold_to_turn_4bet,    "boolean",  :fold_to_turn_4bet],
-                [:fold_to_river_1bet,   "boolean",  :fold_to_river_1bet],
-                [:fold_to_river_2bet,   "boolean",  :fold_to_river_2bet],
-                [:fold_to_river_3bet,   "boolean",  :fold_to_river_3bet],
-                [:fold_to_river_4bet,   "boolean",  :fold_to_river_4bet],
+                [:f2_p_1bet,	"boolean",	:f2_p_1bet?],
+                [:f2_p_2bet,	"boolean",	:f2_p_2bet?],
+                [:f2_p_3bet,	"boolean",	:f2_p_3bet?],
+                [:f2_p_4bet,	"boolean",	:f2_p_4bet?],
+                [:f2_f_1bet,	"boolean",	:f2_f_1bet?],
+                [:f2_f_2bet,	"boolean",	:f2_f_2bet?],
+                [:f2_f_3bet,	"boolean",	:f2_f_3bet?],
+                [:f2_f_4bet,	"boolean",	:f2_f_4bet?],
+                [:f2_t_1bet,	"boolean",	:f2_t_1bet?],
+                [:f2_t_2bet,	"boolean",	:f2_t_2bet?],
+                [:f2_t_3bet,	"boolean",	:f2_t_3bet?],
+                [:f2_t_4bet,	"boolean",	:f2_t_4bet?],
+                [:f2_r_1bet,	"boolean",	:f2_r_1bet?],
+                [:f2_r_2bet,	"boolean",	:f2_r_2bet?],
+                [:f2_r_3bet,	"boolean",	:f2_r_3bet?],
+                [:f2_r_4bet,	"boolean",	:f2_r_4bet?],
 
-                [:call_preflop_1bet,    "boolean",  :call_preflop_1bet],
-                [:call_preflop_2bet,    "boolean",  :call_preflop_2bet],
-                [:call_preflop_3bet,    "boolean",  :call_preflop_3bet],
-                [:call_preflop_4bet,    "boolean",  :call_preflop_4bet],
-                [:call_flop_1bet,       "boolean",  :call_flop_1bet],
-                [:call_flop_2bet,       "boolean",  :call_flop_2bet],
-                [:call_flop_3bet,       "boolean",  :call_flop_3bet],
-                [:call_flop_4bet,       "boolean",  :call_flop_4bet],
-                [:call_turn_1bet,       "boolean",  :call_turn_1bet],
-                [:call_turn_2bet,       "boolean",  :call_turn_2bet],
-                [:call_turn_3bet,       "boolean",  :call_turn_3bet],
-                [:call_turn_4bet,       "boolean",  :call_turn_4bet],
-                [:call_river_1bet,      "boolean",  :call_river_1bet],
-                [:call_river_2bet,      "boolean",  :call_river_2bet],
-                [:call_river_3bet,      "boolean",  :call_river_3bet],
-                [:call_river_4bet,      "boolean",  :call_river_4bet],
-                
+                [:c_p_1bet,	"boolean",	:c_p_1bet?],
+                [:c_p_2bet,	"boolean",	:c_p_2bet?],
+                [:c_p_3bet,	"boolean",	:c_p_3bet?],
+                [:c_p_4bet,	"boolean",	:c_p_4bet?],
+                [:c_f_1bet,	"boolean",	:c_f_1bet?],
+                [:c_f_2bet,	"boolean",	:c_f_2bet?],
+                [:c_f_3bet,	"boolean",	:c_f_3bet?],
+                [:c_f_4bet,	"boolean",	:c_f_4bet?],
+                [:c_t_1bet,	"boolean",	:c_t_1bet?],
+                [:c_t_2bet,	"boolean",	:c_t_2bet?],
+                [:c_t_3bet,	"boolean",	:c_t_3bet?],
+                [:c_t_4bet,	"boolean",	:c_t_4bet?],
+                [:c_r_1bet,	"boolean",	:c_r_1bet?],
+                [:c_r_2bet,	"boolean",	:c_r_2bet?],
+                [:c_r_3bet,	"boolean",	:c_r_3bet?],
+                [:c_r_4bet,	"boolean",	:c_r_4bet?],
+
                 [:last_aggr_preflop,	'boolean',	:last_aggr_preflop],
-                [:last_aggr_flop,	    'boolean',	:last_aggr_flop],
-                [:last_aggr_turn,	    'boolean',	:last_aggr_turn],
-                [:last_aggr_river,	    'boolean',	:last_aggr_river],
+                [:last_aggr_flop,	'boolean',	:last_aggr_flop],
+                [:last_aggr_turn,	'boolean',	:last_aggr_turn],
+                [:last_aggr_river,	'boolean',	:last_aggr_river],
 
-                [:cbet_flop,	        'boolean',	:cbet_flop],
-                [:cbet_turn,	        'boolean',	:cbet_turn],
-                [:cbet_river,	        'boolean',	:cbet_river],
-                [:call_cbet_flop,	    'boolean',	:call_cbet_flop],
-                [:call_cbet_turn,	    'boolean',	:call_cbet_turn],
-                [:call_cbet_river,	    'boolean',	:call_cbet_river],
-                [:fold_to_cbet_flop,	'boolean',	:fold_to_cbet_flop],
-                [:fold_to_cbet_turn,	'boolean',	:fold_to_cbet_turn],
-                [:fold_to_cbet_river,	'boolean',	:fold_to_cbet_river],
+                [:f_cbet,	'boolean',	:f_cbet?],
+                [:f_cbet_o,	"boolean",	:f_cbet_o?],
+                [:t_cbet,	'boolean',	:t_cbet?],
+                [:t_cbet_o,	"boolean",	:t_cbet_o?],
+                [:r_cbet,	'boolean',	:r_cbet?],
+                [:r_cbet_o,	"boolean",	:r_cbet_o?],
+                [:c_f_cbet,	'boolean',	:c_f_cbet?],
+                [:c_f_cbet_o,	"boolean",	:c_f_cbet_o?],
+                [:c_t_cbet,	'boolean',	:c_t_cbet?],
+                [:c_t_cbet_o,	"boolean",	:c_t_cbet_o?],
+                [:c_r_cbet,	'boolean',	:c_r_cbet?],
+                [:c_r_cbet_o,	"boolean",	:c_r_cbet_o?],
+                [:f2_f_cbet,	'boolean',	:f2_f_cbet?],
+                [:f2_f_cbet_o,	"boolean",	:f2_f_cbet_o?],
+                [:f2_t_cbet,	'boolean',	:f2_t_cbet?],
+                [:f2_t_cbet_o,	"boolean",	:f2_t_cbet_o?],
+                [:f2_r_cbet,	'boolean',	:f2_r_cbet?],
+                [:f2_r_cbet_o,	"boolean",	:f2_r_cbet_o?],
 
-                [:dbet_flop,	        'boolean',	:dbet_flop],
-                [:dbet_turn,	        'boolean',	:dbet_turn],
-                [:dbet_river,	        'boolean',	:dbet_river],
-                [:call_dbet_flop,	    'boolean',	:call_dbet_flop],
-                [:call_dbet_turn,	    'boolean',	:call_dbet_turn],
-                [:call_dbet_river,	    'boolean',	:call_dbet_river],
-                [:fold_to_dbet_flop,	'boolean',	:fold_to_dbet_flop],
-                [:fold_to_dbet_turn,	'boolean',	:fold_to_dbet_turn],
-                [:fold_to_dbet_river,	'boolean',	:fold_to_dbet_river]
+                [:f_dbet,	'boolean',	:f_dbet?],
+                [:f_dbet_o,	"boolean",	:f_dbet_o?],
+                [:t_dbet,	'boolean',	:t_dbet?],
+                [:t_dbet_o,	"boolean",	:t_dbet_o?],
+                [:r_dbet,	'boolean',	:r_dbet?],
+                [:r_dbet_o,	"boolean",	:r_dbet_o?],
+                [:c_f_dbet,	'boolean',	:c_f_dbet?],
+                [:c_f_dbet_o,	"boolean",	:c_f_dbet_o?],
+                [:c_t_dbet,	'boolean',	:c_t_dbet?],
+                [:c_t_dbet_o,	"boolean",	:c_t_dbet_o?],
+                [:c_r_dbet,	'boolean',	:c_r_dbet?],
+                [:c_r_dbet_o,	"boolean",	:c_r_dbet_o?],
+                [:f2_f_dbet,	'boolean',	:f2_f_dbet?],
+                [:f2_f_dbet_o,	"boolean",	:f2_f_dbet_o?],
+                [:f2_t_dbet,	'boolean',	:f2_t_dbet?],
+                [:f2_t_dbet_o,	"boolean",	:f2_t_dbet_o?],
+                [:f2_r_dbet,	'boolean',	:f2_r_dbet?],
+                [:f2_r_dbet_o,	'boolean',	:f2_r_dbet_o?]
             ]
         end
         
         attr_accessor :street_bets, :fold_to_street_bets, :last_aggr_player
-        
-        #
-        # These functions return one of three, not two values, and hence do not end with a "?".
-        # A nil value indicates that the player had no opportunity to make the described bet.
-        # For example:
-        #   cbet_flop(player)
-        #       nil   -- player did not have an opportunity to make a cbet on the flop
-        #       true  -- player made a cbet on the flop
-        #       false -- player had an opportunity to make a cbet on the flop, but did not
-        #
-        #   fold_to_flop_2bet(player)
-        #       nil   -- player did not have an opportunity to fold to a 2bet on the flop
-        #       true  -- player folded to a 2bet on the flop
-        #       false -- player had an opportunity to fold to a 2bet on the flop, but did not
-        #
-        # Some care must be taken in the code and testing to assure the consistency of the nil/false dichotomy
-        #
-        # They are defined dynamically due to their number and similarities
-        #
-        
+                
         for street in [:preflop, :flop, :turn, :river]
-
+            
+            street_first = case street
+                when :preflop then :p
+                when :flop then :f
+                when :turn then :t
+                when :river then :r
+            end
+            
             #
             # last agresssion functions
             #   true only if player made the last aggressive move on the street
@@ -115,32 +140,62 @@ module Pokerstats
             LAST_AGGR_FUNCTIONS
 
             #
-            # make_, call_, and fold_to_ functions, by bet and street street
+            # make_, c_, and f2_ functions, by bet and street street
             #
-            for bet in 1..4
+            for bet in 1..5
                 class_eval <<-STREET_AND_BET_FUNCTIONS
-                def #{street}_#{bet}bet(player)
-                    @street_bets[#{street.inspect}] && @street_bets[#{street.inspect}][#{bet}][player]
+                def #{street_first}_#{bet}bet(player)
+                    @street_bets[#{street.inspect}] && @street_bets[#{street.inspect}][#{bet}][player] 
                 end
-                def call_#{street}_#{bet}bet(player)
-                    @call_street_bets[#{street.inspect}] && @call_street_bets[#{street.inspect}][#{bet}][player]
+                def #{street_first}_#{bet}bet?(player)
+                    #{street_first}_#{bet}bet(player) || false
                 end
-                def fold_to_#{street}_#{bet}bet(player)
-                    @fold_to_street_bets[#{street.inspect}] && @fold_to_street_bets[#{street.inspect}][#{bet}][player]
+                def #{street_first}_#{bet}bet_o?(player)
+                    !#{street_first}_#{bet}bet(player).nil?
                 end
                 STREET_AND_BET_FUNCTIONS
+            end
+            
+            for bet in 1..4
+                class_eval <<-RESPOND_TO_STREET_AND_BET_FUNCTIONS
+                def c_#{street_first}_#{bet}bet(player)
+                    @call_street_bets[#{street.inspect}] && @call_street_bets[#{street.inspect}][#{bet}][player]
+                end
+                def c_#{street_first}_#{bet}bet?(player)
+                    c_#{street_first}_#{bet}bet(player) || false
+                end
+                # def c_#{street_first}_#{bet}bet_o?(player)
+                #     !c_#{street_first}_#{bet}bet(player).nil?
+                # end
+                def f2_#{street_first}_#{bet}bet(player)
+                    @fold_to_street_bets[#{street.inspect}] && @fold_to_street_bets[#{street.inspect}][#{bet}][player]
+                end
+                def f2_#{street_first}_#{bet}bet?(player)
+                    f2_#{street_first}_#{bet}bet(player) || false
+                end
+                # def f2_#{street_first}_#{bet}bet_o?(player)
+                #     !f2_#{street_first}_#{bet}bet(player).nil?
+                # end
+                RESPOND_TO_STREET_AND_BET_FUNCTIONS
             end
         end
         
         for street in [:flop, :turn, :river]
             last_street = case street
-            when :flop then :preflop
-            when :turn then :flop
-            when :river then :turn
+                when :flop then :preflop
+                when :turn then :flop
+                when :river then :turn
+            end
+            
+            street_first = case street
+                when :preflop then :p
+                when :flop then :f
+                when :turn then :t
+                when :river then :r
             end
             
             #
-            # make, call_ and fold_to_ cbet and dbet functions, by street
+            # make, c_ and f2_ cbet and dbet functions, by street
             #
             # cbets (continuation bets) are first-in bets after making last agression on the previous street
             #
@@ -148,26 +203,62 @@ module Pokerstats
             #
 
             class_eval <<-FTR_FUNCTIONS
-            def cbet_#{street}(player)
-                last_aggr_#{last_street}(player) && #{street}_1bet(player)
+            def #{street_first}_cbet(player)
+                last_aggr_#{last_street}(player) && #{street_first}_1bet(player)
             end
-            def fold_to_cbet_#{street}(player)
-                @first_aggr_player[:#{street}] && cbet_#{street}(@first_aggr_player[:#{street}]) && fold_to_#{street}_1bet(player)
+            def #{street_first}_cbet?(player)
+                #{street_first}_cbet(player) || false
             end
-            def call_cbet_#{street}(player)
-                @first_aggr_player[:#{street}] && cbet_#{street}(@first_aggr_player[:#{street}]) && call_#{street}_1bet(player)
+            def #{street_first}_cbet_o?(player)
+                !#{street_first}_cbet(player).nil?
             end
-            def dbet_#{street}(player)
+            def f2_#{street_first}_cbet(player)
+                @first_aggr_player[:#{street}] && #{street_first}_cbet(@first_aggr_player[:#{street}]) && f2_#{street_first}_1bet(player)
+            end
+            def f2_#{street_first}_cbet?(player)
+                f2_#{street_first}_cbet(player) || false
+            end
+            def f2_#{street_first}_cbet_o?(player)
+                !f2_#{street_first}_cbet(player).nil?
+            end
+            def c_#{street_first}_cbet(player)
+                @first_aggr_player[:#{street}] && #{street_first}_cbet(@first_aggr_player[:#{street}]) && c_#{street_first}_1bet(player)
+            end
+            def c_#{street_first}_cbet?(player)
+                c_#{street_first}_cbet(player) || false
+            end
+            def c_#{street_first}_cbet_o?(player)
+                !c_#{street_first}_cbet(player).nil?
+            end
+            def #{street_first}_dbet(player)
                 return nil unless @last_aggr_player[:#{last_street}] && @hand_statistics.betting_order?(player, @last_aggr_player[:#{last_street}])
-                #{street}_1bet(player)
+                #{street_first}_1bet(player)
             end
-            def fold_to_dbet_#{street}(player)
-                return nil unless @first_aggr_player[:#{street}] && dbet_#{street}(@first_aggr_player[:#{street}])
-                fold_to_#{street}_1bet(player)
+            def #{street_first}_dbet?(player)
+                #{street_first}_dbet(player) || false
             end
-            def call_dbet_#{street}(player)
-                return nil unless @first_aggr_player[:#{street}] && dbet_#{street}(@first_aggr_player[:#{street}])
-                call_#{street}_1bet(player)
+            def #{street_first}_dbet_o?(player)
+                !#{street_first}_dbet(player).nil?
+            end
+            def f2_#{street_first}_dbet(player)
+                return nil unless @first_aggr_player[:#{street}] && #{street_first}_dbet(@first_aggr_player[:#{street}])
+                f2_#{street_first}_1bet(player)
+            end
+            def f2_#{street_first}_dbet?(player)
+                f2_#{street_first}_dbet(player) || false
+            end
+            def f2_#{street_first}_dbet_o?(player)
+                !f2_#{street_first}_dbet(player).nil?
+            end
+            def c_#{street_first}_dbet(player)
+                return nil unless @first_aggr_player[:#{street}] && #{street_first}_dbet(@first_aggr_player[:#{street}])
+                c_#{street_first}_1bet(player)
+            end
+            def c_#{street_first}_dbet?(player)
+                c_#{street_first}_dbet(player) || false
+            end
+            def c_#{street_first}_dbet_o?(player)
+                !c_#{street_first}_dbet(player).nil?
             end
             FTR_FUNCTIONS
         end
@@ -179,7 +270,7 @@ module Pokerstats
             @first_aggr_player = {}
             @last_aggr_player = {}
             [:preflop, :flop, :turn, :river].each do|each|
-                @street_bets[each] = [{}, {}, {}, {}, {}] 
+                @street_bets[each] = [{}, {}, {}, {}, {}, {}] 
                 @call_street_bets[each] = [{}, {}, {}, {}, {}]
                 @fold_to_street_bets[each] = [{}, {}, {}, {}, {}]
             end
@@ -210,7 +301,7 @@ module Pokerstats
                     @fold_to_street_bets[street][@last_bet][action[:screen_name]] = action[:description] == "folds"
                     @call_street_bets[street][@last_bet][action[:screen_name]] = action[:description] == "calls"
                 end
-                if @last_bet.between?(0,3)
+                if @last_bet.between?(0,4)
                     @street_bets[street][@last_bet+1][action[:screen_name]] = action[:aggression] == :aggressive
                 end
                 if action[:aggression] == :aggressive

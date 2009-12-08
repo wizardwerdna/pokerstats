@@ -66,14 +66,18 @@ module Pokerstats
         aggregate_boolean_statistic each_player, reports, :t_pfr_opportunity_taken, :is_pfr_opportunity_taken
         aggregate_boolean_statistic each_player, reports, :t_cbet_opportunity, :is_cbet_opportunity
         aggregate_boolean_statistic each_player, reports, :t_cbet_opportunity_taken, :is_cbet_opportunity_taken
-        aggregate_three_part_statistic each_player, reports, :t_cbet_flop, :cbet_flop
-        aggregate_three_part_statistic each_player, reports, :t_fold_to_cbet_flop, :fold_to_cbet_flop
-        aggregate_three_part_statistic each_player, reports, :t_call_cbet_flop, :call_cbet_flop
-        aggregate_three_part_statistic each_player, reports, :t_preflop_3bet, :preflop_3bet
-        aggregate_three_part_statistic each_player, reports, :t_fold_to_preflop_3bet, :fold_to_preflop_3bet
-        aggregate_three_part_statistic each_player, reports, :t_call_preflop_3bet, :call_preflop_3bet
-        raise "messed up cbet_flop for #{each_player}" unless @aggregate_statistics[each_player][:t_call_cbet_flop_opportunity] == @aggregate_statistics[each_player][:t_fold_to_cbet_flop_opportunity]
-        raise "messed up preflop_3bet for #{each_player}" unless @aggregate_statistics[each_player][:t_call_preflop_3bet_opportunity] == @aggregate_statistics[each_player][:t_fold_to_preflop_3bet_opportunity]
+        aggregate_boolean_statistic each_player, reports, :t_f_cbet, :f_cbet
+        aggregate_boolean_statistic each_player, reports, :t_f_cbet_o, :f_cbet_o
+        aggregate_boolean_statistic each_player, reports, :t_c_f_cbet, :c_f_cbet
+        aggregate_boolean_statistic each_player, reports, :t_c_f_cbet_o, :c_f_cbet_o
+        aggregate_boolean_statistic each_player, reports, :t_f2_f_cbet, :f2_f_cbet
+        aggregate_boolean_statistic each_player, reports, :t_f2_f_cbet_o, :f2_f_cbet_o
+        aggregate_boolean_statistic each_player, reports, :t_p_3bet, :p_3bet
+        aggregate_boolean_statistic each_player, reports, :t_p_3bet_o, :p_3bet_o
+        aggregate_boolean_statistic each_player, reports, :t_c_p_3bet, :c_p_3bet
+        aggregate_boolean_statistic each_player, reports, :t_c_p_3bet_o, :c_p_3bet_o
+        aggregate_boolean_statistic each_player, reports, :t_f2_p_3bet, :f2_p_3bet
+        aggregate_boolean_statistic each_player, reports, :t_f2_p_3bet_o, :f2_p_3bet_o
       end
     end
   end

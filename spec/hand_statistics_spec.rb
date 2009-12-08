@@ -89,7 +89,19 @@ Spec::Matchers.define :have_saw_street_statistics_specified_by do |hash_of_hashe
 end
 
 def bet_statistics_proc_symbol(street, bet, prefix = "")
-    "#{prefix}#{street}_#{bet}bet".to_s
+    street_first = case street
+        when :preflop then :p
+        when :flop then :f
+        when :turn then :t
+        when :river then :r
+    end
+    prefix_adjust = case prefix
+        when "fold_to_" then "f2_"
+        when "call_" then "c_"
+        when "" then ""
+        else raise "wtf? #{prefix}"
+    end
+    "#{prefix_adjust}#{street_first}_#{bet}bet".to_s
 end
 
 Spec::Matchers.define :have_street_bet_statistics_specified_by do |street_hash, prefix|
@@ -131,14 +143,20 @@ Spec::Matchers.define :have_consistent_street_bet_statistics do
     match do |hand_statistics|
         @errors = []
         for street in [:flop, :turn, :river]
+            street_first = case street
+                when :preflop then :p
+                when :flop then :f
+                when :turn then :t
+                when :river then :r
+            end
             for player in hand_statistics.players
-                fs = "fold_to_cbet_#{street}".to_sym
-                cs = "call_cbet_#{street}".to_sym
+                fs = "f2_#{street_first}_cbet".to_sym
+                cs = "c_#{street_first}_cbet".to_sym
                 if hand_statistics.send(fs, player).nil? ^ hand_statistics.send(cs, player).nil?
                     @errors << {:fold_symbol => fs, :call_symbol => cs, :player => player}
                 end
-                fs = "fold_to_dbet_#{street}".to_sym
-                cs = "call_dbet_#{street}".to_sym
+                fs = "f2_#{street_first}_dbet".to_sym
+                cs = "c_#{street_first}_dbet".to_sym
                 if hand_statistics.send(fs, player).nil? ^ hand_statistics.send(cs, player).nil?
                     @errors << {:fold_symbol => fs, :call_symbol => cs, :player => player}
                 end
@@ -1587,12 +1605,12 @@ describe HandStatistics do
                 register_check @bb
                 register_bet @button, 2
                 ["sb", "bb", "button"].each do |player|
-                    @stats.cbet_flop(player).should be_nil
-                    @stats.call_cbet_flop(player).should be_nil
-                    @stats.fold_to_cbet_flop(player).should be_nil
-                    @stats.dbet_flop(player).should be_nil
-                    @stats.call_dbet_flop(player).should be_nil
-                    @stats.fold_to_dbet_flop(player).should be_nil
+                    @stats.f_cbet(player).should be_nil
+                    @stats.c_f_cbet(player).should be_nil
+                    @stats.f2_f_cbet(player).should be_nil
+                    @stats.f_dbet(player).should be_nil
+                    @stats.c_f_dbet(player).should be_nil
+                    @stats.f2_f_dbet(player).should be_nil
                 end
                 @stats.should have_consistent_street_bet_statistics
             end
@@ -1614,22 +1632,22 @@ describe HandStatistics do
                     end
                 end
                 it "should correctly compute cbet stats" do
-                    [:flop, :turn, :river].each do |street|
-                        @stats.send("cbet_#{street}", "sb").should be_nil
-                        @stats.send("cbet_#{street}", "bb").should be_nil
-                        @stats.send("cbet_#{street}", "button").should be_true
-                        @stats.send("call_cbet_#{street}", "sb").should be_true
-                        @stats.send("call_cbet_#{street}", "bb").should be_false
-                        @stats.send("call_cbet_#{street}", "button").should be_nil
-                        @stats.send("fold_to_cbet_#{street}", "sb").should be_false
-                        @stats.send("fold_to_cbet_#{street}", "bb").should be_true
-                        @stats.send("fold_to_cbet_#{street}", "button").should be_nil
-                        @stats.send("dbet_#{street}", "sb").should be_false
-                        @stats.send("dbet_#{street}", "bb").should be_false
-                        @stats.send("dbet_#{street}", "button").should be_nil
+                    [:f, :t, :r].each do |street|
+                        @stats.send("#{street}_cbet", "sb").should be_nil
+                        @stats.send("#{street}_cbet", "bb").should be_nil
+                        @stats.send("#{street}_cbet", "button").should be_true
+                        @stats.send("c_#{street}_cbet", "sb").should be_true
+                        @stats.send("c_#{street}_cbet", "bb").should be_false
+                        @stats.send("c_#{street}_cbet", "button").should be_nil
+                        @stats.send("f2_#{street}_cbet", "sb").should be_false
+                        @stats.send("f2_#{street}_cbet", "bb").should be_true
+                        @stats.send("f2_#{street}_cbet", "button").should be_nil
+                        @stats.send("#{street}_dbet", "sb").should be_false
+                        @stats.send("#{street}_dbet", "bb").should be_false
+                        @stats.send("#{street}_dbet", "button").should be_nil
                         [:sb, :bb, :button].each do |player|
-                            @stats.send("call_dbet_#{street}", "sb").should be_nil
-                            @stats.send("fold_to_dbet_#{street}", "bb").should be_nil
+                            @stats.send("c_#{street}_dbet", "sb").should be_nil
+                            @stats.send("f2_#{street}_dbet", "bb").should be_nil
                         end
                         @stats.should have_consistent_street_bet_statistics
                     end
@@ -1653,21 +1671,21 @@ describe HandStatistics do
                     end
                 end
                 it "should correctly compute cbet stats" do
-                    [:flop, :turn, :river].each do |street|
+                    [:f, :t, :r].each do |street|
                         [:sb, :bb, :button].each do |player|
-                            @stats.send("cbet_#{street}", player).should be_nil
-                            @stats.send("call_cbet_#{street}", player).should be_nil
-                            @stats.send("fold_to_cbet_#{street}", player).should be_nil
+                            @stats.send("#{street}_cbet", player).should be_nil
+                            @stats.send("c_#{street}_cbet", player).should be_nil
+                            @stats.send("f2_#{street}_cbet", player).should be_nil
                         end
-                        @stats.send("dbet_#{street}", "sb").should be_false
-                        @stats.send("dbet_#{street}", "bb").should be_true
-                        @stats.send("dbet_#{street}", "button").should be_nil
-                        @stats.send("call_dbet_#{street}", "sb").should be_nil
-                        @stats.send("call_dbet_#{street}", "bb").should be_nil
-                        @stats.send("call_dbet_#{street}", "button").should be_false
-                        @stats.send("fold_to_dbet_#{street}", "sb").should be_nil
-                        @stats.send("fold_to_dbet_#{street}", "bb").should be_nil
-                        @stats.send("fold_to_dbet_#{street}", "button").should be_false
+                        @stats.send("#{street}_dbet", "sb").should be_false
+                        @stats.send("#{street}_dbet", "bb").should be_true
+                        @stats.send("#{street}_dbet", "button").should be_nil
+                        @stats.send("c_#{street}_dbet", "sb").should be_nil
+                        @stats.send("c_#{street}_dbet", "bb").should be_nil
+                        @stats.send("c_#{street}_dbet", "button").should be_false
+                        @stats.send("f2_#{street}_dbet", "sb").should be_nil
+                        @stats.send("f2_#{street}_dbet", "bb").should be_nil
+                        @stats.send("f2_#{street}_dbet", "button").should be_false
                         @stats.should have_consistent_street_bet_statistics
                     end
                 end
@@ -1691,22 +1709,22 @@ describe HandStatistics do
                     end
                 end
                 it "should correctly compute cbet stats" do
-                    [:flop, :turn, :river].each do |street|
-                        @stats.send("cbet_#{street}", "sb").should be_nil
-                        @stats.send("cbet_#{street}", "bb").should be_true
-                        @stats.send("cbet_#{street}", "button").should be_nil
-                        @stats.send("call_cbet_#{street}", "sb").should be_false
-                        @stats.send("call_cbet_#{street}", "bb").should be_nil
-                        @stats.send("call_cbet_#{street}", "button").should be_true
-                        @stats.send("fold_to_cbet_#{street}", "sb").should be_true
-                        @stats.send("fold_to_cbet_#{street}", "bb").should be_nil
-                        @stats.send("fold_to_cbet_#{street}", "button").should be_false
-                        @stats.send("dbet_#{street}", "sb").should be_false
-                        @stats.send("dbet_#{street}", "bb").should be_nil
-                        @stats.send("dbet_#{street}", "button").should be_nil
+                    [:f, :t, :r].each do |street|
+                        @stats.send("#{street}_cbet", "sb").should be_nil
+                        @stats.send("#{street}_cbet", "bb").should be_true
+                        @stats.send("#{street}_cbet", "button").should be_nil
+                        @stats.send("c_#{street}_cbet", "sb").should be_false
+                        @stats.send("c_#{street}_cbet", "bb").should be_nil
+                        @stats.send("c_#{street}_cbet", "button").should be_true
+                        @stats.send("f2_#{street}_cbet", "sb").should be_true
+                        @stats.send("f2_#{street}_cbet", "bb").should be_nil
+                        @stats.send("f2_#{street}_cbet", "button").should be_false
+                        @stats.send("#{street}_dbet", "sb").should be_false
+                        @stats.send("#{street}_dbet", "bb").should be_nil
+                        @stats.send("#{street}_dbet", "button").should be_nil
                         [:sb, :bb, :button].each do |player|
-                            @stats.send("call_dbet_#{street}", "sb").should be_nil
-                            @stats.send("fold_to_dbet_#{street}", "bb").should be_nil
+                            @stats.send("c_#{street}_dbet", "sb").should be_nil
+                            @stats.send("f2_#{street}_dbet", "bb").should be_nil
                         end
                         @stats.should have_consistent_street_bet_statistics
                     end
@@ -1725,18 +1743,18 @@ describe HandStatistics do
                 end
                 
                 it "correctly compute cbet stats" do
-                    @stats.cbet_flop("sb").should be_nil
-                    @stats.cbet_flop("bb").should be_nil
-                    @stats.cbet_flop("button").should be_false
+                    @stats.f_cbet("sb").should be_nil
+                    @stats.f_cbet("bb").should be_nil
+                    @stats.f_cbet("button").should be_false
                     ["sb", "bb", "button"].each do |player|
-                        @stats.send("call_cbet_flop", player).should be_nil
-                        @stats.send("fold_to_cbet_flop", player).should be_nil
+                        @stats.send("c_f_cbet", player).should be_nil
+                        @stats.send("f2_f_cbet", player).should be_nil
                     end
-                    @stats.dbet_flop("sb").should be_false
-                    @stats.dbet_flop("bb").should be_false
-                    @stats.dbet_flop("button").should be_nil
+                    @stats.f_dbet("sb").should be_false
+                    @stats.f_dbet("bb").should be_false
+                    @stats.f_dbet("button").should be_nil
                     [:sb, :bb, :button].each do |player|
-                        @stats.dbet_flop(player).should be_nil
+                        @stats.f_dbet(player).should be_nil
                     end
                     @stats.should have_consistent_street_bet_statistics
                 end
@@ -1757,18 +1775,18 @@ describe HandStatistics do
                 end
                 
                 it "correctly compute cbet stats" do
-                    @stats.cbet_turn("sb").should be_nil
-                    @stats.cbet_turn("bb").should be_nil
-                    @stats.cbet_turn("button").should be_false
+                    @stats.t_cbet("sb").should be_nil
+                    @stats.t_cbet("bb").should be_nil
+                    @stats.t_cbet("button").should be_false
                     ["sb", "bb", "button"].each do |player|
-                        @stats.send("call_cbet_turn", player).should be_nil
-                        @stats.send("fold_to_cbet_turn", player).should be_nil
+                        @stats.send("c_t_cbet", player).should be_nil
+                        @stats.send("f2_t_cbet", player).should be_nil
                     end
-                    @stats.dbet_turn("sb").should be_false
-                    @stats.dbet_turn("bb").should be_false
-                    @stats.dbet_turn("button").should be_nil
+                    @stats.t_dbet("sb").should be_false
+                    @stats.t_dbet("bb").should be_false
+                    @stats.t_dbet("button").should be_nil
                     [:sb, :bb, :button].each do |player|
-                        @stats.dbet_turn(player).should be_nil
+                        @stats.t_dbet(player).should be_nil
                     end
                     @stats.should have_consistent_street_bet_statistics
                 end
@@ -1789,18 +1807,18 @@ describe HandStatistics do
                 end
                 
                 it "correctly compute cbet stats" do
-                    @stats.cbet_river("sb").should be_nil
-                    @stats.cbet_river("bb").should be_nil
-                    @stats.cbet_river("button").should be_false
+                    @stats.r_cbet("sb").should be_nil
+                    @stats.r_cbet("bb").should be_nil
+                    @stats.r_cbet("button").should be_false
                     ["sb", "bb", "button"].each do |player|
-                        @stats.send("call_cbet_river", player).should be_nil
-                        @stats.send("fold_to_cbet_river", player).should be_nil
+                        @stats.send("c_r_cbet", player).should be_nil
+                        @stats.send("f2_r_cbet", player).should be_nil
                     end
-                    @stats.dbet_river("sb").should be_false
-                    @stats.dbet_river("bb").should be_false
-                    @stats.dbet_river("button").should be_nil
+                    @stats.r_dbet("sb").should be_false
+                    @stats.r_dbet("bb").should be_false
+                    @stats.r_dbet("button").should be_nil
                     [:sb, :bb, :button].each do |player|
-                        @stats.dbet_river(player).should be_nil
+                        @stats.r_dbet(player).should be_nil
                     end
                     @stats.should have_consistent_street_bet_statistics
                 end
@@ -1892,26 +1910,25 @@ describe HandStatistics do
 
       it "should report street bet statistics for each player" do
         report_items = [
-            :preflop_2bet, :preflop_3bet, :preflop_4bet, 
-            :flop_1bet, :flop_2bet, :flop_3bet, :flop_4bet, 
-            :turn_1bet, :turn_2bet, :turn_3bet, :turn_4bet, 
-            :river_1bet, :river_2bet, :river_3bet, :river_4bet, 
-            :call_flop_1bet, :call_flop_2bet, :call_flop_3bet, :call_flop_4bet, 
-            :call_turn_1bet, :call_turn_2bet, :call_turn_3bet, :call_turn_4bet, 
-            :call_river_1bet, :call_river_2bet, :call_river_3bet, :call_river_4bet, 
-            :fold_to_preflop_1bet, :fold_to_preflop_2bet, :fold_to_preflop_3bet, :fold_to_preflop_4bet, 
-            :fold_to_flop_1bet, :fold_to_flop_2bet, :fold_to_flop_3bet, :fold_to_flop_4bet, 
-            :fold_to_turn_1bet, :fold_to_turn_2bet, :fold_to_turn_3bet, :fold_to_turn_4bet, 
-            :fold_to_river_1bet, :fold_to_river_2bet, :fold_to_river_3bet, :fold_to_river_4bet,
+            :p_2bet, :p_2bet_o,:p_3bet, :p_3bet_o,:p_4bet, :p_4bet_o, :p_5bet_o,
+            :f_1bet, :f_1bet_o,:f_2bet, :f_2bet_o,:f_3bet, :f_3bet_o,:f_4bet, :f_4bet_o, :f_5bet_o,
+            :t_1bet, :t_1bet_o,:t_2bet, :t_2bet_o,:t_3bet, :t_3bet_o,:t_4bet, :t_4bet_o, :t_5bet_o,
+            :r_1bet, :r_1bet_o,:r_2bet, :r_2bet_o,:r_3bet, :r_3bet_o,:r_4bet, :r_4bet_o, :r_5bet_o,
+            :c_f_1bet, :c_f_2bet, :c_f_3bet, :c_f_4bet, 
+            :c_t_1bet, :c_t_2bet, :c_t_3bet, :c_t_4bet, 
+            :c_r_1bet, :c_r_2bet, :c_r_3bet, :c_r_4bet, 
+            :f2_p_1bet, :f2_p_2bet, :f2_p_3bet, :f2_p_4bet, 
+            :f2_f_1bet, :f2_f_2bet, :f2_f_3bet, :f2_f_4bet, 
+            :f2_t_1bet, :f2_t_2bet, :f2_t_3bet, :f2_t_4bet, 
+            :f2_r_1bet, :f2_r_2bet, :f2_r_3bet, :f2_r_4bet,
             :last_aggr_preflop, :last_aggr_flop, :last_aggr_turn, :last_aggr_river,
-            :cbet_flop, :cbet_turn, :cbet_river,
-            :call_cbet_flop, :call_cbet_turn, :call_cbet_river,
-            :fold_to_cbet_flop, :fold_to_cbet_turn, :fold_to_cbet_river,
-            :dbet_flop, :dbet_turn, :dbet_river,
-            :call_dbet_flop, :call_dbet_turn, :call_dbet_river,
-            :fold_to_dbet_flop, :fold_to_dbet_turn, :fold_to_dbet_river
+            :f_cbet, :f_cbet_o,:t_cbet, :t_cbet_o,:r_cbet,
+            :c_f_cbet, :c_f_cbet_o,:c_t_cbet, :c_t_cbet_o,:c_r_cbet,
+            :f2_f_cbet, :f2_f_cbet_o,:f2_t_cbet, :f2_t_cbet_o,:f2_r_cbet,
+            :f_dbet, :f_dbet_o,:t_dbet, :t_dbet_o,:r_dbet,
+            :c_f_dbet, :c_f_dbet_o,:c_t_dbet, :c_t_dbet_o,:c_r_dbet,
+            :f2_f_dbet, :f2_f_dbet_o,:f2_t_dbet, :f2_t_dbet_o,:f2_r_dbet,:f2_r_dbet_o
         ]
-        report_items.each{|report_item| @street_bet_plugin.should_receive(report_item).exactly(@stats.players.size)}
         @reports = @stats.reports
         report_items.each{|report_item|@stats.players.each{|each| @reports[each].should include(report_item)}}
       end
