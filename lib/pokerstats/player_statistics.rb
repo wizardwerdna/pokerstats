@@ -76,7 +76,7 @@ module Pokerstats
         aggregate_boolean_statistic each_player, reports, :t_p_3bet_o, :p_3bet_o
         aggregate_boolean_statistic each_player, reports, :t_c_p_3bet, :c_p_3bet
         aggregate_boolean_statistic each_player, reports, :t_f2_p_3bet, :f2_p_3bet
-        aggregate_boolean_statistic each_player, reports, :t_p_4bet_o, :t_p_4bet_o
+        aggregate_boolean_statistic each_player, reports, :t_p_4bet_o, :p_4bet_o
       end
     end
   end

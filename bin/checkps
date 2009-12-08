@@ -81,7 +81,7 @@ def dopsfile(file, players_shown)
   puts "--------------------|---------------------------------|-----------------|------------------|--------------------------------------------"
   players.each do |each|
     report = reports[each]
-    puts report.to_yaml
+    # puts report.to_yaml
     t_hands = report[:t_hands]
     vpi_p = display_ratio report[:t_vpip], report[:t_hands]
     pfr_p = display_ratio report[:t_pfr_opportunity_taken], report[:t_pfr_opportunity]
