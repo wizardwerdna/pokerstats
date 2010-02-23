@@ -64,8 +64,6 @@ module Pokerstats
         aggregate_boolean_statistic each_player, reports, :t_blind_defense_opportunity_taken, :is_blind_defense_opportunity_taken
         aggregate_boolean_statistic each_player, reports, :t_pfr_opportunity, :is_pfr_opportunity
         aggregate_boolean_statistic each_player, reports, :t_pfr_opportunity_taken, :is_pfr_opportunity_taken
-        aggregate_boolean_statistic each_player, reports, :t_cbet_opportunity, :is_cbet_opportunity
-        aggregate_boolean_statistic each_player, reports, :t_cbet_opportunity_taken, :is_cbet_opportunity_taken
         aggregate_boolean_statistic each_player, reports, :t_f_cbet, :f_cbet
         aggregate_boolean_statistic each_player, reports, :t_f_cbet_o, :f_cbet_o
         aggregate_boolean_statistic each_player, reports, :t_c_f_cbet, :c_f_cbet

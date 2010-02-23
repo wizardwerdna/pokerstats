@@ -1,5 +1,5 @@
 require 'rubygems'
-require 'activesupport'
+require 'active_support'
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/../lib/pokerstats/hand_statistics')
 require File.expand_path(File.dirname(__FILE__) + '/../lib/pokerstats/player_statistics')
@@ -247,10 +247,6 @@ describe PlayerStatistics, "when aggregating statistics" do
     should_correctly_aggregate @reports, [:t_pfr_opportunity, :t_pfr_opportunity_taken]
   end
   it 'should correctly aggregate ternary statistics' do
-<<<<<<< HEAD
     should_correctly_aggregate @reports, [:t_p_3bet, :t_p_3bet_o, :t_f_cbet, :t_f_cbet_o]
-=======
-    should_correctly_aggregate @reports, [:t_preflop_3bet, :t_cbet_flop]
->>>>>>> master
   end
 end

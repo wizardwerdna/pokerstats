@@ -1,5 +1,6 @@
+# coding: utf-8
 require 'rubygems'
-require 'activesupport'
+require 'active_support'
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 require File.expand_path(File.dirname(__FILE__) + '/../lib/pokerstats/hand_history')
 

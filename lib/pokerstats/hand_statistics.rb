@@ -2,7 +2,7 @@ require 'rubygems'
 require 'pluggable'
 require 'bigdecimal'
 require 'bigdecimal/util'
-require 'activesupport'
+require 'active_support'
 require File.expand_path(File.dirname(__FILE__) + '/hand_constants')
 require File.expand_path(File.dirname(__FILE__) + '/hand_statistics_api')
 module Pokerstats
